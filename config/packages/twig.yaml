@@ -1,0 +1,4 @@
+twig:
+    default_path: '%kernel.project_dir%/templates'
+    globals:
+        translation_dumper: '@App\Utils\Translator'

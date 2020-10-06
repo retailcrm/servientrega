@@ -1,0 +1,42 @@
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - vendor/
+
+stages:
+  - eslint
+  - test
+#   - build
+
+eslint:
+  stage: eslint
+  script:
+    - cp .env.test .env
+    - make ci_eslint
+
+tests:
+  stage: test
+  script:
+    - cp .env.test .env
+    - make ci_tests
+  coverage: '/^\s*Lines:\s*\d+.\d+\%/'
+
+# release:
+#   stage: build
+#   when: manual
+#   only:
+#     - release
+#   variables:
+#     CI_REGISTRY_IMAGE: hub.retailcrm.pro/retailcrm/automate/servientrega
+#     CI_REGISTRY: hub.retailcrm.pro
+#   script:
+#     - make release
+
+      # set/fix permissions
+#     - docker-compose run --rm --no-deps -u root app chmod -R a-w /var/www/servientrega
+#     - docker-compose run --rm --no-deps -u root app chown -R www-data:www-data /var/www/servientrega
+#     - docker build -t $CI_REGISTRY_IMAGE -f .docker/prod/Dockerfile ./
+#
+#     - echo ${DOCKER_HUB_PASS} | docker login -u ${DOCKER_HUB_USER} --password-stdin hub.retailcrm.pro
+#     - docker login ${CI_REGISTRY} -u ${DOCKER_HUB_USER} -p ${DOCKER_HUB_PASS}
+#     - docker push $CI_REGISTRY_IMAGE:latest

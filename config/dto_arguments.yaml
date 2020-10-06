@@ -1,0 +1,3 @@
+parameters:
+  dto_arguments:
+    - App\Dto\Front\Connection

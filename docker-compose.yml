@@ -1,0 +1,18 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./.docker/dev/Dockerfile
+    volumes:
+      - ./:/var/www/servientrega
+    environment:
+     - COMPOSER_HOME=/tmp
+    working_dir: /var/www/servientrega
+  node:
+    image: "library/node:lts"
+    volumes:
+      - ./:/project
+    working_dir: /project
+    environment:
+      - NODE_ENV=development
