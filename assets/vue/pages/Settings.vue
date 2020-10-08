@@ -1,5 +1,5 @@
 <template>
-    <ConnectionForm :current="connection" />
+    <ConnectionForm v-if="Object.keys(connection).length > 0" :current="connection" />
 </template>
 
 <script>

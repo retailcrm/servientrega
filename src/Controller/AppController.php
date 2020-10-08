@@ -38,12 +38,8 @@ class AppController extends AbstractController
     {
         /** @var Connection $user */
         $user = $this->getUser();
-        if ($request->request->get('clientId')) {
-            $connectionService->auth($user);
+        $connectionService->auth($user);
 
-            return $this->redirect('/settings');
-        }
-
-        return $this->redirect('/');
+        return $this->redirect('/settings');
     }
 }

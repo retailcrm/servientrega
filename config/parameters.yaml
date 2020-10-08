@@ -1,1 +1,21 @@
 parameters:
+  configuration:
+    delivery_statuses:
+      - code: 1
+        name: 'RECIBIDO DEL CLIENTE'
+      - code: 2
+        name: 'EN PROCESAMIENTO'
+      - code: 3
+        name: 'ENTREGADO'
+      - code: 4
+        name: 'ENTREGADO A REMITENTE'
+      - code: 5
+        name: 'SINIESTRADO'
+      - code: 6
+        name: 'ENVIO REEXPEDICION'
+      - code: 7
+        name: 'GUIA GENERADA'
+    required_fields:
+      - 'phone'
+      - 'deliveryAddress.index'
+      - 'email'

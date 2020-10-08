@@ -10,7 +10,6 @@ use Phpro\SoapClient\Soap\Handler\HttPlugHandle;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Phpro\SoapClient\Soap\Driver\ExtSoap\ExtSoapEngineFactory;
 use Phpro\SoapClient\Soap\Driver\ExtSoap\ExtSoapOptions;
-use Symfony\Component\Security\Core\Security;
 
 /**
  * Class ServientregaSoapClientFactory

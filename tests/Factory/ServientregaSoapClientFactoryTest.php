@@ -8,7 +8,7 @@ use App\Servientrega\ServientregaClient;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Security;
 
-class ServientregaClientFactoryTest extends TestCase
+class ServientregaSoapClientFactoryTest extends TestCase
 {
     public function testFactory()
     {

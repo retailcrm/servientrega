@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Dto\Front\Connection;
 use App\Entity\Token;
 use App\Servientrega\RestType\LoginRequest;
+use App\Utils\DataBuilders;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
@@ -52,7 +53,7 @@ class ConnectionService
      *
      * @return \App\Entity\Connection
      */
-    public function create(Connection $connection): \App\Entity\Connection
+    public function createConnection(Connection $connection): \App\Entity\Connection
     {
         $pass = $this->servientregaService->encryptPassword($connection->servientregaPassword);
 
@@ -66,12 +67,19 @@ class ConnectionService
         $conn->setClientId(hash('ripemd160', (string) time() . $conn->getCrmUrl()));
         $conn->setIsActive(true);
 
-        $loginRequest = new LoginRequest();
-        $loginRequest->login = $conn->getServientregaLogin();
-        $loginRequest->password = $conn->getServientregaPassword();
-        $loginRequest->codFacturacion = $conn->getServientregaBillingCode();
+        $this->entityManager->persist($conn);
 
-        $login = $this->servientregaService->getToken($loginRequest);
+        return $conn;
+    }
+
+    /**
+     * @param \App\Entity\Connection $connection
+     *
+     * @return Token
+     */
+    public function createToken(\App\Entity\Connection $connection): ?Token
+    {
+        $login = $this->servientregaService->getToken(DataBuilders::buildLoginRequest($connection));
         if (null !== $login) {
             $token = new Token();
             $token->setName($login->nombre);
@@ -85,10 +93,7 @@ class ConnectionService
             $this->entityManager->persist($token);
         }
 
-        $this->entityManager->persist($conn);
-        $this->entityManager->flush();
-
-        return $conn;
+        return $token ?? null;
     }
 
     /**

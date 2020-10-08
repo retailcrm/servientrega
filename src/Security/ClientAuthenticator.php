@@ -27,7 +27,7 @@ class ClientAuthenticator extends AbstractGuardAuthenticator
 
     public function start(Request $request, AuthenticationException $authException = null)
     {
-        return new JsonResponse(['error' => 'Authentication required'], 403);
+        return new JsonResponse(['error' => 'Authentication required'], Response::HTTP_UNAUTHORIZED);
     }
 
     public function supports(Request $request)

@@ -10,11 +10,10 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class RequestDtoResolver implements ArgumentValueResolverInterface
+class RequestDtoResolver extends AbstractResolver implements ArgumentValueResolverInterface
 {
     private $serializer;
     private $denormalizer;
-    private $validator;
     private $params;
 
     public function __construct(
@@ -56,13 +55,5 @@ class RequestDtoResolver implements ArgumentValueResolverInterface
         $this->validate($dto);
 
         yield $dto;
-    }
-
-    private function validate($dto): void
-    {
-        $errors = $this->validator->validate($dto);
-        if (0 !== count($errors)) {
-            throw new \InvalidArgumentException($errors);
-        }
     }
 }

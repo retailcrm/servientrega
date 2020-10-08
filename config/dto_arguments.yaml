@@ -1,3 +1,6 @@
 parameters:
   dto_arguments:
     - App\Dto\Front\Connection
+  retailcrm_callback:
+    calculate: App\Dto\Retailcrm\CalculateRequest
+    save: App\Dto\Retailcrm\SaveRequest

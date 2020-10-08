@@ -42,4 +42,8 @@ services:
 
     App\ArgumentResolver\RequestDtoResolver:
         tags:
+            - { name: controller.argument_value_resolver, priority: 51 }
+
+    App\ArgumentResolver\RetailcrmCallbackResolver:
+        tags:
             - { name: controller.argument_value_resolver, priority: 50 }

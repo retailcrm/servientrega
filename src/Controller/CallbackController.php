@@ -3,12 +3,19 @@
 namespace App\Controller;
 
 use App\Dto\Callback\Activity;
+use App\Dto\Retailcrm\CalculateRequest;
+use App\Dto\Retailcrm\SaveRequest;
+use App\Entity\Connection;
 use App\Services\ActivityService;
+use App\Services\OrderService;
 use App\Services\ServientregaService;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Serializer\SerializerInterface;
 
 /**
@@ -18,7 +25,7 @@ use Symfony\Component\Serializer\SerializerInterface;
  *
  * @package App\Controller
  */
-class CallbackController
+class CallbackController extends AbstractController
 {
     /**
      * @var SerializerInterface
@@ -37,27 +44,60 @@ class CallbackController
     }
 
     /**
-     * @param Request $request
+     * @param CalculateRequest $calculateRequest
      *
-     * @Route("/calculate")
+     * @Route("/calculate", methods={"POST"})
      *
      * @return Response
      */
-    public function calculate(Request $request): Response
+    public function calculate(CalculateRequest $calculateRequest): Response
     {
-        return new JsonResponse();
+        /** @var Connection $user */
+        $user = $this->getUser();
+
+        try {
+            $calculateResponse = $this->servientregaService->calculate($calculateRequest, $user);
+        } catch (\Throwable $exception) {
+            return new JsonResponse(['success' => false]);
+        }
+
+        return new JsonResponse(['success' => true, 'result' => $calculateResponse]);
     }
 
     /**
-     * @param Request $request
+     * @param OrderService $orderService
+     * @param SaveRequest $saveRequest
      *
      * @Route("/save")
      *
      * @return Response
      */
-    public function save(Request $request): Response
+    public function save(OrderService $orderService, SaveRequest $saveRequest): Response
     {
-        return new JsonResponse();
+        if (!empty($saveRequest->deliveryId)) {
+            return new JsonResponse(
+                ['success' => true, 'result' => ['deliveryId' => $saveRequest->deliveryId]]
+            );
+        }
+
+        /** @var Connection $user */
+        $user = $this->getUser();
+
+        try {
+            $response = $this->servientregaService->createDelivery($saveRequest, $user);
+        } catch (\Throwable $exception) {
+            return new JsonResponse(['success' => false]);
+        }
+
+        $track = $response->getEnvios()->getCargueMasivoExternoDTO()->getObjEnvios()->getEnviosExterno()->getNum_Guia();
+
+        $orderService->createOrder($user, (int)$saveRequest->order, $track);
+
+        $result = [
+            'deliveryId' => $track
+        ];
+
+        return new JsonResponse(['success' => true, 'result' => $result]);
     }
 
     /**
@@ -75,18 +115,6 @@ class CallbackController
     /**
      * @param Request $request
      *
-     * @Route("/shipment_point_list")
-     *
-     * @return Response
-     */
-    public function shipmentPointList(Request $request): Response
-    {
-        return new JsonResponse();
-    }
-
-    /**
-     * @param Request $request
-     *
      * @Route("/print")
      *
      * @return Response
@@ -94,6 +122,18 @@ class CallbackController
     public function print(Request $request): Response
     {
         return new JsonResponse();
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @Route("/delete")
+     *
+     * @return Response
+     */
+    public function delete(Request $request): Response
+    {
+        return new JsonResponse(['success' => true]);
     }
 
     /**

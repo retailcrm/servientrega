@@ -20,6 +20,6 @@ class AppControllerTest extends WebTestCase
         $client = static::createClient();
         $client->request('POST', '/login');
 
-        static::assertEquals(Response::HTTP_FOUND, $client->getResponse()->getStatusCode());
+        static::assertEquals(Response::HTTP_UNAUTHORIZED, $client->getResponse()->getStatusCode());
     }
 }

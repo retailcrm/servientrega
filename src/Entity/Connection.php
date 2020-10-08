@@ -170,6 +170,13 @@ class Connection implements UserInterface
         return $this->token;
     }
 
+    public function setToken(Token $token): self
+    {
+        $this->token = $token;
+
+        return $this;
+    }
+
     public function getRoles()
     {
         return ['ROLE_USER'];

@@ -4,7 +4,7 @@ namespace App\Factory;
 
 use App\Entity\Connection;
 use RetailCrm\ApiClient;
-use Symfony\Component\Security\Core\Security;
+use RuntimeException;
 
 /**
  * Class RetailcrmClientFactory
@@ -22,7 +22,7 @@ class RetailcrmClientFactory extends BaseClientFactory
     {
         $user = $this->security->getUser() ?? $connection;
         if (null === $user) {
-            throw new \RuntimeException('Client is not defined');
+            throw new RuntimeException('Client is not defined');
         }
 
         return new ApiClient($user->getCrmUrl(), $user->getCrmApiKey());
