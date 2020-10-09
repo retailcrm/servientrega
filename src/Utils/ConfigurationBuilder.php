@@ -45,6 +45,16 @@ class ConfigurationBuilder
     /**
      * @param Connection $connection
      *
+     * @return string
+     */
+    public static function generateModuleCode(Connection $connection): string
+    {
+        return sprintf("%s-%d", static::INTEGRATION_CODE, $connection->getId());
+    }
+
+    /**
+     * @param Connection $connection
+     *
      * @return IntegrationModule
      */
     public function build(Connection $connection): IntegrationModule
@@ -53,7 +63,7 @@ class ConfigurationBuilder
         $integrations = new Integrations();
         $integrations->delivery = $this->buildConfiguration();
 
-        $module->code = sprintf("%s-%d", static::INTEGRATION_CODE, $connection->getId());
+        $module->code = static::generateModuleCode($connection);
         $module->integrationCode = static::INTEGRATION_CODE;
         $module->name = 'Servientrega';
         $module->clientId = $connection->getClientId();

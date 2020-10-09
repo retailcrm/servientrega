@@ -34,7 +34,7 @@ class Order
     private $isClosed;
 
     /**
-     * @ORM\OneToOne(targetEntity="Connection")
+     * @ORM\ManyToOne(targetEntity="Connection", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="connection_id", referencedColumnName="id")
      */
     private $connection;
@@ -68,7 +68,7 @@ class Order
         return $this;
     }
 
-    public function getIsClosed(): ?bool
+    public function IsClosed(): ?bool
     {
         return $this->isClosed;
     }

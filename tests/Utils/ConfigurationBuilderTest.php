@@ -23,4 +23,14 @@ class ConfigurationBuilderTest extends WebTestCase
 
         static::assertInstanceOf(IntegrationModule::class, $result);
     }
+
+    public function testGenerateModuleCode()
+    {
+        $connection = $this->createMock(Connection::class);
+        $connection->method('getId')->willReturn(10);
+
+        $result = ConfigurationBuilder::generateModuleCode($connection);
+
+        static::assertEquals(sprintf("%s-%d", ConfigurationBuilder::INTEGRATION_CODE, 10), $result);
+    }
 }

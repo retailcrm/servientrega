@@ -10,9 +10,12 @@ use App\Dto\Retailcrm\PackageItem;
 use App\Dto\Retailcrm\SaveDeliveryData;
 use App\Dto\Retailcrm\SaveRequest;
 use App\Entity\Connection;
+use App\Servientrega\TrackingType\ArrayOfGuiasDTO;
+use App\Servientrega\TrackingType\GuiasDTO;
 use App\Utils\DataBuilders;
 use Faker\Factory;
 use PHPUnit\Framework\TestCase;
+use DateTimeImmutable;
 
 class DataBuildersTest extends TestCase
 {
@@ -28,6 +31,25 @@ class DataBuildersTest extends TestCase
             static::PACKAGE_COUNT,
             $data->getObjEnvios()->getEnviosExterno()->getObjEnviosUnidadEmpaqueCargue()->getEnviosUnidadEmpaqueCargue()
         );
+    }
+
+    public function testBuildTrackingStatus()
+    {
+        $status = new ArrayOfGuiasDTO();
+        $dto = new GuiasDTO();
+        $dto->NumGui = "123";
+        $dto->IdEstAct = "1";
+        $dto->FecEst = new DateTimeImmutable();
+
+        $status->GuiasDTO = [$dto];
+
+        $result = DataBuilders::buildTrackingStatus($status);
+
+        static::assertIsArray($result);
+        static::assertNotEmpty($result);
+        static::assertEquals("123", $result[0]->deliveryId);
+        static::assertEquals("1", $result[0]->history[0]->code);
+        static::assertNotEmpty($result[0]->history[0]->updatedAt);
     }
 
     private function getSaveRequest(): SaveRequest

@@ -6,3 +6,9 @@ services:
 
   App\Factory\ServientregaRestClientFactory:
     public: true
+
+  App\Services\TrackingsService:
+    public: true
+
+  App\Services\ConnectionService:
+    public: true

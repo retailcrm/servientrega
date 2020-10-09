@@ -56,4 +56,20 @@ class OrderService
     {
         return $this->orderRepository->findBy(['connection' => $connection, 'isClosed' => false]);
     }
+
+    /**
+     * @param Connection $connection
+     * @param string $trackNumber
+     * @param string $status
+     * @param string $orderId
+     *
+     * @return void
+     */
+    public function closeOrderIfNeed(Connection $connection, string $trackNumber, string $orderId, string $status): void
+    {
+        // TODO добавить проверку финального статуса
+        if ($status === "1") {
+            $this->orderRepository->untrackOrder($connection, $trackNumber, $orderId);
+        }
+    }
 }

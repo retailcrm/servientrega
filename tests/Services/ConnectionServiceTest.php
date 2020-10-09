@@ -7,19 +7,11 @@ use App\Services\ConnectionService;
 use App\Services\ServientregaService;
 use App\Servientrega\RestType\LoginResponse;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use DateTimeImmutable;
 
-class ConnectionServiceTest extends WebTestCase
+class ConnectionServiceTest extends \App\Tests\WebTestCase
 {
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        static::bootKernel();
-    }
-
     public function testCreateConnection()
     {
         $dtoConnection = new Connection();
@@ -69,5 +61,13 @@ class ConnectionServiceTest extends WebTestCase
         $token = $service->createToken($connection);
 
         static::assertNull($token);
+    }
+
+    public function testGetConnections()
+    {
+        $result = static::$container->get(ConnectionService::class)->getConnections();
+
+        static::assertNotEmpty($result);
+        static::assertInstanceOf(\App\Entity\Connection::class, $result[0]);
     }
 }

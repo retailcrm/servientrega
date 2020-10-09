@@ -4,8 +4,11 @@ namespace App\Utils;
 
 use App\Dto\Retailcrm\Package;
 use App\Dto\Retailcrm\SaveRequest;
+use App\Dto\Retailcrm\TrackingStatusUpdate;
+use App\Dto\Retailcrm\TrackingStatusUpdateHistory;
 use App\Entity\Connection;
 use App\Servientrega\RestType\LoginRequest;
+use App\Servientrega\TrackingType\ArrayOfGuiasDTO;
 use App\Servientrega\Type\ArrayOfEnviosExterno;
 use App\Servientrega\Type\ArrayOfEnviosUnidadEmpaqueCargue;
 use App\Servientrega\Type\CargueMasivoExternoDTO;
@@ -170,5 +173,29 @@ class DataBuilders
             ->withObjEnviosUnidadEmpaqueCargue(
                 (new ArrayOfEnviosUnidadEmpaqueCargue())->withEnviosUnidadEmpaqueCargue($arrayEmpaqueCargue)
             );
+    }
+
+    /**
+     * @param ArrayOfGuiasDTO $guiasDTO
+     *
+     * @return TrackingStatusUpdate[]
+     */
+    public static function buildTrackingStatus(ArrayOfGuiasDTO $guiasDTO): array
+    {
+        $statuses = [];
+
+        foreach ($guiasDTO->GuiasDTO as $guiasDTO) {
+            $status = new TrackingStatusUpdate();
+            $status->deliveryId = $guiasDTO->NumGui;
+
+            $history = new TrackingStatusUpdateHistory();
+            $history->code = $guiasDTO->IdEstAct;
+            $history->updatedAt = $guiasDTO->FecEst;
+            $status->history = [$history];
+
+            $statuses[] = $status;
+        }
+
+        return $statuses;
     }
 }

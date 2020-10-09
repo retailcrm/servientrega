@@ -103,18 +103,6 @@ class CallbackController extends AbstractController
     /**
      * @param Request $request
      *
-     * @Route("/shipment_save")
-     *
-     * @return Response
-     */
-    public function shipmentSave(Request $request): Response
-    {
-        return new JsonResponse();
-    }
-
-    /**
-     * @param Request $request
-     *
      * @Route("/print")
      *
      * @return Response

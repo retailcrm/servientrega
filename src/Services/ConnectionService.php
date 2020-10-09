@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Dto\Front\Connection;
 use App\Entity\Token;
-use App\Servientrega\RestType\LoginRequest;
 use App\Utils\DataBuilders;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -102,5 +101,23 @@ class ConnectionService
     public function auth(\App\Entity\Connection $connection): void
     {
         $this->session->set('clientId', $connection->getClientId());
+    }
+
+    /**
+     * @return \App\Entity\Connection[]
+     */
+    public function getConnections(): array
+    {
+        return $this->entityManager->getRepository(\App\Entity\Connection::class)->findAll();
+    }
+
+    /**
+     * @param int $id
+     *
+     * @return \App\Entity\Connection|null
+     */
+    public function getConnection(int $id): ?\App\Entity\Connection
+    {
+        return $this->entityManager->getRepository(\App\Entity\Connection::class)->find($id);
     }
 }
