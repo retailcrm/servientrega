@@ -84,6 +84,7 @@ class ApiController extends AbstractController
         $connection->crmUrl = $user->getCrmUrl();
         $connection->apiKey = $user->getCrmApiKey();
         $connection->servientregaLogin = $user->getServientregaLogin();
+        $connection->servientregaPassword = $user->getServientregaPassword();
         $connection->servientregaBillingCode = $user->getServientregaBillingCode();
         $connection->servientregaNamePack = $user->getServientregaNamePack();
 

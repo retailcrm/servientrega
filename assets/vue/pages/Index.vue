@@ -1,9 +1,7 @@
 <template>
     <div>
-        <ConnectionForm
-            :current="connection"
-            @save="create"
-        />
+        <ConnectionForm :current="connection" @save="create" :loading="loading"/>
+        <md-dialog-alert :md-active.sync="dialog" :md-content="$t('errors.create')" :md-confirm-text="$t('dialog.close')" />
     </div>
 </template>
 
@@ -16,21 +14,23 @@
         components: {ConnectionForm},
         data() {
             return {
-                connection: {
-                    crmUrl: '',
-                    apiKey: '',
-                    servientregaLogin: '',
-                    servientregaPassword: '',
-                    servientregaBillingCode: '',
-                    servientregaNamePack: '',
-                }
+                dialog: false,
+                loading: false,
+                connection: {}
             }
         },
         methods: {
             async create(connection) {
-                await ConnectionApi.create(connection);
+                try {
+                    this.loading = true;
 
-                await this.$router.push('settings');
+                    await ConnectionApi.create(connection);
+                    await this.$router.push('settings');
+                } catch (e) {
+                    this.dialog = true;
+                } finally {
+                    this.loading = false;
+                }
             }
         }
     }

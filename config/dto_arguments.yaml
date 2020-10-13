@@ -4,3 +4,4 @@ parameters:
   retailcrm_callback:
     calculate: App\Dto\Retailcrm\CalculateRequest
     save: App\Dto\Retailcrm\SaveRequest
+    print: App\Dto\Retailcrm\PrintRequest

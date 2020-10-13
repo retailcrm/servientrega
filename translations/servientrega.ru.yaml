@@ -1,0 +1,5 @@
+calculate:
+  servientrega_courier.name: 'Доставка курьером Servientrega'
+
+print:
+  error: 'Ошибка при получении стикера'

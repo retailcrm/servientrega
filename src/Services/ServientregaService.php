@@ -18,6 +18,7 @@ use App\Servientrega\Type\CargueMasivoExterno;
 use App\Servientrega\Type\CargueMasivoExternoDTO;
 use App\Servientrega\Type\CargueMasivoExternoResponse;
 use App\Servientrega\Type\EncriptarContrasena;
+use App\Servientrega\Type\GenerarGuiaSticker;
 use App\Utils\DataBuilders;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
@@ -251,5 +252,42 @@ class ServientregaService
         }
 
         return true;
+    }
+
+    /**
+     * @param string $number
+     *
+     * @return string
+     */
+    public function getSticker(string $number): ?string
+    {
+        try {
+            // TODO проверить или уточнить параметры http://web.servientrega.com:8081/GeneracionGuias.asmx?op=GenerarGuiaSticker
+            $params = new GenerarGuiaSticker(
+                $number,
+                $number,
+                '',
+                1,
+                '',
+                true,
+                ''
+            );
+
+            $response = $this->soapClientFactory->factory()->generarGuiaSticker($params);
+        } catch (Throwable $exception) {
+            $this->logger->error(
+                sprintf("Getting sticker error: %s, code: %d", $exception->getMessage(), $exception->getCode())
+            );
+
+            return null;
+        }
+
+        if (!$response->getGenerarGuiaStickerResult()) {
+            $this->logger->error(sprintf("Getting sticker false response by number %s", $number));
+
+            return null;
+        }
+
+        return base64_decode($response->getBytesReport());
     }
 }

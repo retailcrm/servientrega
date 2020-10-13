@@ -1,5 +1,5 @@
 <template>
-    <ConnectionForm v-if="Object.keys(connection).length > 0" :current="connection" />
+    <ConnectionForm class="md-layout-item" :current="connection" :loading="loading" />
 </template>
 
 <script>
@@ -11,6 +11,7 @@
         components: {ConnectionForm},
         data() {
             return {
+                loading: true,
                 connection: {}
             }
         },
@@ -23,7 +24,9 @@
                     const resp = await ConnectionApi.current();
                     this.connection = resp.data;
                 } catch (e) {
-                    this.$router.push('/');
+                    await this.$router.push('/');
+                } finally {
+                    this.loading = false;
                 }
             }
         }

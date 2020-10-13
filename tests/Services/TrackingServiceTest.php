@@ -2,6 +2,7 @@
 
 namespace App\Tests\Services;
 
+use App\Entity\Order;
 use App\Factory\ServientregaTrackingClientFactory;
 use App\Services\OrderService;
 use App\Services\RetailcrmService;
@@ -16,6 +17,16 @@ class TrackingServiceTest extends WebTestCase
         $orderService = $this->createMock(OrderService::class);
         $trackingClientFactory = static::$container->get(ServientregaTrackingClientFactory::class);
         $retailcrmService = $this->createMock(RetailcrmService::class);
+
+        $orderService->method('getActiveOrders')->willReturn(
+            [
+                (new Order())
+                    ->setConnection($this->connection)
+                    ->setIsClosed(false)
+                    ->setOrderId(1)
+                    ->setTrackNumber('1')
+            ]
+        );
 
         $service = new TrackingsService(
             $orderService,

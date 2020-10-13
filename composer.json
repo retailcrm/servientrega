@@ -13,6 +13,7 @@
         "doctrine/orm": "^2.7",
         "friendsofsymfony/jsrouting-bundle": "^2.6",
         "guzzlehttp/guzzle": "^6.0",
+        "iio/libmergepdf": "^4.0",
         "php-http/client-common": "^2.1",
         "php-http/discovery": "^1.7",
         "php-http/guzzle6-adapter": "^2.0",

@@ -4,6 +4,9 @@ services:
     autowire: true
     autoconfigure: true
 
+  App\Factory\ServientregaSoapClientFactory:
+    public: true
+
   App\Factory\ServientregaRestClientFactory:
     public: true
 

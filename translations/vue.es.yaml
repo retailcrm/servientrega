@@ -6,3 +6,9 @@ connection:
     servientrega_password: Password
     servientrega_billing_code: Billing code
     servientrega_name_pack: Name pack
+
+errors:
+  create: Connection create error
+
+dialog:
+  close: Close

@@ -1,8 +1,14 @@
 connection:
   form:
     crm_url: CRM URL
-    api_key: API KEY
-    servientrega_login: Login
-    servientrega_password: Password
-    servientrega_billing_code: Billing code
-    servientrega_name_pack: Name pack
+    api_key: API Ключ
+    servientrega_login: Логин
+    servientrega_password: Пароль
+    servientrega_billing_code: Код биллинга
+    servientrega_name_pack: Имя загрузки
+
+errors:
+  create: Ошибка создания подключения
+
+dialog:
+  close: Закрыть

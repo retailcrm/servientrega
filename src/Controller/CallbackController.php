@@ -4,19 +4,24 @@ namespace App\Controller;
 
 use App\Dto\Callback\Activity;
 use App\Dto\Retailcrm\CalculateRequest;
+use App\Dto\Retailcrm\PrintRequest;
 use App\Dto\Retailcrm\SaveRequest;
 use App\Entity\Connection;
 use App\Services\ActivityService;
 use App\Services\OrderService;
+use App\Services\PrintService;
 use App\Services\ServientregaService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Class CallbackController
@@ -37,10 +42,26 @@ class CallbackController extends AbstractController
      */
     private $servientregaService;
 
-    public function __construct(SerializerInterface $serializer, ServientregaService $servientregaService)
-    {
+    /**
+     * @var TranslatorInterface
+     */
+    private $translator;
+
+    /**
+     * CallbackController constructor.
+     *
+     * @param SerializerInterface $serializer
+     * @param ServientregaService $servientregaService
+     * @param TranslatorInterface $translator
+     */
+    public function __construct(
+        SerializerInterface $serializer,
+        ServientregaService $servientregaService,
+        TranslatorInterface $translator
+    ) {
         $this->serializer = $serializer;
         $this->servientregaService = $servientregaService;
+        $this->translator = $translator;
     }
 
     /**
@@ -101,15 +122,45 @@ class CallbackController extends AbstractController
     }
 
     /**
-     * @param Request $request
+     * @param PrintRequest $printRequest
+     * @param PrintService $printService
      *
      * @Route("/print")
      *
      * @return Response
      */
-    public function print(Request $request): Response
+    public function print(PrintRequest $printRequest, PrintService $printService): Response
     {
-        return new JsonResponse();
+        $response = '';
+
+        switch ($printRequest->entityType) {
+            case PrintRequest::ORDER_TYPE:
+                if ('sticker' === $printRequest->type) {
+                    if (count($printRequest->deliveryIds[0]) > 1) {
+                        $response = $printService->printStickers($printRequest->deliveryIds[0]);
+                    } else {
+                        $response = $printService->printSticker($printRequest->deliveryIds[0][0]);
+                    }
+                }
+
+                break;
+
+            case PrintRequest::SHIPMENT_TYPE:
+                break;
+        }
+
+        if (null === $response) {
+            return new JsonResponse([
+                'success' => false,
+                'errorMsg' => $this->translator->trans('print.error', [], 'servientrega')
+            ]);
+        }
+
+        return new Response(
+            $response,
+        Response::HTTP_OK,
+            ['Content-Type' => 'application/pdf']
+        );
     }
 
     /**

@@ -6,9 +6,12 @@ use App\Dto\Retailcrm\CalculateRequest;
 use App\Dto\Retailcrm\DeliveryAddress;
 use App\Dto\Retailcrm\Package;
 use App\Factory\ServientregaRestClientFactory;
+use App\Factory\ServientregaSoapClientFactory;
 use App\Repository\ConnectionRepository;
 use App\Servientrega\RestType\CalculateResponse;
+use App\Servientrega\ServientregaClient;
 use App\Servientrega\ServientregaRestClient;
+use App\Servientrega\Type\GenerarGuiaStickerResponse;
 use App\Tests\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -90,5 +93,79 @@ class CallbackControllerTest extends WebTestCase
         $calculateRequest->deliveryAddress = $deliveryAddress;
 
         return $calculateRequest;
+    }
+
+    public function testPrintStickers()
+    {
+        $pdf = new \TCPDI();
+        $pdf->AddPage();
+        $pdf->SetFont('symbol','B',16);
+        $pdf->Cell(40,10,'Hello World!');
+        $output = $pdf->Output('doc.pdf', 'S');
+
+        $client = $this->createMock(ServientregaClient::class);
+        $client->method('generarGuiaSticker')->willReturnOnConsecutiveCalls(
+            (new GenerarGuiaStickerResponse())->withGenerarGuiaStickerResult(true)
+                ->withBytesReport(
+                    base64_encode($output)
+                ),
+            (new GenerarGuiaStickerResponse())->withGenerarGuiaStickerResult(true)
+                ->withBytesReport(
+                    base64_encode($output)
+                )
+        );
+
+        $soapClientFactory = $this->createMock(ServientregaSoapClientFactory::class);
+        $soapClientFactory->method('factory')->willReturn($client);
+
+        $this->client->getContainer()->set(ServientregaSoapClientFactory::class, $soapClientFactory);
+
+        $this->client->request(
+            'POST',
+            '/callback/print',
+            [
+                'clientId' => $this->connection->getClientId(),
+                'print' => '{"entityType": "order", "type": "sticker", "deliveryIds": [["1", "2"]]}'
+            ]
+        );
+
+        static::assertEquals(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
+        static::assertNotEmpty($this->client->getResponse()->getContent());
+        static::assertEquals('application/pdf', $this->client->getResponse()->headers->all('Content-Type')[0]);
+    }
+
+    public function testPrintSticker()
+    {
+        $pdf = new \TCPDI();
+        $pdf->AddPage();
+        $pdf->SetFont('symbol','B',16);
+        $pdf->Cell(40,10,'Hello World!');
+        $output = $pdf->Output('doc.pdf', 'S');
+
+        $client = $this->createMock(ServientregaClient::class);
+        $client->method('generarGuiaSticker')->willReturnOnConsecutiveCalls(
+            (new GenerarGuiaStickerResponse())->withGenerarGuiaStickerResult(true)
+                ->withBytesReport(
+                    base64_encode($output)
+                )
+        );
+
+        $soapClientFactory = $this->createMock(ServientregaSoapClientFactory::class);
+        $soapClientFactory->method('factory')->willReturn($client);
+
+        $this->client->getContainer()->set(ServientregaSoapClientFactory::class, $soapClientFactory);
+
+        $this->client->request(
+            'POST',
+            '/callback/print',
+            [
+                'clientId' => $this->connection->getClientId(),
+                'print' => '{"entityType": "order", "type": "sticker", "deliveryIds": [["1"]]}'
+            ]
+        );
+
+        static::assertEquals(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
+        static::assertEquals($output, $this->client->getResponse()->getContent());
+        static::assertEquals('application/pdf', $this->client->getResponse()->headers->all('Content-Type')[0]);
     }
 }
