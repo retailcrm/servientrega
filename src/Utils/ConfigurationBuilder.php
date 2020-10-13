@@ -68,6 +68,7 @@ class ConfigurationBuilder
         $module->name = 'Servientrega';
         $module->clientId = $connection->getClientId();
         $module->baseUrl = $this->urlHelper->getAbsoluteUrl('/');
+        $module->logo = $this->urlHelper->getAbsoluteUrl('/build/images/logo.svg');
         $module->actions = [
             'activity' => '/callback/activity'
         ];

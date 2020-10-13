@@ -12,22 +12,14 @@ RUN apk --update add \
     pkgconf \
     re2c \
     wget \
-    bzip2 \
-    unzip \
-    libzip-dev \
     libxml2-dev \
-    bzip2-dev \
     postgresql-dev \
-    zlib-dev \
     icu-dev \
-    curl \
-    git \
-    && docker-php-ext-install mbstring bz2 zip \
+    && docker-php-ext-install mbstring soap \
     && docker-php-ext-configure pgsql -with-pgsql=/usr/include/postgresql/ \
     && docker-php-ext-configure intl \
     && docker-php-ext-install pgsql pdo_pgsql bcmath intl sockets \
-    && pecl install apcu redis \
-    && docker-php-ext-enable apcu redis opcache \
+    && docker-php-ext-enable opcache \
     && rm -rf /var/cache/apk/*
 
 RUN apk add --no-cache bash
