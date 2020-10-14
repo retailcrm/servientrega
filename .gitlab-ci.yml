@@ -23,7 +23,7 @@ tests:
 
 release:
   stage: build
-  when: manual
+  when: on_success
   only:
     - release
   variables:
