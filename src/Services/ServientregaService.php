@@ -131,7 +131,7 @@ class ServientregaService
         $this->checkAndUpdateToken($connection);
 
         $calculate = new \App\Servientrega\RestType\CalculateRequest();
-        $calculate->IdProducto = 2;
+        $calculate->IdProducto = 2; // mercancía Industrial
         $calculate->NumeroPiezas = count($calculateRequest->packages);
         $piezas = [];
 
@@ -150,11 +150,9 @@ class ServientregaService
         $calculate->IdDaneCiudadOrigen = $calculateRequest->shipmentAddress->index;
         $calculate->IdDaneCiudadDestino = $calculateRequest->deliveryAddress->index;
         $calculate->EnvioConCobro = false;
-
-        // TODO уточнить по данных параметрам
-//        $calculate->FormaPago = 2;
-//        $calculate->TiempoEntrega = 1;
-//        $calculate->MedioTransporte = 1;
+        $calculate->FormaPago = 2;
+        $calculate->TiempoEntrega = 1;
+        $calculate->MedioTransporte = 1;
 //        $calculate->NumRecaudo = 123;
 
         try {
