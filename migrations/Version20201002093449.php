@@ -23,15 +23,15 @@ final class Version20201002093449 extends AbstractMigration
         $this->addSql('CREATE SEQUENCE connection_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('
             CREATE TABLE connection (
-                id INT NOT NULL, 
-                crm_url VARCHAR(255) NOT NULL, 
-                crm_api_key VARCHAR(255) NOT NULL, 
-                servientrega_login VARCHAR(255) NOT NULL, 
-                servientrega_password VARCHAR(255) NOT NULL, 
-                servientrega_billing_code VARCHAR(255) NOT NULL, 
-                servientrega_name_pack VARCHAR(255) NOT NULL, 
-                active BOOLEAN DEFAULT \'true\' NOT NULL, 
-                client_id VARCHAR(255) NOT NULL, 
+                id INT NOT NULL,
+                crm_url VARCHAR(255) NOT NULL,
+                crm_api_key VARCHAR(255) NOT NULL,
+                servientrega_login VARCHAR(255) NOT NULL,
+                servientrega_password VARCHAR(255) NOT NULL,
+                servientrega_billing_code VARCHAR(255) NOT NULL,
+                servientrega_name_pack VARCHAR(255) NOT NULL,
+                active BOOLEAN DEFAULT \'true\' NOT NULL,
+                client_id VARCHAR(255) NOT NULL,
                 PRIMARY KEY(id)
             )
         ');

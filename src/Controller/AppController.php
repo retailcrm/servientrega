@@ -40,6 +40,6 @@ class AppController extends AbstractController
         $user = $this->getUser();
         $connectionService->auth($user);
 
-        return $this->redirect('/settings');
+        return $this->redirect('/settings/connection');
     }
 }

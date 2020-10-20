@@ -3,11 +3,10 @@ import VueI18n from 'vue-i18n'
 import App from "./App";
 import router from "./router";
 
-import VueMaterial from 'vue-material'
-import 'vue-material/dist/vue-material.min.css'
-import 'vue-material/dist/theme/default.css'
+import 'vue-ui-kit/dist/ui-kit.css';
+import UiLibrary from 'vue-ui-kit/dist/ui-kit.common';
 
-Vue.use(VueMaterial)
+Vue.use(UiLibrary);
 Vue.use(VueI18n);
 
 const messages = window.app_translations;

@@ -36,24 +36,19 @@ class ApiController extends AbstractController
      * @Route("/connection/create", name="connection_create", options={"expose": true})
      *
      * @param ConnectionService $connectionService
-     * @param Connection $connection
      * @param RetailcrmService $retailcrmService
      * @param ConfigurationBuilder $configurationBuilder
+     * @param Connection $connection
      *
      * @return Response
      */
     public function create(
         ConnectionService $connectionService,
-        Connection $connection,
         RetailcrmService $retailcrmService,
-        ConfigurationBuilder $configurationBuilder
+        ConfigurationBuilder $configurationBuilder,
+        Connection $connection
     ): Response {
         $conn = $connectionService->createConnection($connection);
-        $token = $connectionService->createToken($conn);
-
-        if (null !== $token) {
-            $conn->setToken($token);
-        }
 
         try {
             $module = $configurationBuilder->build($conn);
@@ -69,13 +64,89 @@ class ApiController extends AbstractController
     }
 
     /**
-     * @Route("/connection", name="connection_get", options={"expose": true})
+     * @Route("/connection/save", name="connection_save", options={"expose": true})
      *
-     * @param Request $request
+     * @param ConnectionService $connectionService
+     * @param RetailcrmService $retailcrmService
+     * @param ConfigurationBuilder $configurationBuilder
+     * @param Connection $request
      *
      * @return Response
      */
-    public function getConnection(Request $request): Response
+    public function save(
+        ConnectionService $connectionService,
+        RetailcrmService $retailcrmService,
+        ConfigurationBuilder $configurationBuilder,
+        Connection $request
+    ): Response {
+        /** @var \App\Entity\Connection $connection */
+        $connection = $this->getUser();
+        $connectionService->saveConnection($connection, $request);
+
+        try {
+            $module = $configurationBuilder->build($connection);
+            $retailcrmService->integrationModule($connection, $module);
+        } catch (\Throwable $exception) {
+            return new JsonResponse(['success' => false], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+
+        $this->entityManager->flush();
+
+        return new JsonResponse(['success' => true]);
+    }
+
+
+    /**
+     * @Route("/connection/account/save", name="account_save", options={"expose": true})
+     *
+     * @param ConnectionService $connectionService
+     * @param RetailcrmService $retailcrmService
+     * @param ConfigurationBuilder $configurationBuilder
+     * @param Connection $request
+     *
+     * @return Response
+     */
+    public function saveAccount(
+        ConnectionService $connectionService,
+        RetailcrmService $retailcrmService,
+        ConfigurationBuilder $configurationBuilder,
+        Connection $request
+    ): Response {
+        /** @var \App\Entity\Connection $connection */
+        $connection = $this->getUser();
+        $token = $connectionService->createToken($connection);
+
+        if (null !== $token) {
+            $connection->setToken($token);
+        }
+
+        if (!$connection->isActive()) {
+            $connection->setIsActive(true);
+
+            try {
+                $module = $configurationBuilder->build($connection);
+                $retailcrmService->integrationModule($connection, $module);
+            } catch (\Throwable $exception) {
+                return new JsonResponse(['success' => false], Response::HTTP_INTERNAL_SERVER_ERROR);
+            }
+        }
+
+        $connectionService->addAccountData($request, $connection);
+
+        $this->entityManager->persist($connection);
+        $this->entityManager->flush();
+
+        $request->servientregaPassword = $connection->getServientregaPassword();
+
+        return new JsonResponse(['connection' => $request]);
+    }
+
+    /**
+     * @Route("/connection", name="connection_get", options={"expose": true})
+     *
+     * @return Response
+     */
+    public function getConnection(): Response
     {
         /** @var \App\Entity\Connection $user */
         $user = $this->getUser();

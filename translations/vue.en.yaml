@@ -1,4 +1,8 @@
 connection:
+  title:
+    name: Servientrega
+    crm: retailCRM
+    integration: Integration
   form:
     crm_url: CRM URL
     api_key: API KEY
@@ -9,6 +13,16 @@ connection:
 
 errors:
   create: Connection create error
+  save: Connection save error
+  account_save: Account save error
 
 dialog:
   close: Close
+
+button:
+  save: Save
+  create: Create
+
+page:
+  login:
+    title: Connection settings

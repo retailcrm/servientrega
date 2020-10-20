@@ -1,4 +1,8 @@
 connection:
+  title:
+    name: Servientrega
+    crm: retailCRM
+    integration: Интеграция
   form:
     crm_url: CRM URL
     api_key: API Ключ
@@ -9,6 +13,16 @@ connection:
 
 errors:
   create: Ошибка создания подключения
+  save: Ошибка сохранения подключения
+  account_save: Ошибка сохранения аккаунта
 
 dialog:
   close: Закрыть
+
+button:
+  save: Сохранить
+  create: Создать
+
+page:
+  login:
+    title: Настройки интеграции

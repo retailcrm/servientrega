@@ -1,5 +1,6 @@
 parameters:
   configuration:
+    name: Servientrega
     delivery_statuses:
       - code: 1
         name: 'RECIBIDO DEL CLIENTE'
@@ -19,3 +20,6 @@ parameters:
       - 'phone'
       - 'deliveryAddress.index'
       - 'email'
+    plate_list:
+      - code: sticker
+        label: Sticker

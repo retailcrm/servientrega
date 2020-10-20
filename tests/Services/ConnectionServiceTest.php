@@ -17,17 +17,47 @@ class ConnectionServiceTest extends \App\Tests\WebTestCase
         $dtoConnection = new Connection();
         $dtoConnection->crmUrl = 'https://test2.retailcrm.es';
         $dtoConnection->apiKey = 'test_api_key';
-        $dtoConnection->servientregaLogin = 'test';
-        $dtoConnection->servientregaPassword = 'test';
-        $dtoConnection->servientregaBillingCode = 'test';
-        $dtoConnection->servientregaNamePack = 'test';
+        $dtoConnection->servientregaLogin = '';
+        $dtoConnection->servientregaPassword = '';
+        $dtoConnection->servientregaBillingCode = '';
+        $dtoConnection->servientregaNamePack = '';
 
         /** @var \App\Entity\Connection $connection */
         $connection = static::$container->get(ConnectionService::class)->createConnection($dtoConnection);
 
         static::assertEquals($dtoConnection->crmUrl, $connection->getCrmUrl());
-        static::assertEquals(true, $connection->isActive());
+        static::assertFalse($connection->isActive());
         static::assertNotEmpty($connection->getClientId());
+    }
+
+    public function testSaveConnection()
+    {
+        $dtoConnection = new Connection();
+        $dtoConnection->crmUrl = 'https://test2.retailcrm.es';
+        $dtoConnection->apiKey = 'test_api_key';
+
+        $connection = new \App\Entity\Connection();
+
+        static::$container->get(ConnectionService::class)->saveConnection($connection, $dtoConnection);
+
+        static::assertEquals($dtoConnection->crmUrl, $connection->getCrmUrl());
+        static::assertEquals($dtoConnection->apiKey, $connection->getCrmApiKey());
+    }
+
+    public function testAddAccountData()
+    {
+        $dtoConnection = new Connection();
+        $dtoConnection->servientregaLogin = 'test';
+        $dtoConnection->servientregaPassword = 'test';
+        $dtoConnection->servientregaBillingCode = 'test';
+        $dtoConnection->servientregaNamePack = 'test';
+
+        $connection = new \App\Entity\Connection();
+
+        static::$container->get(ConnectionService::class)->addAccountData($dtoConnection, $connection);
+
+        static::assertEquals($dtoConnection->servientregaLogin, $connection->getServientregaLogin());
+        static::assertNotEmpty($connection->getServientregaPassword());
     }
 
     public function testCreateToken()

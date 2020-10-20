@@ -12,7 +12,8 @@ services:
   node:
     image: "library/node:lts"
     volumes:
-      - ./:/project
-    working_dir: /project
+      - ./:/var/www/servientrega
+    working_dir: /var/www/servientrega
     environment:
-      - NODE_ENV=development
+      - NODE_ENV=dev
+      - HOME=/var/www/servientrega

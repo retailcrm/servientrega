@@ -54,21 +54,51 @@ class ConnectionService
      */
     public function createConnection(Connection $connection): \App\Entity\Connection
     {
-        $pass = $this->servientregaService->encryptPassword($connection->servientregaPassword);
-
         $conn = new \App\Entity\Connection();
         $conn->setCrmUrl($connection->crmUrl);
         $conn->setCrmApiKey($connection->apiKey);
-        $conn->setServientregaLogin($connection->servientregaLogin);
-        $conn->setServientregaPassword($pass);
-        $conn->setServientregaBillingCode($connection->servientregaBillingCode);
-        $conn->setServientregaNamePack($connection->servientregaNamePack);
+        $conn->setServientregaLogin('');
+        $conn->setServientregaPassword('');
+        $conn->setServientregaBillingCode('');
+        $conn->setServientregaNamePack('');
         $conn->setClientId(hash('ripemd160', (string) time() . $conn->getCrmUrl()));
-        $conn->setIsActive(true);
+        $conn->setIsActive(false);
 
         $this->entityManager->persist($conn);
 
         return $conn;
+    }
+
+    /**
+     * @param \App\Entity\Connection $connection
+     * @param Connection $request
+     */
+    public function saveConnection(\App\Entity\Connection $connection, Connection $request): void
+    {
+        $connection->setCrmUrl($request->crmUrl);
+        $connection->setCrmApiKey($request->apiKey);
+
+        $this->entityManager->persist($connection);
+    }
+
+    /**
+     * @param Connection $request
+     * @param \App\Entity\Connection $connection
+     *
+     * @return void
+     */
+    public function addAccountData(Connection $request, \App\Entity\Connection $connection): void
+    {
+        if ($request->servientregaPassword !== $connection->getServientregaPassword()) {
+            $pass = $this->servientregaService->encryptPassword($request->servientregaPassword);
+            $connection->setServientregaPassword($pass);
+        }
+
+        $connection->setServientregaLogin($request->servientregaLogin);
+        $connection->setServientregaBillingCode($request->servientregaBillingCode);
+        $connection->setServientregaNamePack($request->servientregaNamePack);
+
+        $this->entityManager->persist($connection);
     }
 
     /**

@@ -64,8 +64,9 @@ class ConfigurationBuilder
         $integrations->delivery = $this->buildConfiguration();
 
         $module->code = static::generateModuleCode($connection);
+        $module->active = $connection->isActive();
         $module->integrationCode = static::INTEGRATION_CODE;
-        $module->name = 'Servientrega';
+        $module->name = $this->params->get('configuration')['name'];
         $module->clientId = $connection->getClientId();
         $module->baseUrl = $this->urlHelper->getAbsoluteUrl('/');
         $module->logo = $this->urlHelper->getAbsoluteUrl('/build/images/logo.svg');
@@ -128,10 +129,17 @@ class ConfigurationBuilder
      */
     private function buildPlateList(): array
     {
-        $plate = new Plate();
-        $plate->code = 'sticker';
-        $plate->label = 'Sticker';
+        $result = [];
+        $plateList = $this->params->get('configuration')['plate_list'];
 
-        return [$plate];
+        foreach ($plateList as $value) {
+            $plate = new Plate();
+            $plate->code = $value['code'];
+            $plate->label = $value['label'];
+
+            $result[] = $plate;
+        }
+
+        return $result;
     }
 }
