@@ -184,6 +184,7 @@ class ServientregaService
      * @param Connection $connection
      *
      * @return CargueMasivoExternoResponse
+     * @throws Throwable
      */
     public function createDelivery(SaveRequest $saveRequest, Connection $connection): CargueMasivoExternoResponse
     {
@@ -193,7 +194,20 @@ class ServientregaService
             new ArrayOfString()
         );
 
-        return $this->soapClientFactory->factory()->cargueMasivoExterno($param);
+        $client = $this->soapClientFactory->factory();
+
+        try {
+            $response = $client->cargueMasivoExterno($param);
+        } catch (\Throwable $exception) {
+            $this->logger->error(
+                sprintf("Create order in delivery service: %s", $exception->getMessage()),
+                $client->debugLastSoapRequest()
+            );
+
+            throw $exception;
+        }
+
+        return $response;
     }
 
     /**

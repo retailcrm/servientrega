@@ -6,6 +6,7 @@ use App\Entity\Connection;
 use App\Servientrega\ServientregaClient;
 use App\Servientrega\ServientregaClassmap;
 use App\Servientrega\Middleware\SoapAuthMiddleware;
+use Phpro\SoapClient\Middleware\RemoveEmptyNodesMiddleware;
 use Phpro\SoapClient\Soap\Handler\HttPlugHandle;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Phpro\SoapClient\Soap\Driver\ExtSoap\ExtSoapEngineFactory;
@@ -30,6 +31,7 @@ class ServientregaSoapClientFactory extends BaseClientFactory
     {
         $user = $this->security->getUser() ?? $connection;
         $handler = HttPlugHandle::createWithDefaultClient();
+        $handler->addMiddleware(new RemoveEmptyNodesMiddleware());
 
         if (null !== $user || $withoutAuth) {
             $handler->addMiddleware(new SoapAuthMiddleware(

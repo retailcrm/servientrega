@@ -11,17 +11,14 @@ use App\Services\ActivityService;
 use App\Services\OrderService;
 use App\Services\PrintService;
 use App\Services\ServientregaService;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Throwable;
 
 /**
  * Class CallbackController
@@ -78,7 +75,7 @@ class CallbackController extends AbstractController
 
         try {
             $calculateResponse = $this->servientregaService->calculate($calculateRequest, $user);
-        } catch (\Throwable $exception) {
+        } catch (Throwable $exception) {
             return new JsonResponse(['success' => false]);
         }
 
@@ -106,11 +103,21 @@ class CallbackController extends AbstractController
 
         try {
             $response = $this->servientregaService->createDelivery($saveRequest, $user);
-        } catch (\Throwable $exception) {
+        } catch (Throwable $exception) {
             return new JsonResponse(['success' => false]);
         }
 
-        $track = $response->getEnvios()->getCargueMasivoExternoDTO()->getObjEnvios()->getEnviosExterno()->getNum_Guia();
+        $track = $response
+            ->getEnvios()
+            ->getCargueMasivoExternoDTO()[0]
+            ->getObjEnvios()
+            ->getEnviosExterno()[0]
+            ->getNum_Guia()
+        ;
+
+        if (!$track) {
+            return new JsonResponse(['success' => false]);
+        }
 
         $orderService->createOrder($user, (int)$saveRequest->order, $track);
 
@@ -164,13 +171,12 @@ class CallbackController extends AbstractController
     }
 
     /**
-     * @param Request $request
      *
      * @Route("/delete")
      *
      * @return Response
      */
-    public function delete(Request $request): Response
+    public function delete(): Response
     {
         return new JsonResponse(['success' => true]);
     }

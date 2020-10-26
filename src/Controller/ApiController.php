@@ -9,9 +9,9 @@ use App\Utils\ConfigurationBuilder;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Throwable;
 
 /**
  * Class ApiController
@@ -53,7 +53,7 @@ class ApiController extends AbstractController
         try {
             $module = $configurationBuilder->build($conn);
             $retailcrmService->integrationModule($conn, $module);
-        } catch (\Throwable $exception) {
+        } catch (Throwable $exception) {
             return new JsonResponse(['success' => false], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
@@ -86,7 +86,7 @@ class ApiController extends AbstractController
         try {
             $module = $configurationBuilder->build($connection);
             $retailcrmService->integrationModule($connection, $module);
-        } catch (\Throwable $exception) {
+        } catch (Throwable $exception) {
             return new JsonResponse(['success' => false], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
@@ -126,7 +126,7 @@ class ApiController extends AbstractController
             try {
                 $module = $configurationBuilder->build($connection);
                 $retailcrmService->integrationModule($connection, $module);
-            } catch (\Throwable $exception) {
+            } catch (Throwable $exception) {
                 return new JsonResponse(['success' => false], Response::HTTP_INTERNAL_SERVER_ERROR);
             }
         }

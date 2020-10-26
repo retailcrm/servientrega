@@ -25,6 +25,7 @@ class ConnectionServiceTest extends \App\Tests\WebTestCase
         /** @var \App\Entity\Connection $connection */
         $connection = static::$container->get(ConnectionService::class)->createConnection($dtoConnection);
 
+        static::assertNotEquals(0, $connection->getId());
         static::assertEquals($dtoConnection->crmUrl, $connection->getCrmUrl());
         static::assertFalse($connection->isActive());
         static::assertNotEmpty($connection->getClientId());

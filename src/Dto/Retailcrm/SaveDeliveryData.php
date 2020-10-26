@@ -46,10 +46,6 @@ class SaveDeliveryData
 
     /**
      * @var \DateTimeInterface|null
-     *
-     * @Serializer\Groups({"get"})
-     * @Serializer\SerializedName("deliveryDate")
-     * @Serializer\Type("DateTime<'Y-m-d'>")
      */
     public $deliveryDate;
 

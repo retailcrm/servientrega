@@ -68,6 +68,7 @@ class DataBuilders
             ->withNum_Recaudo(0) // возможно сделать настраимваемым
             ->withNum_ValorLiquidado(0)
             ->withNum_VlrSobreflete(0)
+            ->withNum_VlrFlete(0)
             ->withNum_Descuento(0)
             ->withNum_ValorDeclaradoSobreTotal(0)
             ->withNum_Factura($saveRequest->orderNumber)
