@@ -3,3 +3,7 @@ calculate:
 
 print:
   error: 'Error getting sticker'
+
+delivery_data_fields:
+  invoice:
+    label: "Collection number"

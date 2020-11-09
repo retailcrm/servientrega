@@ -2,6 +2,7 @@
 
 namespace App\Tests\Utils;
 
+use App\Dto\Retailcrm\CalculateRequest;
 use App\Dto\Retailcrm\Customer;
 use App\Dto\Retailcrm\DeliveryAddress;
 use App\Dto\Retailcrm\Manager;
@@ -114,5 +115,29 @@ class DataBuildersTest extends TestCase
         $saveRequest->delivery = $saveDeliveryData;
 
         return $saveRequest;
+    }
+
+    public function testBuildCalculateRequest()
+    {
+        $request = new CalculateRequest();
+        $request->packages = [
+            new Package()
+        ];
+
+        $address = new DeliveryAddress();
+        $address->index = 111111;
+
+        $request->declaredValue = 100;
+        $request->shipmentAddress = $address;
+        $request->deliveryAddress = $address;
+        $request->extraData = [
+            'NumRecaudo' => 123456
+        ];
+
+        $result = DataBuilders::buildCalculateRequest($request);
+
+        static::assertNotEmpty($result);
+        static::assertInstanceOf(\App\Servientrega\RestType\CalculateRequest::class, $result);
+        static::assertNotEmpty($result->NumRecaudo);
     }
 }

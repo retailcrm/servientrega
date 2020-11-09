@@ -2,9 +2,15 @@
 
 namespace App\Tests\Services;
 
+use App\Dto\Retailcrm\CalculateRequest;
+use App\Dto\Retailcrm\DeliveryAddress;
+use App\Dto\Retailcrm\Package;
+use App\Entity\Connection;
+use App\Entity\Token;
 use App\Factory\ServientregaRestClientFactory;
 use App\Factory\ServientregaSoapClientFactory;
 use App\Services\ServientregaService;
+use App\Servientrega\RestType\CalculateResponse;
 use App\Servientrega\RestType\LoginRequest;
 use App\Servientrega\RestType\LoginResponse;
 use App\Servientrega\ServientregaClient;
@@ -117,5 +123,50 @@ class ServientregaServiceTest extends WebTestCase
         $result = $service->getSticker('123');
 
         static::assertEquals(null, $result);
+    }
+
+    public function testCalculate()
+    {
+        $response = new CalculateResponse();
+        $response->ValorFlete = 50;
+        $response->ValorSobreFlete = 50;
+        $response->ValorTotal = 100;
+
+        $client = $this->createMock(ServientregaRestClient::class);
+        $client->method('calculate')->willReturn($response);
+
+        $soapFactory = $this->createMock(ServientregaSoapClientFactory::class);
+        $restFactory = $this->createMock(ServientregaRestClientFactory::class);
+        $restFactory->method('factory')->willReturn($client);
+
+        $em = $this->createMock(EntityManagerInterface::class);
+        $trans = $this->createMock(TranslatorInterface::class);
+
+        $service = new ServientregaService($soapFactory, $restFactory, $em, $trans, new NullLogger());
+
+        $connection = (new Connection())->setToken(
+            (new Token())->setToken('123')->setExpiration((new DateTimeImmutable())->modify('+24 hours'))
+        );
+
+        $request = new CalculateRequest();
+        $request->packages = [
+            new Package()
+        ];
+
+        $address = new DeliveryAddress();
+        $address->index = 111111;
+
+        $request->declaredValue = 100;
+        $request->shipmentAddress = $address;
+        $request->deliveryAddress = $address;
+        $request->extraData = [
+            'NumRecaudo' => 123456
+        ];
+
+        $result = $service->calculate($request, $connection);
+
+        static::assertNotEmpty($result);
+        static::assertInstanceOf(\App\Dto\Retailcrm\CalculateResponse::class, $result[0]);
+        static::assertEquals(100, $result[0]->cost);
     }
 }

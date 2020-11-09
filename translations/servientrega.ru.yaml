@@ -3,3 +3,7 @@ calculate:
 
 print:
   error: 'Ошибка при получении стикера'
+
+delivery_data_fields:
+  invoice:
+    label: "Номер счет-фактуры"

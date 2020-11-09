@@ -130,33 +130,10 @@ class ServientregaService
     {
         $this->checkAndUpdateToken($connection);
 
-        $calculate = new \App\Servientrega\RestType\CalculateRequest();
-        $calculate->IdProducto = 2; // mercancía Industrial
-        $calculate->NumeroPiezas = count($calculateRequest->packages);
-        $piezas = [];
-
-        foreach ($calculateRequest->packages as $package) {
-            $pieza = new Pieza();
-            $pieza->Peso = $package->weight;
-            $pieza->Largo = $package->length;
-            $pieza->Ancho = $package->width;
-            $pieza->Alto = $package->height;
-
-            $piezas[] = $pieza;
-        }
-
-        $calculate->Piezas = $piezas;
-        $calculate->ValorDeclarado = $calculateRequest->declaredValue;
-        $calculate->IdDaneCiudadOrigen = $calculateRequest->shipmentAddress->index;
-        $calculate->IdDaneCiudadDestino = $calculateRequest->deliveryAddress->index;
-        $calculate->EnvioConCobro = false;
-        $calculate->FormaPago = 2;
-        $calculate->TiempoEntrega = 1;
-        $calculate->MedioTransporte = 1;
-//        $calculate->NumRecaudo = 123;
-
         try {
-            $response = $this->restClientFactory->factory()->calculate($calculate);
+            $response = $this->restClientFactory->factory()->calculate(
+                DataBuilders::buildCalculateRequest($calculateRequest)
+            );
         } catch (Throwable $exception) {
             $this->logger->error(
                 sprintf("Calculate request error: %s", $exception->getMessage()),

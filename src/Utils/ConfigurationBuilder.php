@@ -3,11 +3,13 @@
 namespace App\Utils;
 
 use App\Dto\Retailcrm\Configuration;
+use App\Dto\Retailcrm\DeliveryDataField;
 use App\Dto\Retailcrm\IntegrationModule;
 use App\Dto\Retailcrm\Integrations;
 use App\Dto\Retailcrm\Plate;
 use App\Dto\Retailcrm\Status;
 use App\Entity\Connection;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\UrlHelper;
 
@@ -19,6 +21,7 @@ use Symfony\Component\HttpFoundation\UrlHelper;
 class ConfigurationBuilder
 {
     const INTEGRATION_CODE = 'servientrega';
+    const COLLECTION_NUMBER_FIELD = 'NumRecaudo';
 
     /**
      * @var UrlHelper
@@ -31,15 +34,21 @@ class ConfigurationBuilder
     private $params;
 
     /**
+     * @var TranslatorInterface
+     */
+    private $translator;
+
+    /**
      * ConfigurationBuilder constructor.
      *
      * @param UrlHelper $urlHelper
      * @param ParameterBagInterface $params
      */
-    public function __construct(UrlHelper $urlHelper, ParameterBagInterface $params)
+    public function __construct(UrlHelper $urlHelper, ParameterBagInterface $params, TranslatorInterface $translator)
     {
         $this->urlHelper = $urlHelper;
         $this->params = $params;
+        $this->translator = $translator;
     }
 
     /**
@@ -101,8 +110,31 @@ class ConfigurationBuilder
         $configuration->requiredFields = $this->params->get('configuration')['required_fields'];
         $configuration->statusList = $this->buildStatusList();
         $configuration->plateList = $this->buildPlateList();
+        $configuration->deliveryDataFieldList = $this->buildDeliveryDataFieldList();
 
         return $configuration;
+    }
+
+    /**
+     * @return array
+     */
+    private function buildDeliveryDataFieldList(): array
+    {
+        $result = [];
+
+        $dataField = new DeliveryDataField();
+
+        $dataField->code = static::COLLECTION_NUMBER_FIELD;
+        $dataField->label = $this->translator->trans(
+            'delivery_data_fields.invoice.label', [], static::INTEGRATION_CODE
+        );
+        $dataField->type = DeliveryDataField::TYPE_INTEGER;
+        $dataField->required = true;
+        $dataField->affectsCost = true;
+
+        $result[] = $dataField;
+
+        return $result;
     }
 
     /**

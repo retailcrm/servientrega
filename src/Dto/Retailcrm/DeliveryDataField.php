@@ -49,15 +49,15 @@ class DeliveryDataField
     /**
      * @var boolean
      */
-    public $isRequired = false;
+    public $required = false;
 
     /**
      * @var boolean
      */
-    public $isAffectsCost = false;
+    public $affectsCost = false;
 
     /**
      * @var boolean
      */
-    public $isEditable = true;
+    public $editable = true;
 }

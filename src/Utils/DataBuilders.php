@@ -2,18 +2,21 @@
 
 namespace App\Utils;
 
+use App\Dto\Retailcrm\CalculateRequest;
 use App\Dto\Retailcrm\Package;
 use App\Dto\Retailcrm\SaveRequest;
 use App\Dto\Retailcrm\TrackingStatusUpdate;
 use App\Dto\Retailcrm\TrackingStatusUpdateHistory;
 use App\Entity\Connection;
 use App\Servientrega\RestType\LoginRequest;
+use App\Servientrega\RestType\Pieza;
 use App\Servientrega\TrackingType\ArrayOfGuiasDTO;
 use App\Servientrega\Type\ArrayOfEnviosExterno;
 use App\Servientrega\Type\ArrayOfEnviosUnidadEmpaqueCargue;
 use App\Servientrega\Type\CargueMasivoExternoDTO;
 use App\Servientrega\Type\EnviosExterno;
 use App\Servientrega\Type\EnviosUnidadEmpaqueCargue;
+use App\Servientrega\RestType\CalculateRequest as DeliveryCalculateRequest;
 
 /**
  * Class DataBuilders
@@ -198,5 +201,40 @@ class DataBuilders
         }
 
         return $statuses;
+    }
+
+    /**
+     * @param CalculateRequest $calculateRequest
+     *
+     * @return DeliveryCalculateRequest
+     */
+    public static function buildCalculateRequest(CalculateRequest $calculateRequest): DeliveryCalculateRequest
+    {
+        $calculate = new DeliveryCalculateRequest();
+        $calculate->IdProducto = 2; // mercancía Industrial
+        $calculate->NumeroPiezas = count($calculateRequest->packages);
+        $piezas = [];
+
+        foreach ($calculateRequest->packages as $package) {
+            $pieza = new Pieza();
+            $pieza->Peso = $package->weight;
+            $pieza->Largo = $package->length;
+            $pieza->Ancho = $package->width;
+            $pieza->Alto = $package->height;
+
+            $piezas[] = $pieza;
+        }
+
+        $calculate->Piezas = $piezas;
+        $calculate->ValorDeclarado = $calculateRequest->declaredValue;
+        $calculate->IdDaneCiudadOrigen = $calculateRequest->shipmentAddress->index;
+        $calculate->IdDaneCiudadDestino = $calculateRequest->deliveryAddress->index;
+        $calculate->EnvioConCobro = false;
+        $calculate->FormaPago = 2;
+        $calculate->TiempoEntrega = 1;
+        $calculate->MedioTransporte = 1;
+        $calculate->NumRecaudo = $calculateRequest->extraData['NumRecaudo'];
+
+        return $calculate;
     }
 }

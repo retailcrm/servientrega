@@ -1,5 +1,9 @@
 calculate:
-  servientrega_courier.name: 'Servientrega courier delivery'
+  servientrega_courier.name: 'Servientrega entrega por mensajería'
 
 print:
-  error: 'Error getting sticker'
+  error: 'Error al obtener la calcomanía'
+
+delivery_data_fields:
+  invoice:
+    label: "Número de recaudo"
