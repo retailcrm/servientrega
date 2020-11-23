@@ -208,16 +208,30 @@ class ServientregaService
     public function checkAndUpdateToken(Connection $connection)
     {
         $token = $connection->getToken();
+
         if (!$this->tokenIsValid($token)) {
             $response = $this->getToken(DataBuilders::buildLoginRequest($connection));
+
             if (null === $response) {
                 throw new RuntimeException('Invalid token');
             }
 
+            if (null === $token) {
+                $token = new Token();
+            }
+
+            $token->setName($response->nombre);
+            $token->setCodBilling($response->codFacturacion);
+            $token->setIdClient(trim($response->idCliente));
+            $token->setLogin($response->login);
+            $token->setState($response->estado);
             $token->setToken($response->token);
             $token->setExpiration($response->expiration);
 
+            $connection->setToken($token);
+
             $this->entityManager->persist($token);
+            $this->entityManager->persist($connection);
             $this->entityManager->flush();
         }
     }
