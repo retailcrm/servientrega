@@ -97,6 +97,7 @@ class ConnectionService
         $connection->setServientregaLogin($request->servientregaLogin);
         $connection->setServientregaBillingCode($request->servientregaBillingCode);
         $connection->setServientregaNamePack($request->servientregaNamePack);
+        $connection->setIdDaneOriginCity($request->idDaneOriginCity);
 
         $this->entityManager->persist($connection);
     }

@@ -64,6 +64,13 @@ class Connection implements UserInterface
      */
     private $clientId;
 
+    /**
+     * Dane код отправителя
+     *
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $idDaneOriginCity;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -173,6 +180,18 @@ class Connection implements UserInterface
     public function setToken(Token $token): self
     {
         $this->token = $token;
+
+        return $this;
+    }
+
+    public function getIdDaneOriginCity(): ?string
+    {
+        return $this->idDaneOriginCity;
+    }
+
+    public function setIdDaneOriginCity(string $idDaneOriginCity): self
+    {
+        $this->idDaneOriginCity = $idDaneOriginCity;
 
         return $this;
     }

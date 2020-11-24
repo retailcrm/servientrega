@@ -18,6 +18,7 @@ use App\Servientrega\ServientregaRestClient;
 use App\Servientrega\Type\EncriptarContrasenaResponse;
 use App\Servientrega\Type\GenerarGuiaStickerResponse;
 use App\Tests\WebTestCase;
+use App\Utils\ConfigurationBuilder;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\NullLogger;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -160,7 +161,8 @@ class ServientregaServiceTest extends WebTestCase
         $request->shipmentAddress = $address;
         $request->deliveryAddress = $address;
         $request->extraData = [
-            'NumRecaudo' => 123456
+            ConfigurationBuilder::COLLECTION_NUMBER_FIELD => 123456,
+            ConfigurationBuilder::ID_DANE_RECEIVER_FIELD => '111111'
         ];
 
         $result = $service->calculate($request, $connection);

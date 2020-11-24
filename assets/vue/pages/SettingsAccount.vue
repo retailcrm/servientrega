@@ -71,6 +71,20 @@
                             />
                         </div>
                     </div>
+                    <div class="ui-connect-form ui-connect-form_full">
+                        <div class="ui-connect-form__row ui-connect-form__row_start ui-connect-form__row_edit">
+                            <UiText
+                                tag="label"
+                                class="ui-connect-form__label"
+                            >
+                                {{ $t('connection.form.id_dane_origin_city') }}
+                            </UiText>
+                            <UiInput
+                                v-model="connection.idDaneOriginCity"
+                                required
+                            />
+                        </div>
+                    </div>
                     <div class="ui-connect-form__row ui-connect-form__row_inline ui-connect-form__row_edit">
                         <UiButton
                             :disabled="loading"

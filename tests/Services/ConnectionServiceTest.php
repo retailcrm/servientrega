@@ -52,6 +52,7 @@ class ConnectionServiceTest extends \App\Tests\WebTestCase
         $dtoConnection->servientregaPassword = 'test';
         $dtoConnection->servientregaBillingCode = 'test';
         $dtoConnection->servientregaNamePack = 'test';
+        $dtoConnection->idDaneOriginCity = 'test';
 
         $connection = new \App\Entity\Connection();
 

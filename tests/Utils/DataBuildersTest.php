@@ -13,6 +13,7 @@ use App\Dto\Retailcrm\SaveRequest;
 use App\Entity\Connection;
 use App\Servientrega\TrackingType\ArrayOfGuiasDTO;
 use App\Servientrega\TrackingType\GuiasDTO;
+use App\Utils\ConfigurationBuilder;
 use App\Utils\DataBuilders;
 use Faker\Factory;
 use PHPUnit\Framework\TestCase;
@@ -131,10 +132,13 @@ class DataBuildersTest extends TestCase
         $request->shipmentAddress = $address;
         $request->deliveryAddress = $address;
         $request->extraData = [
-            'NumRecaudo' => 123456
+            ConfigurationBuilder::COLLECTION_NUMBER_FIELD => 123456,
+            ConfigurationBuilder::ID_DANE_RECEIVER_FIELD => '111111'
         ];
 
-        $result = DataBuilders::buildCalculateRequest($request);
+        $result = DataBuilders::buildCalculateRequest(
+            $request, (new Connection())->setIdDaneOriginCity('111111')
+        );
 
         static::assertNotEmpty($result);
         static::assertInstanceOf(\App\Servientrega\RestType\CalculateRequest::class, $result);

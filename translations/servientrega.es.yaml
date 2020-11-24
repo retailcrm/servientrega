@@ -7,3 +7,5 @@ print:
 delivery_data_fields:
   invoice:
     label: "Número de recaudo"
+  dane:
+    label: "Dane ciudad destino"

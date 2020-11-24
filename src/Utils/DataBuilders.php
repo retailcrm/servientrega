@@ -205,13 +205,18 @@ class DataBuilders
 
     /**
      * @param CalculateRequest $calculateRequest
+     * @param Connection $connection
      *
      * @return DeliveryCalculateRequest
      */
-    public static function buildCalculateRequest(CalculateRequest $calculateRequest): DeliveryCalculateRequest
-    {
+    public static function buildCalculateRequest(
+        CalculateRequest $calculateRequest,
+        Connection $connection
+    ): DeliveryCalculateRequest {
         $calculate = new DeliveryCalculateRequest();
-        $calculate->IdProducto = 2; // mercancía Industrial
+        // код продукта Servientrega, в соответствии с: 2 = премиум товары; 6 = промышленные товары; 1 = единичный документ.
+        // TODO скорее всего тоже в экстра дата нужно будет вынести
+        $calculate->IdProducto = 2;
         $calculate->NumeroPiezas = count($calculateRequest->packages);
         $piezas = [];
 
@@ -227,13 +232,13 @@ class DataBuilders
 
         $calculate->Piezas = $piezas;
         $calculate->ValorDeclarado = $calculateRequest->declaredValue;
-        $calculate->IdDaneCiudadOrigen = $calculateRequest->shipmentAddress->index;
-        $calculate->IdDaneCiudadDestino = $calculateRequest->deliveryAddress->index;
+        $calculate->IdDaneCiudadOrigen = $connection->getIdDaneOriginCity();
+        $calculate->IdDaneCiudadDestino = $calculateRequest->extraData[ConfigurationBuilder::ID_DANE_RECEIVER_FIELD];
         $calculate->EnvioConCobro = false;
         $calculate->FormaPago = 2;
-        $calculate->TiempoEntrega = 1;
-        $calculate->MedioTransporte = 1;
-        $calculate->NumRecaudo = $calculateRequest->extraData['NumRecaudo'];
+        $calculate->TiempoEntrega = 1; // время транспортировки для доставки: 1 = нормальный; 2 = сегодня
+        $calculate->MedioTransporte = 1; // транспортное средство в соответствии с городом происхождения-назначения: 1= наземный; 2= воздушный
+        $calculate->NumRecaudo = $calculateRequest->extraData[ConfigurationBuilder::COLLECTION_NUMBER_FIELD] ?? 500; // значение для сбора, когда отправка груза со стоимостью, в случае, если это без сбора (без процентов), вписывайте значение 500.
 
         return $calculate;
     }

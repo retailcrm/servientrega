@@ -69,11 +69,9 @@
 
 <script>
     import ConnectionApi from "../api/connection";
-    import ConnectionForm from "../components/ConnectionForm";
 
     export default {
         name: "Index",
-        components: {ConnectionForm},
         data() {
             return {
                 dialog: false,

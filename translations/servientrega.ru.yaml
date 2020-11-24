@@ -7,3 +7,5 @@ print:
 delivery_data_fields:
   invoice:
     label: "Номер счет-фактуры"
+  dane:
+    label: "Dane код получателя"

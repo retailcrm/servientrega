@@ -132,7 +132,7 @@ class ServientregaService
 
         try {
             $response = $this->restClientFactory->factory()->calculate(
-                DataBuilders::buildCalculateRequest($calculateRequest)
+                DataBuilders::buildCalculateRequest($calculateRequest, $connection)
             );
         } catch (Throwable $exception) {
             $this->logger->error(

@@ -22,6 +22,7 @@ class ConfigurationBuilder
 {
     const INTEGRATION_CODE = 'servientrega';
     const COLLECTION_NUMBER_FIELD = 'NumRecaudo';
+    const ID_DANE_RECEIVER_FIELD = 'IdDaneCiudadDestino';
 
     /**
      * @var UrlHelper
@@ -43,6 +44,7 @@ class ConfigurationBuilder
      *
      * @param UrlHelper $urlHelper
      * @param ParameterBagInterface $params
+     * @param TranslatorInterface $translator
      */
     public function __construct(UrlHelper $urlHelper, ParameterBagInterface $params, TranslatorInterface $translator)
     {
@@ -129,10 +131,21 @@ class ConfigurationBuilder
             'delivery_data_fields.invoice.label', [], static::INTEGRATION_CODE
         );
         $dataField->type = DeliveryDataField::TYPE_INTEGER;
-        $dataField->required = true;
         $dataField->affectsCost = true;
 
         $result[] = $dataField;
+
+        $dataFieldReceiver = new DeliveryDataField();
+
+        $dataFieldReceiver->code = static::ID_DANE_RECEIVER_FIELD;
+        $dataFieldReceiver->label = $this->translator->trans(
+            'delivery_data_fields.dane.label', [], static::INTEGRATION_CODE
+        );
+        $dataFieldReceiver->type = DeliveryDataField::TYPE_TEXT;
+        $dataFieldReceiver->required = true;
+        $dataFieldReceiver->affectsCost = true;
+
+        $result[] = $dataFieldReceiver;
 
         return $result;
     }

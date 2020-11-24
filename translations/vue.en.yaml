@@ -10,6 +10,7 @@ connection:
     servientrega_password: Password
     servientrega_billing_code: Billing code
     servientrega_name_pack: Name pack
+    id_dane_origin_city: Sender DANE code
 
 errors:
   create: Connection create error

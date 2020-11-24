@@ -10,6 +10,7 @@ connection:
     servientrega_password: Пароль
     servientrega_billing_code: Код биллинга
     servientrega_name_pack: Имя загрузки
+    id_dane_origin_city: DANE код отправителя
 
 errors:
   create: Ошибка создания подключения

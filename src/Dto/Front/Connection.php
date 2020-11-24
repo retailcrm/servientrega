@@ -10,4 +10,5 @@ class Connection
     public $servientregaPassword;
     public $servientregaBillingCode;
     public $servientregaNamePack;
+    public $idDaneOriginCity;
 }
