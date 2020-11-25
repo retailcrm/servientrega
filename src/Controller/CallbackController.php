@@ -11,6 +11,7 @@ use App\Services\ActivityService;
 use App\Services\OrderService;
 use App\Services\PrintService;
 use App\Services\ServientregaService;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -45,20 +46,28 @@ class CallbackController extends AbstractController
     private $translator;
 
     /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    /**
      * CallbackController constructor.
      *
      * @param SerializerInterface $serializer
      * @param ServientregaService $servientregaService
      * @param TranslatorInterface $translator
+     * @param LoggerInterface $logger
      */
     public function __construct(
         SerializerInterface $serializer,
         ServientregaService $servientregaService,
-        TranslatorInterface $translator
+        TranslatorInterface $translator,
+        LoggerInterface $logger
     ) {
         $this->serializer = $serializer;
         $this->servientregaService = $servientregaService;
         $this->translator = $translator;
+        $this->logger = $logger;
     }
 
     /**
@@ -104,6 +113,8 @@ class CallbackController extends AbstractController
         try {
             $response = $this->servientregaService->createDelivery($saveRequest, $user);
         } catch (Throwable $exception) {
+            $this->logger->error($exception->getMessage());
+
             return new JsonResponse(['success' => false]);
         }
 
@@ -116,10 +127,17 @@ class CallbackController extends AbstractController
         ;
 
         if (!$track) {
-            return new JsonResponse(['success' => false]);
+            $errorMsg = '';
+            foreach ((array) $response->getArrayGuias()->getString() as $error) {
+                $errorMsg .= $error . " | ";
+            }
+
+            return new JsonResponse(
+                ['success' => false, 'errorMsg' => sprintf("Errors: %s", trim($errorMsg, " |"))]
+            );
         }
 
-        $orderService->createOrder($user, (int)$saveRequest->order, $track);
+        $orderService->createOrder($user, (int) $saveRequest->order, (string) $track);
 
         $result = [
             'deliveryId' => $track

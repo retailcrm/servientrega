@@ -158,6 +158,7 @@ class ApiController extends AbstractController
         $connection->servientregaPassword = $user->getServientregaPassword();
         $connection->servientregaBillingCode = $user->getServientregaBillingCode();
         $connection->servientregaNamePack = $user->getServientregaNamePack();
+        $connection->idDaneOriginCity = $user->getIdDaneOriginCity();
 
         return new JsonResponse($connection);
     }

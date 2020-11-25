@@ -128,9 +128,9 @@ class ServientregaService
      */
     public function calculate(CalculateRequest $calculateRequest, Connection $connection): array
     {
-        $this->checkAndUpdateToken($connection);
-
         try {
+            $this->checkAndUpdateToken($connection);
+
             $response = $this->restClientFactory->factory()->calculate(
                 DataBuilders::buildCalculateRequest($calculateRequest, $connection)
             );
@@ -175,7 +175,7 @@ class ServientregaService
 
         try {
             $response = $client->cargueMasivoExterno($param);
-        } catch (\Throwable $exception) {
+        } catch (Throwable $exception) {
             $this->logger->error(
                 sprintf("Create order in delivery service: %s", $exception->getMessage()),
                 $client->debugLastSoapRequest()

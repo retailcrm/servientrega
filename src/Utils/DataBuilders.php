@@ -91,7 +91,7 @@ class DataBuilders
             ->withDes_TipoGuia(2)
             ->withDes_CiudadOrigen(0)
             ->withDes_Telefono($saveRequest->customer->phones[0])
-            ->withDes_Ciudad($saveRequest->delivery->deliveryAddress->index)
+            ->withDes_Ciudad($saveRequest->delivery->extraData[ConfigurationBuilder::ID_DANE_RECEIVER_FIELD])
             ->withDes_DepartamentoDestino($saveRequest->delivery->deliveryAddress->region)
             ->withDes_Direccion(
                 trim(sprintf(
@@ -112,7 +112,7 @@ class DataBuilders
             ->withDes_CorreoElectronico($saveRequest->customer->email)
             ->withDes_CiudadRemitente($saveRequest->delivery->shipmentAddress->city)
             ->withDes_DireccionRemitente($saveRequest->delivery->shipmentAddress->text)
-            ->withDes_DepartamentoOrigen($saveRequest->delivery->shipmentAddress->region)
+            ->withDes_DepartamentoOrigen($connection->getIdDaneOriginCity())
             ->withNum_TelefonoRemitente($saveRequest->manager->phone)
             ->withNum_IdentiRemitente($saveRequest->legalEntity)
             ->withEst_CanalMayorista(false)
