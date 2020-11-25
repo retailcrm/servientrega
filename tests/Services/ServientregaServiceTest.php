@@ -100,7 +100,7 @@ class ServientregaServiceTest extends WebTestCase
 
         $service = new ServientregaService($soapFactory, $restFactory, $em, $trans, new NullLogger());
 
-        $result = $service->getSticker('123');
+        $result = $service->getSticker('123', '123');
 
         static::assertEquals($output, $result);
     }
@@ -121,7 +121,7 @@ class ServientregaServiceTest extends WebTestCase
 
         $service = new ServientregaService($soapFactory, $restFactory, $em, $trans, new NullLogger());
 
-        $result = $service->getSticker('123');
+        $result = $service->getSticker('123', '123');
 
         static::assertEquals(null, $result);
     }

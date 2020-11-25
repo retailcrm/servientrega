@@ -32,7 +32,7 @@ class PrintServiceTest extends TestCase
         $servietgregaService->method('getSticker')->willReturn(file_get_contents($this->filename1));
 
         $printService = new PrintService($servietgregaService);
-        $result = $printService->printSticker('123');
+        $result = $printService->printSticker('123', '123');
 
         static::assertEquals(file_get_contents($this->filename1), $result);
     }
@@ -46,7 +46,7 @@ class PrintServiceTest extends TestCase
         );
 
         $printService = new PrintService($servietgregaService);
-        $result = $printService->printStickers(['1', '2']);
+        $result = $printService->printStickers(['1', '2'], '123');
 
         static::assertNotEmpty($result);
     }

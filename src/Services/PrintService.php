@@ -24,25 +24,27 @@ class PrintService
 
     /**
      * @param string $deliveryId
+     * @param string $billingCode
      *
      * @return string|null
      */
-    public function printSticker(string $deliveryId): ?string
+    public function printSticker(string $deliveryId, string $billingCode): ?string
     {
-        return $this->servientregaService->getSticker($deliveryId);
+        return $this->servientregaService->getSticker($deliveryId, $billingCode);
     }
 
     /**
      * @param array $deliveryIds
+     * @param string $billingCode
      *
      * @return string|null
      */
-    public function printStickers(array $deliveryIds): ?string
+    public function printStickers(array $deliveryIds, string $billingCode): ?string
     {
         $merger = new Merger(new TcpdiDriver());
 
         foreach ($deliveryIds as $deliveryId) {
-            $sticker = $this->servientregaService->getSticker($deliveryId);
+            $sticker = $this->servientregaService->getSticker($deliveryId, $billingCode);
             if (null !== $sticker) {
                 $merger->addRaw($sticker);
             }

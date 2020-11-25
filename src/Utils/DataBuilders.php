@@ -110,7 +110,7 @@ class DataBuilders
             ))->withIde_Num_Identific_Dest($saveRequest->customer->id)
             ->withNum_Celular($saveRequest->customer->phones[0])
             ->withDes_CorreoElectronico($saveRequest->customer->email)
-            ->withDes_CiudadRemitente($saveRequest->delivery->shipmentAddress->city)
+            ->withDes_CiudadRemitente($connection->getIdDaneOriginCity())
             ->withDes_DireccionRemitente($saveRequest->delivery->shipmentAddress->text)
             ->withDes_DepartamentoOrigen($connection->getIdDaneOriginCity())
             ->withNum_TelefonoRemitente($saveRequest->manager->phone)

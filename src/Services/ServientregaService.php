@@ -259,24 +259,18 @@ class ServientregaService
 
     /**
      * @param string $number
+     * @param string $billingCode
      *
      * @return string
      */
-    public function getSticker(string $number): ?string
+    public function getSticker(string $number, string $billingCode): ?string
     {
         try {
             // TODO проверить или уточнить параметры http://web.servientrega.com:8081/GeneracionGuias.asmx?op=GenerarGuiaSticker
-            $params = new GenerarGuiaSticker(
-                $number,
-                $number,
-                '',
-                1,
-                '',
-                true,
-                ''
-            );
+            $params = new GenerarGuiaSticker($number, $number, $billingCode);
 
-            $response = $this->soapClientFactory->factory()->generarGuiaSticker($params);
+            $client = $this->soapClientFactory->factory();
+            $response = $client->generarGuiaSticker($params);
         } catch (Throwable $exception) {
             $this->logger->error(
                 sprintf("Getting sticker error: %s, code: %d", $exception->getMessage(), $exception->getCode())

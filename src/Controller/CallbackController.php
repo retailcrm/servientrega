@@ -158,13 +158,20 @@ class CallbackController extends AbstractController
     {
         $response = '';
 
+        /** @var Connection $user */
+        $user = $this->getUser();
+
         switch ($printRequest->entityType) {
             case PrintRequest::ORDER_TYPE:
                 if ('sticker' === $printRequest->type) {
                     if (count($printRequest->deliveryIds[0]) > 1) {
-                        $response = $printService->printStickers($printRequest->deliveryIds[0]);
+                        $response = $printService->printStickers(
+                            $printRequest->deliveryIds[0], $user->getServientregaBillingCode()
+                        );
                     } else {
-                        $response = $printService->printSticker($printRequest->deliveryIds[0][0]);
+                        $response = $printService->printSticker(
+                            $printRequest->deliveryIds[0][0], $user->getServientregaBillingCode()
+                        );
                     }
                 }
 
