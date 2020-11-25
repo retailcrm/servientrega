@@ -106,7 +106,11 @@ class ConfigurationBuilder
         ];
 
         $configuration->payerType = [Configuration::PAYER_TYPE_RECEIVER, Configuration::PAYER_TYPE_SENDER];
+        $configuration->platePrintLimit = 50;
+        $configuration->rateDeliveryCost = false;
         $configuration->allowPackages = true;
+        $configuration->codAvailable = true;
+        $configuration->selfShipmentAvailable = false;
         $configuration->allowTrackNumber = true;
         $configuration->availableCountries = ['US', 'CO', 'ES'];
         $configuration->requiredFields = $this->params->get('configuration')['required_fields'];

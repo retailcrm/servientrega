@@ -185,7 +185,7 @@ class CallbackController extends AbstractController
             return new JsonResponse([
                 'success' => false,
                 'errorMsg' => $this->translator->trans('print.error', [], 'servientrega')
-            ]);
+            ], 400);
         }
 
         return new Response(
