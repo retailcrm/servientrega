@@ -109,7 +109,7 @@ class ConfigurationBuilder
         $configuration->platePrintLimit = 50;
         $configuration->rateDeliveryCost = false;
         $configuration->allowPackages = true;
-        $configuration->codAvailable = true;
+        $configuration->codAvailable = false;
         $configuration->selfShipmentAvailable = false;
         $configuration->allowTrackNumber = true;
         $configuration->availableCountries = ['US', 'CO', 'ES'];

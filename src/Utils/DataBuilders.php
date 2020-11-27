@@ -189,6 +189,11 @@ class DataBuilders
         $statuses = [];
 
         foreach ($guiasDTO->GuiasDTO as $guiasDTO) {
+            // если статус пуст ничего не передаем
+            if (empty($guiasDTO->IdEstAct) && empty($guiasDTO->EstAct)) {
+                continue;
+            }
+
             $status = new TrackingStatusUpdate();
             $status->deliveryId = $guiasDTO->NumGui;
 

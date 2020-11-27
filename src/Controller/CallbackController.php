@@ -11,6 +11,7 @@ use App\Services\ActivityService;
 use App\Services\OrderService;
 use App\Services\PrintService;
 use App\Services\ServientregaService;
+use App\Servientrega\Exceptions\ClientException;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -85,7 +86,16 @@ class CallbackController extends AbstractController
         try {
             $calculateResponse = $this->servientregaService->calculate($calculateRequest, $user);
         } catch (Throwable $exception) {
-            return new JsonResponse(['success' => false]);
+            $errorMsg = '';
+            if ($exception instanceof ClientException) {
+                foreach ($exception->getResponse()->ModelState as $item) {
+                    foreach ($item as $error) {
+                        $errorMsg .= $error . ', ';
+                    }
+                }
+            }
+
+            return new JsonResponse(['success' => false, 'errorMsg' => trim($errorMsg, ', ')]);
         }
 
         return new JsonResponse(['success' => true, 'result' => $calculateResponse]);

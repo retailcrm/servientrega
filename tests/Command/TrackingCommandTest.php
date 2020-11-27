@@ -48,7 +48,10 @@ class TrackingCommandTest extends KernelTestCase
 
         $command = $application->find('app:tracking');
         $commandTester = new CommandTester($command);
-        $commandTester->execute([], ['client' => '1']);
+        $commandTester->execute([
+            'command' => $command->getName(),
+            '--client' => '1'
+        ]);
 
         static::assertEquals(0, $commandTester->getStatusCode());
     }

@@ -4,9 +4,11 @@ namespace App\Servientrega;
 
 use App\Servientrega\RestType\CalculateRequest;
 use App\Servientrega\RestType\CalculateResponse;
+use App\Servientrega\RestType\ClientErrorResponse;
 use App\Servientrega\RestType\LoginRequest;
 use App\Servientrega\RestType\LoginResponse;
 use Doctrine\Common\Annotations\AnnotationReader;
+use GuzzleHttp\Exception\ClientException;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
 use GuzzleHttp\Client;
 use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
@@ -15,6 +17,7 @@ use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Mapping\Loader\AnnotationLoader;
+use Throwable;
 
 /**
  * Class ServientregaRestClient
@@ -92,7 +95,7 @@ class ServientregaRestClient
      *
      * @param CalculateRequest $calculate
      * @return CalculateResponse
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws Throwable
      */
     public function calculate(CalculateRequest $calculate): CalculateResponse
     {
@@ -102,16 +105,26 @@ class ServientregaRestClient
 
         $data = $this->serializer->serialize($calculate, 'json');
 
-        $response = $this->client->request(
-            'POST',
-            '/cotizadorcorporativo/api/cotizacion/cotizar',
-            [
-                'body' => $data,
-                'headers' => [
-                    'Authorization' => sprintf("Bearer %s", $this->token)
+        try {
+            $response = $this->client->request(
+                'POST',
+                '/cotizadorcorporativo/api/cotizacion/cotizar',
+                [
+                    'body' => $data,
+                    'headers' => [
+                        'Authorization' => sprintf("Bearer %s", $this->token)
+                    ]
                 ]
-            ]
-        );
+            );
+        } catch (Throwable | ClientException $exception) {
+            if ($exception instanceof ClientException) {
+                throw new \App\Servientrega\Exceptions\ClientException($this->serializer->deserialize(
+                    $exception->getResponse()->getBody()->getContents(), ClientErrorResponse::class, 'json'
+                ));
+            }
+
+            throw $exception;
+        }
 
         return $this->serializer->deserialize(
             $response->getBody()->getContents(), CalculateResponse::class, 'json'

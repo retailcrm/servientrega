@@ -20,6 +20,9 @@ parameters:
       - 'phone'
       - 'deliveryAddress.index'
       - 'email'
+      - 'length'
+      - 'width'
+      - 'height'
     plate_list:
       - code: sticker
         label: Sticker

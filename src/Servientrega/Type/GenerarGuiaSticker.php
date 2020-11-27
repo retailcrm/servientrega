@@ -48,10 +48,6 @@ class GenerarGuiaSticker implements RequestInterface
      * @var float $num_Guia
      * @var float $num_GuiaFinal
      * @var string $ide_CodFacturacion
-     * @var int $sFormatoImpresionGuia
-     * @var string $Id_ArchivoCargar
-     * @var bool $interno
-     * @var string $bytesReport
      */
     public function __construct($num_Guia, $num_GuiaFinal, $ide_CodFacturacion)
     {

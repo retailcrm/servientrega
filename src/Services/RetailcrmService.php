@@ -70,8 +70,14 @@ class RetailcrmService
      *
      * @throws Exception|\Symfony\Component\Serializer\Exception\ExceptionInterface
      */
-    public function deliveryTracking(Connection $connection, array $statusUpdate)
+    public function deliveryTracking(Connection $connection, array $statusUpdate): void
     {
+        if (empty($statusUpdate)) {
+            $this->logger->info(sprintf("Statuses of client %s is empty", $connection->getCrmUrl()));
+
+            return;
+        }
+
         $client = $this->retailcrmClientFactory->create($connection);
 
         $response = $client->request->deliveryTracking(
@@ -89,11 +95,11 @@ class RetailcrmService
      *
      * @throws Exception
      */
-    private function handleError(ApiResponse $response)
+    private function handleError(ApiResponse $response): void
     {
         $errors = $response->offsetExists('errors') ? $response->getErrors() : [];
         $this->logger->error(
-            sprintf("Integration module edit error: %s", $response->getErrorMsg()),
+            sprintf("Retailcrm API error: %s", $response->getErrorMsg()),
             $errors
         );
 
