@@ -9,7 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class OrderRepositoryTest extends WebTestCase
 {
-    public function testUntrackOrder()
+    public function testUntrackOrder(): void
     {
         $orderRepository = static::$container->get(OrderRepository::class);
         $entityManager = static::$container->get(EntityManagerInterface::class);
@@ -19,6 +19,7 @@ class OrderRepositoryTest extends WebTestCase
             ->setTrackNumber('123')
             ->setOrderId('123')
             ->setIsClosed(false)
+            ->setSticker(base64_encode('sticker'))
             ->setConnection($this->connection);
 
         $entityManager->persist($order);
@@ -31,5 +32,6 @@ class OrderRepositoryTest extends WebTestCase
         $result = $orderRepository->find($order->getId());
 
         static::assertTrue($result->isClosed());
+        static::assertNull($result->getSticker());
     }
 }

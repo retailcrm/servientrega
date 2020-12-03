@@ -143,11 +143,16 @@ class CallbackController extends AbstractController
             }
 
             return new JsonResponse(
-                ['success' => false, 'errorMsg' => sprintf("Errors: %s", trim($errorMsg, " |"))]
+                ['success' => false, 'errorMsg' => trim($errorMsg, " |")]
             );
         }
 
-        $orderService->createOrder($user, (int) $saveRequest->order, (string) $track);
+        $orderService->createOrder(
+            $user,
+            (int) $saveRequest->order,
+            (string) $track,
+            $this->servientregaService->getSticker($track, $user->getServientregaBillingCode())
+        );
 
         $result = [
             'deliveryId' => $track
@@ -175,13 +180,9 @@ class CallbackController extends AbstractController
             case PrintRequest::ORDER_TYPE:
                 if ('sticker' === $printRequest->type) {
                     if (count($printRequest->deliveryIds[0]) > 1) {
-                        $response = $printService->printStickers(
-                            $printRequest->deliveryIds[0], $user->getServientregaBillingCode()
-                        );
+                        $response = $printService->printStickers($user, $printRequest->deliveryIds[0]);
                     } else {
-                        $response = $printService->printSticker(
-                            $printRequest->deliveryIds[0][0], $user->getServientregaBillingCode()
-                        );
+                        $response = $printService->printSticker($user, $printRequest->deliveryIds[0][0]);
                     }
                 }
 

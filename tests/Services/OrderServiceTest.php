@@ -17,4 +17,17 @@ class OrderServiceTest extends WebTestCase
 
         static::assertNotEmpty($orders);
     }
+
+    public function testGetStickers()
+    {
+        /** @var OrderService $orderService */
+        $orderService = static::$container->get(OrderService::class);
+
+        $orderService->createOrder($this->connection, 111, '111222333', base64_encode('sticker'));
+
+        $stickers = $orderService->getStickers($this->connection, ['111222333']);
+
+        static::assertNotEmpty($stickers);
+        static::assertEquals('sticker', $stickers[0]);
+    }
 }

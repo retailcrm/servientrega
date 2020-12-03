@@ -34,8 +34,11 @@ class OrderService
      * @param Connection $connection
      * @param int $orderId
      * @param string $track
+     * @param string|null $sticker
+     *
+     * @return Order
      */
-    public function createOrder(Connection $connection, int $orderId, string $track): void
+    public function createOrder(Connection $connection, int $orderId, string $track, ?string $sticker = null): Order
     {
         $order = new Order();
         $order->setConnection($connection);
@@ -43,8 +46,14 @@ class OrderService
         $order->setOrderId($orderId);
         $order->setTrackNumber($track);
 
+        if (null !== $sticker) {
+            $order->setSticker($sticker);
+        }
+
         $this->entityManager->persist($order);
         $this->entityManager->flush();
+
+        return $order;
     }
 
     /**
@@ -70,5 +79,23 @@ class OrderService
         if ($status === "3") {
             $this->orderRepository->untrackOrder($connection, $trackNumber, $orderId);
         }
+    }
+
+    /**
+     * @param Connection $connection
+     * @param string[] $deliveryIds
+     *
+     * @return string[]
+     */
+    public function getStickers(Connection $connection, array $deliveryIds): array
+    {
+        $result = [];
+        $orders = $this->orderRepository->findBy(['connection' => $connection, 'trackNumber' => $deliveryIds]);
+
+        foreach ($orders as $order) {
+            $result[] = base64_decode($order->getSticker());
+        }
+
+        return $result;
     }
 }

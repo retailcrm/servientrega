@@ -34,6 +34,11 @@ class Order
     private $isClosed;
 
     /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $sticker;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Connection", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="connection_id", referencedColumnName="id")
      */
@@ -76,6 +81,18 @@ class Order
     public function setIsClosed(bool $isClosed): self
     {
         $this->isClosed = $isClosed;
+
+        return $this;
+    }
+
+    public function getSticker(): ?string
+    {
+        return $this->sticker;
+    }
+
+    public function setSticker(string $sticker): self
+    {
+        $this->sticker = $sticker;
 
         return $this;
     }

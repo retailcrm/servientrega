@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Entity\Connection;
 use iio\libmergepdf\Driver\TcpdiDriver;
 use iio\libmergepdf\Merger;
 
@@ -13,38 +14,46 @@ use iio\libmergepdf\Merger;
 class PrintService
 {
     /**
-     * @var ServientregaService
+     * @var OrderService
      */
-    private $servientregaService;
+    private $orderService;
 
-    public function __construct(ServientregaService $servientregaService)
+    public function __construct(OrderService $orderService)
     {
-        $this->servientregaService = $servientregaService;
+        $this->orderService = $orderService;
     }
 
     /**
+     * @param Connection $connection
      * @param string $deliveryId
-     * @param string $billingCode
      *
      * @return string|null
      */
-    public function printSticker(string $deliveryId, string $billingCode): ?string
+    public function printSticker(Connection $connection, string $deliveryId): ?string
     {
-        return $this->servientregaService->getSticker($deliveryId, $billingCode);
+        $stickers = $this->orderService->getStickers($connection, [$deliveryId]);
+        if (empty($stickers)) {
+            return null;
+        }
+
+        return $stickers[0];
     }
 
     /**
+     * @param Connection $connection
      * @param array $deliveryIds
-     * @param string $billingCode
      *
      * @return string|null
      */
-    public function printStickers(array $deliveryIds, string $billingCode): ?string
+    public function printStickers(Connection $connection, array $deliveryIds): ?string
     {
         $merger = new Merger(new TcpdiDriver());
+        $stickers = $this->orderService->getStickers($connection, $deliveryIds);
+        if (empty($stickers)) {
+            return null;
+        }
 
-        foreach ($deliveryIds as $deliveryId) {
-            $sticker = $this->servientregaService->getSticker($deliveryId, $billingCode);
+        foreach ($stickers as $sticker) {
             if (null !== $sticker) {
                 $merger->addRaw($sticker);
             }

@@ -28,6 +28,7 @@ class OrderRepository extends ServiceEntityRepository
         $this->createQueryBuilder('o')
             ->update()
             ->set('o.isClosed', ':closed')
+            ->set('o.sticker', ':sticker')
             ->where('o.connection = :connection')
             ->andWhere('o.trackNumber = :trackNumber')
             ->andWhere('o.orderId = :orderId')
@@ -35,7 +36,8 @@ class OrderRepository extends ServiceEntityRepository
                 new Parameter('connection', $connection),
                 new Parameter('trackNumber', $trackNumber),
                 new Parameter('orderId', $orderId),
-                new Parameter('closed', true, Types::BOOLEAN)
+                new Parameter('closed', true, Types::BOOLEAN),
+                new Parameter('sticker', null)
             ]))
             ->getQuery()
             ->execute();

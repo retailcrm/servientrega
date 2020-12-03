@@ -93,7 +93,7 @@ class ServientregaServiceTest extends WebTestCase
         $soapClient = $this->createMock(ServientregaClient::class);
         $soapClient->method('generarGuiaSticker')->willReturn(
             (new GenerarGuiaStickerResponse())->withGenerarGuiaStickerResult(true)
-            ->withBytesReport(base64_encode($output))
+            ->withBytesReport($output)
         );
 
         $soapFactory->method('factory')->willReturn($soapClient);
@@ -102,7 +102,7 @@ class ServientregaServiceTest extends WebTestCase
 
         $result = $service->getSticker('123', '123');
 
-        static::assertEquals($output, $result);
+        static::assertEquals(base64_encode($output), $result);
     }
 
     public function testGetStickerFail()

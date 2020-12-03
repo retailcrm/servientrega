@@ -266,7 +266,6 @@ class ServientregaService
     public function getSticker(string $number, string $billingCode): ?string
     {
         try {
-            // TODO проверить или уточнить параметры http://web.servientrega.com:8081/GeneracionGuias.asmx?op=GenerarGuiaSticker
             $params = new GenerarGuiaSticker($number, $number, $billingCode);
 
             $client = $this->soapClientFactory->factory();
@@ -285,6 +284,6 @@ class ServientregaService
             return null;
         }
 
-        return base64_decode($response->getBytesReport());
+        return base64_encode($response->getBytesReport());
     }
 }

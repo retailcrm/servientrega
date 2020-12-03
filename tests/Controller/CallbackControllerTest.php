@@ -8,16 +8,18 @@ use App\Dto\Retailcrm\Package;
 use App\Factory\ServientregaRestClientFactory;
 use App\Factory\ServientregaSoapClientFactory;
 use App\Repository\ConnectionRepository;
+use App\Services\OrderService;
 use App\Servientrega\RestType\CalculateResponse;
 use App\Servientrega\ServientregaClient;
 use App\Servientrega\ServientregaRestClient;
 use App\Servientrega\Type\GenerarGuiaStickerResponse;
 use App\Tests\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
+use TCPDI;
 
 class CallbackControllerTest extends WebTestCase
 {
-    public function testActivity()
+    public function testActivity(): void
     {
         $this->client->request(
             'POST',
@@ -41,7 +43,7 @@ class CallbackControllerTest extends WebTestCase
         static::assertEquals(false, $connection->isActive());
     }
 
-    public function testCalculate()
+    public function testCalculate(): void
     {
         $calculateResponse = new CalculateResponse();
         $calculateResponse->ValorTotal = 100;
@@ -95,37 +97,25 @@ class CallbackControllerTest extends WebTestCase
         return $calculateRequest;
     }
 
-    public function testPrintStickers()
+    public function testPrintStickers(): void
     {
-        $pdf = new \TCPDI();
+        $pdf = new TCPDI();
         $pdf->AddPage();
         $pdf->SetFont('symbol','B',16);
         $pdf->Cell(40,10,'Hello World!');
         $output = $pdf->Output('doc.pdf', 'S');
 
-        $client = $this->createMock(ServientregaClient::class);
-        $client->method('generarGuiaSticker')->willReturnOnConsecutiveCalls(
-            (new GenerarGuiaStickerResponse())->withGenerarGuiaStickerResult(true)
-                ->withBytesReport(
-                    base64_encode($output)
-                ),
-            (new GenerarGuiaStickerResponse())->withGenerarGuiaStickerResult(true)
-                ->withBytesReport(
-                    base64_encode($output)
-                )
-        );
-
-        $soapClientFactory = $this->createMock(ServientregaSoapClientFactory::class);
-        $soapClientFactory->method('factory')->willReturn($client);
-
-        $this->client->getContainer()->set(ServientregaSoapClientFactory::class, $soapClientFactory);
+        /** @var OrderService $orderService */
+        $orderService = static::$container->get(OrderService::class);
+        $orderService->createOrder($this->connection, 101, "101", base64_encode($output));
+        $orderService->createOrder($this->connection, 102, "102", base64_encode($output));
 
         $this->client->request(
             'POST',
             '/callback/print',
             [
                 'clientId' => $this->connection->getClientId(),
-                'print' => '{"entityType": "order", "type": "sticker", "deliveryIds": [["1", "2"]]}'
+                'print' => '{"entityType": "order", "type": "sticker", "deliveryIds": [["101", "102"]]}'
             ]
         );
 
@@ -134,33 +124,24 @@ class CallbackControllerTest extends WebTestCase
         static::assertEquals('application/pdf', $this->client->getResponse()->headers->all('Content-Type')[0]);
     }
 
-    public function testPrintSticker()
+    public function testPrintSticker(): void
     {
-        $pdf = new \TCPDI();
+        $pdf = new TCPDI();
         $pdf->AddPage();
         $pdf->SetFont('symbol','B',16);
         $pdf->Cell(40,10,'Hello World!');
         $output = $pdf->Output('doc.pdf', 'S');
 
-        $client = $this->createMock(ServientregaClient::class);
-        $client->method('generarGuiaSticker')->willReturnOnConsecutiveCalls(
-            (new GenerarGuiaStickerResponse())->withGenerarGuiaStickerResult(true)
-                ->withBytesReport(
-                    base64_encode($output)
-                )
-        );
-
-        $soapClientFactory = $this->createMock(ServientregaSoapClientFactory::class);
-        $soapClientFactory->method('factory')->willReturn($client);
-
-        $this->client->getContainer()->set(ServientregaSoapClientFactory::class, $soapClientFactory);
+        /** @var OrderService $orderService */
+        $orderService = static::$container->get(OrderService::class);
+        $orderService->createOrder($this->connection, 103, "103", base64_encode($output));
 
         $this->client->request(
             'POST',
             '/callback/print',
             [
                 'clientId' => $this->connection->getClientId(),
-                'print' => '{"entityType": "order", "type": "sticker", "deliveryIds": [["1"]]}'
+                'print' => '{"entityType": "order", "type": "sticker", "deliveryIds": [["103"]]}'
             ]
         );
 

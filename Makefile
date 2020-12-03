@@ -51,7 +51,7 @@ ci_tests:
 	docker-compose -f docker-compose.yml -f docker-compose.test.yml run --rm --no-deps app make fixtures
 	docker-compose -f docker-compose.yml -f docker-compose.test.yml run --rm --no-deps node /bin/sh -c 'make js_deps && yarn dev'
 	docker-compose -f docker-compose.yml -f docker-compose.test.yml run --rm --no-deps app make tests
-	#docker-compose -f docker-compose.yml -f docker-compose.test.yml down -v
+	docker-compose -f docker-compose.yml -f docker-compose.test.yml down -v
 
 release:
 	docker-compose -f docker-compose.yml build
