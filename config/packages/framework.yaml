@@ -18,4 +18,10 @@ framework:
 
     default_locale: 'es'
     translator:
-      fallbacks: ['en', 'ru']
+        fallbacks: ['en', 'ru']
+
+    assets:
+        packages:
+            cdn_package:
+                base_urls: [ '%cdn_assets_base_url%' ]
+                version: ~

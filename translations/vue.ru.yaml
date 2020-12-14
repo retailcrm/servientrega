@@ -1,7 +1,7 @@
 connection:
   title:
     name: Servientrega
-    crm: retailCRM
+    crm: RetailCRM
     integration: Интеграция
   form:
     crm_url: CRM URL

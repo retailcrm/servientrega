@@ -1,4 +1,5 @@
 parameters:
+  cdn_assets_base_url: //s3-o1.retailcrm.tech/eu-central-1/retailcrm-static
   configuration:
     name: Servientrega
     delivery_statuses:

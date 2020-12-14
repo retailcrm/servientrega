@@ -7,13 +7,17 @@
         doc-link="https://help.retailcrm.es"
     >
         <template #asideContent>
-            <Menu :current="'account'"></Menu>
+            <Menu :current="'account'" />
         </template>
         <template #mainContent>
-            <UiLoader v-if="loading"></UiLoader>
+            <UiLoader v-if="loading" />
             <form @submit.prevent="save">
                 <UiContentBox class="ui-connect-box ui-connect-box_min">
-                    <UiAlert v-if="error" :type="'error'" :title="error"></UiAlert>
+                    <UiAlert
+                        v-if="error"
+                        :type="'error'"
+                        :title="error"
+                    />
                     <div class="ui-connect-form ui-connect-form_full">
                         <div class="ui-connect-form__row ui-connect-form__row_start ui-connect-form__row_edit">
                             <UiText

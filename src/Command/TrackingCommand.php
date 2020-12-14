@@ -53,7 +53,7 @@ class TrackingCommand extends Command
     protected function configure()
     {
         $this
-            ->setDescription('Update statuses in retailCRM')
+            ->setDescription('Update statuses in RetailCRM')
             ->addOption(
                 'client',
                 'c',
