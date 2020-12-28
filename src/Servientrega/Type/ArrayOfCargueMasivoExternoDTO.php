@@ -4,7 +4,6 @@ namespace App\Servientrega\Type;
 
 class ArrayOfCargueMasivoExternoDTO
 {
-
     /**
      * @var \App\Servientrega\Type\CargueMasivoExternoDTO
      */
@@ -20,16 +19,14 @@ class ArrayOfCargueMasivoExternoDTO
 
     /**
      * @param \App\Servientrega\Type\CargueMasivoExternoDTO $CargueMasivoExternoDTO
+     *
      * @return ArrayOfCargueMasivoExternoDTO
      */
     public function withCargueMasivoExternoDTO($CargueMasivoExternoDTO)
     {
-        $new = clone $this;
+        $new                         = clone $this;
         $new->CargueMasivoExternoDTO = $CargueMasivoExternoDTO;
 
         return $new;
     }
-
-
 }
-

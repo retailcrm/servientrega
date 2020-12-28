@@ -6,7 +6,6 @@ use Phpro\SoapClient\Type\ResultInterface;
 
 class GenerarGuiaStickerTiendasVirtualesResponse implements ResultInterface
 {
-
     /**
      * @var bool
      */
@@ -27,11 +26,12 @@ class GenerarGuiaStickerTiendasVirtualesResponse implements ResultInterface
 
     /**
      * @param bool $GenerarGuiaStickerTiendasVirtualesResult
+     *
      * @return GenerarGuiaStickerTiendasVirtualesResponse
      */
     public function withGenerarGuiaStickerTiendasVirtualesResult($GenerarGuiaStickerTiendasVirtualesResult)
     {
-        $new = clone $this;
+        $new                                           = clone $this;
         $new->GenerarGuiaStickerTiendasVirtualesResult = $GenerarGuiaStickerTiendasVirtualesResult;
 
         return $new;
@@ -47,16 +47,14 @@ class GenerarGuiaStickerTiendasVirtualesResponse implements ResultInterface
 
     /**
      * @param string $bytesReport
+     *
      * @return GenerarGuiaStickerTiendasVirtualesResponse
      */
     public function withBytesReport($bytesReport)
     {
-        $new = clone $this;
+        $new              = clone $this;
         $new->bytesReport = $bytesReport;
 
         return $new;
     }
-
-
 }
-

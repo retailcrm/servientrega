@@ -8,12 +8,9 @@ use App\Entity\Order;
 use App\Factory\ServientregaTrackingClientFactory;
 use App\Utils\DataBuilders;
 use Psr\Log\LoggerInterface;
-use Throwable;
 
 /**
  * Class TrackingsService
- *
- * @package App\Services
  */
 class TrackingsService
 {
@@ -43,21 +40,16 @@ class TrackingsService
         RetailcrmService $retailcrmService,
         LoggerInterface $logger
     ) {
-        $this->orderService = $orderService;
+        $this->orderService          = $orderService;
         $this->trackingClientFactory = $trackingClientFactory;
-        $this->retailcrmService = $retailcrmService;
-        $this->logger = $logger;
+        $this->retailcrmService      = $retailcrmService;
+        $this->logger                = $logger;
     }
 
-    /**
-     * @param Connection $connection
-     *
-     * @return bool
-     */
     public function updateStatuses(Connection $connection): bool
     {
         $mapping = [];
-        $orders = $this->orderService->getActiveOrders($connection);
+        $orders  = $this->orderService->getActiveOrders($connection);
         foreach ($orders as $order) {
             $mapping[$order->getTrackNumber()] = $order->getOrderId();
         }
@@ -80,8 +72,8 @@ class TrackingsService
                         $status->history[0]->code
                     );
                 }
-            } catch (Throwable $exception) {
-                $this->logger->error(sprintf("Update statuses error: %s", $exception->getMessage()));
+            } catch (\Throwable $exception) {
+                $this->logger->error(sprintf('Update statuses error: %s', $exception->getMessage()));
 
                 continue;
             }

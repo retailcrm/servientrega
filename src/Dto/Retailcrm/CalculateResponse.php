@@ -4,7 +4,7 @@ namespace App\Dto\Retailcrm;
 
 class CalculateResponse
 {
-    const TARIFF_COURIER = 'courier';
+    const TARIFF_COURIER       = 'courier';
     const TARIFF_SELF_DELIVERY = 'selfDelivery';
 
     /**
@@ -38,12 +38,12 @@ class CalculateResponse
     public $cost;
 
     /**
-     * @var integer|null
+     * @var int|null
      */
     public $minTerm;
 
     /**
-     * @var integer|null
+     * @var int|null
      */
     public $maxTerm;
 

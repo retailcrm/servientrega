@@ -4,7 +4,6 @@ namespace App\Servientrega\Type;
 
 class ConsultarTipoGuiasXCodSer
 {
-
     /**
      * @var int
      */
@@ -40,11 +39,12 @@ class ConsultarTipoGuiasXCodSer
 
     /**
      * @param int $Ide_Producto
+     *
      * @return ConsultarTipoGuiasXCodSer
      */
     public function withIde_Producto($Ide_Producto)
     {
-        $new = clone $this;
+        $new               = clone $this;
         $new->Ide_Producto = $Ide_Producto;
 
         return $new;
@@ -60,11 +60,12 @@ class ConsultarTipoGuiasXCodSer
 
     /**
      * @param string $Nom_Producto
+     *
      * @return ConsultarTipoGuiasXCodSer
      */
     public function withNom_Producto($Nom_Producto)
     {
-        $new = clone $this;
+        $new               = clone $this;
         $new->Nom_Producto = $Nom_Producto;
 
         return $new;
@@ -80,11 +81,12 @@ class ConsultarTipoGuiasXCodSer
 
     /**
      * @param int $Ide_Forma_Pago
+     *
      * @return ConsultarTipoGuiasXCodSer
      */
     public function withIde_Forma_Pago($Ide_Forma_Pago)
     {
-        $new = clone $this;
+        $new                 = clone $this;
         $new->Ide_Forma_Pago = $Ide_Forma_Pago;
 
         return $new;
@@ -100,11 +102,12 @@ class ConsultarTipoGuiasXCodSer
 
     /**
      * @param string $Nom_forma_pago
+     *
      * @return ConsultarTipoGuiasXCodSer
      */
     public function withNom_forma_pago($Nom_forma_pago)
     {
-        $new = clone $this;
+        $new                 = clone $this;
         $new->Nom_forma_pago = $Nom_forma_pago;
 
         return $new;
@@ -120,16 +123,14 @@ class ConsultarTipoGuiasXCodSer
 
     /**
      * @param int $Ide_Tipo_Guia
+     *
      * @return ConsultarTipoGuiasXCodSer
      */
     public function withIde_Tipo_Guia($Ide_Tipo_Guia)
     {
-        $new = clone $this;
+        $new                = clone $this;
         $new->Ide_Tipo_Guia = $Ide_Tipo_Guia;
 
         return $new;
     }
-
-
 }
-

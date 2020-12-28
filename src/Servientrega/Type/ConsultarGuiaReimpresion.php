@@ -6,7 +6,6 @@ use Phpro\SoapClient\Type\RequestInterface;
 
 class ConsultarGuiaReimpresion implements RequestInterface
 {
-
     /**
      * @var float
      */
@@ -15,7 +14,7 @@ class ConsultarGuiaReimpresion implements RequestInterface
     /**
      * Constructor
      *
-     * @var float $numeroGuia
+     * @var float
      */
     public function __construct($numeroGuia)
     {
@@ -32,16 +31,14 @@ class ConsultarGuiaReimpresion implements RequestInterface
 
     /**
      * @param float $numeroGuia
+     *
      * @return ConsultarGuiaReimpresion
      */
     public function withNumeroGuia($numeroGuia)
     {
-        $new = clone $this;
+        $new             = clone $this;
         $new->numeroGuia = $numeroGuia;
 
         return $new;
     }
-
-
 }
-

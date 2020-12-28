@@ -22,10 +22,10 @@ class RequestDtoResolver extends AbstractResolver implements ArgumentValueResolv
         ValidatorInterface $validator,
         ParameterBagInterface $params
     ) {
-        $this->serializer = $serializer;
+        $this->serializer   = $serializer;
         $this->denormalizer = $denormalizer;
-        $this->validator = $validator;
-        $this->params = $params;
+        $this->validator    = $validator;
+        $this->params       = $params;
     }
 
     public function supports(Request $request, ArgumentMetadata $argument): bool

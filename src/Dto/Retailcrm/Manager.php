@@ -5,7 +5,7 @@ namespace App\Dto\Retailcrm;
 class Manager
 {
     /**
-     * @var integer|null
+     * @var int|null
      */
     public $id;
 

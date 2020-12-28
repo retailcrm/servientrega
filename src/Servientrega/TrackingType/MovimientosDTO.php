@@ -2,8 +2,6 @@
 
 namespace App\Servientrega\TrackingType;
 
-use DateTimeImmutable;
-
 class MovimientosDTO
 {
     public $IdProc;
@@ -14,7 +12,7 @@ class MovimientosDTO
     public $DesMov;
 
     /**
-     * @var DateTimeImmutable
+     * @var \DateTimeImmutable
      */
     public $FecMov;
     public $IdViewCliente;

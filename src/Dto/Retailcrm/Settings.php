@@ -15,12 +15,12 @@ class Settings
     public $costCalculateBy;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $nullDeclaredValue;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $lockedByDefault;
 

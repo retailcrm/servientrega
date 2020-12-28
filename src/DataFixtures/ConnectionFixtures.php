@@ -6,7 +6,6 @@ use App\Entity\Connection;
 use App\Entity\Token;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use DateTimeImmutable;
 
 class ConnectionFixtures extends Fixture
 {
@@ -24,7 +23,7 @@ class ConnectionFixtures extends Fixture
 
         $token = new Token();
         $token->setToken('123');
-        $token->setExpiration((new DateTimeImmutable())->modify("+1 hour"));
+        $token->setExpiration((new \DateTimeImmutable())->modify('+1 hour'));
         $token->setLogin('test');
         $token->setState(false);
         $token->setIdClient('test');

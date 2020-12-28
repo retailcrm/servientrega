@@ -6,7 +6,6 @@ use Phpro\SoapClient\Type\ResultInterface;
 
 class ConsultarGuiaReimpresionResponse implements ResultInterface
 {
-
     /**
      * @var bool
      */
@@ -22,16 +21,14 @@ class ConsultarGuiaReimpresionResponse implements ResultInterface
 
     /**
      * @param bool $ConsultarGuiaReimpresionResult
+     *
      * @return ConsultarGuiaReimpresionResponse
      */
     public function withConsultarGuiaReimpresionResult($ConsultarGuiaReimpresionResult)
     {
-        $new = clone $this;
+        $new                                 = clone $this;
         $new->ConsultarGuiaReimpresionResult = $ConsultarGuiaReimpresionResult;
 
         return $new;
     }
-
-
 }
-

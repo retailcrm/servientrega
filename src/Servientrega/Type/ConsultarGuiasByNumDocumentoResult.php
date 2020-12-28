@@ -4,7 +4,6 @@ namespace App\Servientrega\Type;
 
 class ConsultarGuiasByNumDocumentoResult
 {
-
     /**
      * @var \App\Servientrega\Type\AnyXML
      */
@@ -20,16 +19,14 @@ class ConsultarGuiasByNumDocumentoResult
 
     /**
      * @param \App\Servientrega\Type\AnyXML $any
+     *
      * @return ConsultarGuiasByNumDocumentoResult
      */
     public function withAny($any)
     {
-        $new = clone $this;
+        $new      = clone $this;
         $new->any = $any;
 
         return $new;
     }
-
-
 }
-

@@ -4,7 +4,6 @@ namespace App\Servientrega\Type;
 
 class GenerarGuiaStikerDataReimpresionResult
 {
-
     /**
      * @var \App\Servientrega\Type\AnyXML
      */
@@ -20,16 +19,14 @@ class GenerarGuiaStikerDataReimpresionResult
 
     /**
      * @param \App\Servientrega\Type\AnyXML $any
+     *
      * @return GenerarGuiaStikerDataReimpresionResult
      */
     public function withAny($any)
     {
-        $new = clone $this;
+        $new      = clone $this;
         $new->any = $any;
 
         return $new;
     }
-
-
 }
-

@@ -6,7 +6,6 @@ use Phpro\SoapClient\Type\ResultInterface;
 
 class CargueMasivoExternoResponse implements ResultInterface
 {
-
     /**
      * @var bool
      */
@@ -32,11 +31,12 @@ class CargueMasivoExternoResponse implements ResultInterface
 
     /**
      * @param bool $CargueMasivoExternoResult
+     *
      * @return CargueMasivoExternoResponse
      */
     public function withCargueMasivoExternoResult($CargueMasivoExternoResult)
     {
-        $new = clone $this;
+        $new                            = clone $this;
         $new->CargueMasivoExternoResult = $CargueMasivoExternoResult;
 
         return $new;
@@ -52,11 +52,12 @@ class CargueMasivoExternoResponse implements ResultInterface
 
     /**
      * @param \App\Servientrega\Type\ArrayOfCargueMasivoExternoDTO $envios
+     *
      * @return CargueMasivoExternoResponse
      */
     public function withEnvios($envios)
     {
-        $new = clone $this;
+        $new         = clone $this;
         $new->envios = $envios;
 
         return $new;
@@ -72,16 +73,14 @@ class CargueMasivoExternoResponse implements ResultInterface
 
     /**
      * @param \App\Servientrega\Type\ArrayOfString $arrayGuias
+     *
      * @return CargueMasivoExternoResponse
      */
     public function withArrayGuias($arrayGuias)
     {
-        $new = clone $this;
+        $new             = clone $this;
         $new->arrayGuias = $arrayGuias;
 
         return $new;
     }
-
-
 }
-

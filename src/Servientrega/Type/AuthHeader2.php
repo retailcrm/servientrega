@@ -4,7 +4,6 @@ namespace App\Servientrega\Type;
 
 class AuthHeader2
 {
-
     /**
      * @var string
      */
@@ -30,11 +29,12 @@ class AuthHeader2
 
     /**
      * @param string $login
+     *
      * @return AuthHeader2
      */
     public function withLogin($login)
     {
-        $new = clone $this;
+        $new        = clone $this;
         $new->login = $login;
 
         return $new;
@@ -50,11 +50,12 @@ class AuthHeader2
 
     /**
      * @param string $pwd
+     *
      * @return AuthHeader2
      */
     public function withPwd($pwd)
     {
-        $new = clone $this;
+        $new      = clone $this;
         $new->pwd = $pwd;
 
         return $new;
@@ -70,16 +71,14 @@ class AuthHeader2
 
     /**
      * @param string $Id_CodFacturacion
+     *
      * @return AuthHeader2
      */
     public function withId_CodFacturacion($Id_CodFacturacion)
     {
-        $new = clone $this;
+        $new                    = clone $this;
         $new->Id_CodFacturacion = $Id_CodFacturacion;
 
         return $new;
     }
-
-
 }
-

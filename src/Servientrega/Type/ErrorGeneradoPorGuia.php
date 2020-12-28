@@ -4,7 +4,6 @@ namespace App\Servientrega\Type;
 
 class ErrorGeneradoPorGuia
 {
-
     /**
      * @var string
      */
@@ -25,11 +24,12 @@ class ErrorGeneradoPorGuia
 
     /**
      * @param string $NumGuia
+     *
      * @return ErrorGeneradoPorGuia
      */
     public function withNumGuia($NumGuia)
     {
-        $new = clone $this;
+        $new          = clone $this;
         $new->NumGuia = $NumGuia;
 
         return $new;
@@ -45,16 +45,14 @@ class ErrorGeneradoPorGuia
 
     /**
      * @param string $DesError
+     *
      * @return ErrorGeneradoPorGuia
      */
     public function withDesError($DesError)
     {
-        $new = clone $this;
+        $new           = clone $this;
         $new->DesError = $DesError;
 
         return $new;
     }
-
-
 }
-

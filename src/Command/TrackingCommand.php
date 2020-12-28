@@ -13,8 +13,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Class TrackingCommand
- *
- * @package App\Command
  */
 class TrackingCommand extends Command
 {
@@ -45,9 +43,9 @@ class TrackingCommand extends Command
     ) {
         parent::__construct($name);
 
-        $this->trackingService = $trackingService;
+        $this->trackingService   = $trackingService;
         $this->connectionService = $connectionService;
-        $this->logger = $logger;
+        $this->logger            = $logger;
     }
 
     protected function configure()
@@ -68,10 +66,10 @@ class TrackingCommand extends Command
             : null;
 
         $clientLock = $clientId ?? 0;
-        $lockName = "{$this->getName()}_client={$clientLock}.lock";
+        $lockName   = "{$this->getName()}_client={$clientLock}.lock";
 
         if (!$this->lock($lockName)) {
-            $this->logger->info(sprintf("Command %s already running.", $lockName));
+            $this->logger->info(sprintf('Command %s already running.', $lockName));
 
             return 0;
         }
@@ -79,7 +77,7 @@ class TrackingCommand extends Command
         if (null !== $clientId) {
             $connection = $this->connectionService->getConnection($clientId);
             if (null === $connection) {
-                $this->logger->warning(sprintf("Client with id %d not found", $clientId));
+                $this->logger->warning(sprintf('Client with id %d not found', $clientId));
 
                 return 1;
             }
@@ -95,7 +93,7 @@ class TrackingCommand extends Command
             }
         }
 
-        $this->logger->debug("Statuses updated successfully");
+        $this->logger->debug('Statuses updated successfully');
 
         return 0;
     }

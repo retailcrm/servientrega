@@ -15,7 +15,7 @@ class Status
     public $name;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $isEditable = false;
 }

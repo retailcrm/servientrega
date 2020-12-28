@@ -6,7 +6,6 @@ use Phpro\SoapClient\Type\ResultInterface;
 
 class GuiasPendientesXManifestarResponse implements ResultInterface
 {
-
     /**
      * @var \App\Servientrega\Type\ArrayOfConsultaGuiasXManifestar
      */
@@ -27,11 +26,12 @@ class GuiasPendientesXManifestarResponse implements ResultInterface
 
     /**
      * @param \App\Servientrega\Type\ArrayOfConsultaGuiasXManifestar $GuiasPendientesXManifestarResult
+     *
      * @return GuiasPendientesXManifestarResponse
      */
     public function withGuiasPendientesXManifestarResult($GuiasPendientesXManifestarResult)
     {
-        $new = clone $this;
+        $new                                   = clone $this;
         $new->GuiasPendientesXManifestarResult = $GuiasPendientesXManifestarResult;
 
         return $new;
@@ -47,16 +47,14 @@ class GuiasPendientesXManifestarResponse implements ResultInterface
 
     /**
      * @param string $mensaje
+     *
      * @return GuiasPendientesXManifestarResponse
      */
     public function withMensaje($mensaje)
     {
-        $new = clone $this;
+        $new          = clone $this;
         $new->mensaje = $mensaje;
 
         return $new;
     }
-
-
 }
-

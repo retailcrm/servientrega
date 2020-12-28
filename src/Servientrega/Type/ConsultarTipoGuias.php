@@ -6,7 +6,6 @@ use Phpro\SoapClient\Type\RequestInterface;
 
 class ConsultarTipoGuias implements RequestInterface
 {
-
     /**
      * @var string
      */
@@ -15,7 +14,7 @@ class ConsultarTipoGuias implements RequestInterface
     /**
      * Constructor
      *
-     * @var string $Mensaje
+     * @var string
      */
     public function __construct($Mensaje)
     {
@@ -32,16 +31,14 @@ class ConsultarTipoGuias implements RequestInterface
 
     /**
      * @param string $Mensaje
+     *
      * @return ConsultarTipoGuias
      */
     public function withMensaje($Mensaje)
     {
-        $new = clone $this;
+        $new          = clone $this;
         $new->Mensaje = $Mensaje;
 
         return $new;
     }
-
-
 }
-

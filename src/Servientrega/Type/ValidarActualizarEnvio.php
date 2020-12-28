@@ -6,7 +6,6 @@ use Phpro\SoapClient\Type\RequestInterface;
 
 class ValidarActualizarEnvio implements RequestInterface
 {
-
     /**
      * @var \App\Servientrega\Type\Documento
      */
@@ -15,7 +14,7 @@ class ValidarActualizarEnvio implements RequestInterface
     /**
      * Constructor
      *
-     * @var \App\Servientrega\Type\Documento $documento
+     * @var \App\Servientrega\Type\Documento
      */
     public function __construct($documento)
     {
@@ -32,16 +31,14 @@ class ValidarActualizarEnvio implements RequestInterface
 
     /**
      * @param \App\Servientrega\Type\Documento $documento
+     *
      * @return ValidarActualizarEnvio
      */
     public function withDocumento($documento)
     {
-        $new = clone $this;
+        $new            = clone $this;
         $new->documento = $documento;
 
         return $new;
     }
-
-
 }
-

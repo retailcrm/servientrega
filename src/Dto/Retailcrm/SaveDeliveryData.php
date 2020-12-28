@@ -15,7 +15,7 @@ class SaveDeliveryData
     public $deliveryAddress;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $withCod;
 

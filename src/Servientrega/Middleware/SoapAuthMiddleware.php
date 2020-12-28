@@ -9,8 +9,6 @@ use Psr\Http\Message\RequestInterface;
 
 /**
  * Class SoapAuthMiddleware
- *
- * @package App\Servientrega\Middleware
  */
 class SoapAuthMiddleware extends Middleware
 {
@@ -21,10 +19,10 @@ class SoapAuthMiddleware extends Middleware
 
     public function __construct(string $login, string $password, string $billingCode, string $namePack)
     {
-        $this->login = $login;
-        $this->password = $password;
+        $this->login       = $login;
+        $this->password    = $password;
         $this->billingCode = $billingCode;
-        $this->namePack = $namePack;
+        $this->namePack    = $namePack;
     }
 
     public function getName(): string
@@ -35,23 +33,19 @@ class SoapAuthMiddleware extends Middleware
     /**
      * Добавляет авторизационные данные в запрос
      * https://github.com/phpro/soap-client/blob/master/docs/middlewares.md#creating-your-own-middleware
-     *
-     * @param callable $next
-     * @param RequestInterface $request
-     * @return Promise
      */
     public function beforeRequest(callable $next, RequestInterface $request): Promise
     {
         $xml = SoapXml::fromStream($request->getBody());
 
         /** @var \DOMElement $newHeader */
-        $newHeader = $xml->createSoapHeader();
+        $newHeader  = $xml->createSoapHeader();
         $authHeader = $xml->getXmlDocument()->createElement('AuthHeader');
-        $authHeader->setAttribute('xmlns', "http://tempuri.org/");
-        $login = $xml->getXmlDocument()->createElement('login', $this->login);
-        $password = $xml->getXmlDocument()->createElement('pwd', $this->password);
+        $authHeader->setAttribute('xmlns', 'http://tempuri.org/');
+        $login       = $xml->getXmlDocument()->createElement('login', $this->login);
+        $password    = $xml->getXmlDocument()->createElement('pwd', $this->password);
         $billingCode = $xml->getXmlDocument()->createElement('Id_CodFacturacion', $this->billingCode);
-        $namePack = $xml->getXmlDocument()->createElement('Nombre_Cargue', $this->namePack);
+        $namePack    = $xml->getXmlDocument()->createElement('Nombre_Cargue', $this->namePack);
 
         $authHeader->appendChild($login);
         $authHeader->appendChild($password);

@@ -8,19 +8,18 @@ use App\Services\ServientregaService;
 use App\Servientrega\RestType\LoginResponse;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use DateTimeImmutable;
 
 class ConnectionServiceTest extends \App\Tests\WebTestCase
 {
     public function testCreateConnection()
     {
-        $dtoConnection = new Connection();
-        $dtoConnection->crmUrl = 'https://test2.retailcrm.es';
-        $dtoConnection->apiKey = 'test_api_key';
-        $dtoConnection->servientregaLogin = '';
-        $dtoConnection->servientregaPassword = '';
+        $dtoConnection                          = new Connection();
+        $dtoConnection->crmUrl                  = 'https://test2.retailcrm.es';
+        $dtoConnection->apiKey                  = 'test_api_key';
+        $dtoConnection->servientregaLogin       = '';
+        $dtoConnection->servientregaPassword    = '';
         $dtoConnection->servientregaBillingCode = '';
-        $dtoConnection->servientregaNamePack = '';
+        $dtoConnection->servientregaNamePack    = '';
 
         /** @var \App\Entity\Connection $connection */
         $connection = static::$container->get(ConnectionService::class)->createConnection($dtoConnection);
@@ -33,7 +32,7 @@ class ConnectionServiceTest extends \App\Tests\WebTestCase
 
     public function testSaveConnection()
     {
-        $dtoConnection = new Connection();
+        $dtoConnection         = new Connection();
         $dtoConnection->crmUrl = 'https://test2.retailcrm.es';
         $dtoConnection->apiKey = 'test_api_key';
 
@@ -47,12 +46,12 @@ class ConnectionServiceTest extends \App\Tests\WebTestCase
 
     public function testAddAccountData()
     {
-        $dtoConnection = new Connection();
-        $dtoConnection->servientregaLogin = 'test';
-        $dtoConnection->servientregaPassword = 'test';
+        $dtoConnection                          = new Connection();
+        $dtoConnection->servientregaLogin       = 'test';
+        $dtoConnection->servientregaPassword    = 'test';
         $dtoConnection->servientregaBillingCode = 'test';
-        $dtoConnection->servientregaNamePack = 'test';
-        $dtoConnection->idDaneOriginCity = 'test';
+        $dtoConnection->servientregaNamePack    = 'test';
+        $dtoConnection->idDaneOriginCity        = 'test';
 
         $connection = new \App\Entity\Connection();
 
@@ -64,18 +63,18 @@ class ConnectionServiceTest extends \App\Tests\WebTestCase
 
     public function testCreateToken()
     {
-        $em = $this->createMock(EntityManagerInterface::class);
-        $session = $this->createMock(SessionInterface::class);
+        $em           = $this->createMock(EntityManagerInterface::class);
+        $session      = $this->createMock(SessionInterface::class);
         $servientrega = $this->createMock(ServientregaService::class);
 
-        $loginResponse = new LoginResponse();
-        $loginResponse->login = 'test';
-        $loginResponse->nombre = 'test';
-        $loginResponse->idCliente = 'test';
-        $loginResponse->estado = false;
-        $loginResponse->token = 'test';
+        $loginResponse                 = new LoginResponse();
+        $loginResponse->login          = 'test';
+        $loginResponse->nombre         = 'test';
+        $loginResponse->idCliente      = 'test';
+        $loginResponse->estado         = false;
+        $loginResponse->token          = 'test';
         $loginResponse->codFacturacion = 'test';
-        $loginResponse->expiration = new DateTimeImmutable();
+        $loginResponse->expiration     = new \DateTimeImmutable();
 
         $servientrega->method('getToken')->willReturnOnConsecutiveCalls($loginResponse, null);
 
@@ -84,7 +83,7 @@ class ConnectionServiceTest extends \App\Tests\WebTestCase
             ->setServientregaBillingCode('test');
 
         $service = new ConnectionService($em, $session, $servientrega);
-        $token = $service->createToken($connection);
+        $token   = $service->createToken($connection);
 
         static::assertNotEmpty($token);
         static::assertEquals($loginResponse->expiration, $token->getExpiration());

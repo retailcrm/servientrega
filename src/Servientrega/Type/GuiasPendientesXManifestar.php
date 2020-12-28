@@ -6,7 +6,6 @@ use Phpro\SoapClient\Type\RequestInterface;
 
 class GuiasPendientesXManifestar implements RequestInterface
 {
-
     /**
      * @var string
      */
@@ -40,21 +39,21 @@ class GuiasPendientesXManifestar implements RequestInterface
     /**
      * Constructor
      *
-     * @var string $FechaInicial
-     * @var string $FechaFinal
-     * @var string $mensaje
-     * @var string $idTrazaAuditoria
-     * @var string $usuarioTrazaAuditoria
-     * @var string $urlTrazaAuditoria
+     * @var string
+     * @var string
+     * @var string
+     * @var string
+     * @var string
+     * @var string
      */
     public function __construct($FechaInicial, $FechaFinal, $mensaje, $idTrazaAuditoria, $usuarioTrazaAuditoria, $urlTrazaAuditoria)
     {
-        $this->FechaInicial = $FechaInicial;
-        $this->FechaFinal = $FechaFinal;
-        $this->mensaje = $mensaje;
-        $this->idTrazaAuditoria = $idTrazaAuditoria;
+        $this->FechaInicial          = $FechaInicial;
+        $this->FechaFinal            = $FechaFinal;
+        $this->mensaje               = $mensaje;
+        $this->idTrazaAuditoria      = $idTrazaAuditoria;
         $this->usuarioTrazaAuditoria = $usuarioTrazaAuditoria;
-        $this->urlTrazaAuditoria = $urlTrazaAuditoria;
+        $this->urlTrazaAuditoria     = $urlTrazaAuditoria;
     }
 
     /**
@@ -67,11 +66,12 @@ class GuiasPendientesXManifestar implements RequestInterface
 
     /**
      * @param string $FechaInicial
+     *
      * @return GuiasPendientesXManifestar
      */
     public function withFechaInicial($FechaInicial)
     {
-        $new = clone $this;
+        $new               = clone $this;
         $new->FechaInicial = $FechaInicial;
 
         return $new;
@@ -87,11 +87,12 @@ class GuiasPendientesXManifestar implements RequestInterface
 
     /**
      * @param string $FechaFinal
+     *
      * @return GuiasPendientesXManifestar
      */
     public function withFechaFinal($FechaFinal)
     {
-        $new = clone $this;
+        $new             = clone $this;
         $new->FechaFinal = $FechaFinal;
 
         return $new;
@@ -107,11 +108,12 @@ class GuiasPendientesXManifestar implements RequestInterface
 
     /**
      * @param string $mensaje
+     *
      * @return GuiasPendientesXManifestar
      */
     public function withMensaje($mensaje)
     {
-        $new = clone $this;
+        $new          = clone $this;
         $new->mensaje = $mensaje;
 
         return $new;
@@ -127,11 +129,12 @@ class GuiasPendientesXManifestar implements RequestInterface
 
     /**
      * @param string $idTrazaAuditoria
+     *
      * @return GuiasPendientesXManifestar
      */
     public function withIdTrazaAuditoria($idTrazaAuditoria)
     {
-        $new = clone $this;
+        $new                   = clone $this;
         $new->idTrazaAuditoria = $idTrazaAuditoria;
 
         return $new;
@@ -147,11 +150,12 @@ class GuiasPendientesXManifestar implements RequestInterface
 
     /**
      * @param string $usuarioTrazaAuditoria
+     *
      * @return GuiasPendientesXManifestar
      */
     public function withUsuarioTrazaAuditoria($usuarioTrazaAuditoria)
     {
-        $new = clone $this;
+        $new                        = clone $this;
         $new->usuarioTrazaAuditoria = $usuarioTrazaAuditoria;
 
         return $new;
@@ -167,16 +171,14 @@ class GuiasPendientesXManifestar implements RequestInterface
 
     /**
      * @param string $urlTrazaAuditoria
+     *
      * @return GuiasPendientesXManifestar
      */
     public function withUrlTrazaAuditoria($urlTrazaAuditoria)
     {
-        $new = clone $this;
+        $new                    = clone $this;
         $new->urlTrazaAuditoria = $urlTrazaAuditoria;
 
         return $new;
     }
-
-
 }
-

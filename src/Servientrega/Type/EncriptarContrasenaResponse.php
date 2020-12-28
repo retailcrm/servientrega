@@ -6,7 +6,6 @@ use Phpro\SoapClient\Type\ResultInterface;
 
 class EncriptarContrasenaResponse implements ResultInterface
 {
-
     /**
      * @var string
      */
@@ -22,16 +21,14 @@ class EncriptarContrasenaResponse implements ResultInterface
 
     /**
      * @param string $EncriptarContrasenaResult
+     *
      * @return EncriptarContrasenaResponse
      */
     public function withEncriptarContrasenaResult($EncriptarContrasenaResult)
     {
-        $new = clone $this;
+        $new                            = clone $this;
         $new->EncriptarContrasenaResult = $EncriptarContrasenaResult;
 
         return $new;
     }
-
-
 }
-

@@ -7,8 +7,6 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * Class ServientregaTrackingClientFactory
- *
- * @package App\Factory
  */
 class ServientregaTrackingClientFactory
 {
@@ -19,9 +17,6 @@ class ServientregaTrackingClientFactory
         $this->serializer = $serializer;
     }
 
-    /**
-     * @return ServientregaTrackingClient
-     */
     public function factory(): ServientregaTrackingClient
     {
         return new ServientregaTrackingClient($this->serializer);

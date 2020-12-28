@@ -11,7 +11,6 @@ use Psr\Log\LoggerInterface;
 use RetailCrm\Response\ApiResponse;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\SerializerInterface;
-use Exception;
 
 class RetailcrmService
 {
@@ -32,10 +31,6 @@ class RetailcrmService
 
     /**
      * RetailcrmService constructor.
-     *
-     * @param RetailcrmClientFactory $retailcrmClientFactory
-     * @param SerializerInterface $serializer
-     * @param LoggerInterface $logger
      */
     public function __construct(
         RetailcrmClientFactory $retailcrmClientFactory,
@@ -43,15 +38,12 @@ class RetailcrmService
         LoggerInterface $logger
     ) {
         $this->retailcrmClientFactory = $retailcrmClientFactory;
-        $this->serializer = $serializer;
-        $this->logger = $logger;
+        $this->serializer             = $serializer;
+        $this->logger                 = $logger;
     }
 
     /**
-     * @param Connection $connection
-     * @param IntegrationModule $configuration
-     *
-     * @throws Exception|\Symfony\Component\Serializer\Exception\ExceptionInterface
+     * @throws \Exception|\Symfony\Component\Serializer\Exception\ExceptionInterface
      */
     public function integrationModule(Connection $connection, IntegrationModule $configuration): void
     {
@@ -65,15 +57,14 @@ class RetailcrmService
     }
 
     /**
-     * @param Connection $connection
      * @param TrackingStatusUpdate[] $statusUpdate
      *
-     * @throws Exception|\Symfony\Component\Serializer\Exception\ExceptionInterface
+     * @throws \Exception|\Symfony\Component\Serializer\Exception\ExceptionInterface
      */
     public function deliveryTracking(Connection $connection, array $statusUpdate): void
     {
         if (empty($statusUpdate)) {
-            $this->logger->info(sprintf("Statuses of client %s is empty", $connection->getCrmUrl()));
+            $this->logger->info(sprintf('Statuses of client %s is empty', $connection->getCrmUrl()));
 
             return;
         }
@@ -91,18 +82,16 @@ class RetailcrmService
     }
 
     /**
-     * @param ApiResponse $response
-     *
-     * @throws Exception
+     * @throws \Exception
      */
     private function handleError(ApiResponse $response): void
     {
         $errors = $response->offsetExists('errors') ? $response->getErrors() : [];
         $this->logger->error(
-            sprintf("RetailCRM API error: %s", $response->getErrorMsg()),
+            sprintf('RetailCRM API error: %s', $response->getErrorMsg()),
             $errors
         );
 
-        throw new Exception();
+        throw new \Exception();
     }
 }

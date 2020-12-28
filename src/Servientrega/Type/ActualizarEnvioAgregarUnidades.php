@@ -14,7 +14,7 @@ class ActualizarEnvioAgregarUnidades implements RequestInterface
     /**
      * Constructor
      *
-     * @var \App\Servientrega\Type\Documento $documento
+     * @var \App\Servientrega\Type\Documento
      */
     public function __construct($documento)
     {
@@ -31,14 +31,14 @@ class ActualizarEnvioAgregarUnidades implements RequestInterface
 
     /**
      * @param \App\Servientrega\Type\Documento $documento
+     *
      * @return ActualizarEnvioAgregarUnidades
      */
     public function withDocumento($documento)
     {
-        $new = clone $this;
+        $new            = clone $this;
         $new->documento = $documento;
 
         return $new;
     }
 }
-

@@ -15,11 +15,11 @@ class ConfigurationBuilderTest extends WebTestCase
     public function testBuild()
     {
         $urlHelper = static::$container->get(UrlHelper::class);
-        $params = static::$container->get(ParameterBagInterface::class);
-        $trans = static::$container->get(TranslatorInterface::class);
+        $params    = static::$container->get(ParameterBagInterface::class);
+        $trans     = static::$container->get(TranslatorInterface::class);
 
         $service = new ConfigurationBuilder($urlHelper, $params, $trans);
-        $result = $service->build(
+        $result  = $service->build(
             (new Connection())->setClientId('client_id')
         );
 
@@ -35,6 +35,6 @@ class ConfigurationBuilderTest extends WebTestCase
 
         $result = ConfigurationBuilder::generateModuleCode($connection);
 
-        static::assertEquals(sprintf("%s-%d", ConfigurationBuilder::INTEGRATION_CODE, 10), $result);
+        static::assertEquals(sprintf('%s-%d', ConfigurationBuilder::INTEGRATION_CODE, 10), $result);
     }
 }

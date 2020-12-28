@@ -6,7 +6,6 @@ use Phpro\SoapClient\Type\ResultInterface;
 
 class ActualizarSertEnvioResponse implements ResultInterface
 {
-
     /**
      * @var bool
      */
@@ -22,16 +21,14 @@ class ActualizarSertEnvioResponse implements ResultInterface
 
     /**
      * @param bool $ActualizarSertEnvioResult
+     *
      * @return ActualizarSertEnvioResponse
      */
     public function withActualizarSertEnvioResult($ActualizarSertEnvioResult)
     {
-        $new = clone $this;
+        $new                            = clone $this;
         $new->ActualizarSertEnvioResult = $ActualizarSertEnvioResult;
 
         return $new;
     }
-
-
 }
-

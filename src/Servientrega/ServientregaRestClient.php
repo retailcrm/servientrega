@@ -8,23 +8,20 @@ use App\Servientrega\RestType\ClientErrorResponse;
 use App\Servientrega\RestType\LoginRequest;
 use App\Servientrega\RestType\LoginResponse;
 use Doctrine\Common\Annotations\AnnotationReader;
-use GuzzleHttp\Exception\ClientException;
-use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
+use Symfony\Component\Serializer\Mapping\Loader\AnnotationLoader;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
-use Symfony\Component\Serializer\Mapping\Loader\AnnotationLoader;
-use Throwable;
 
 /**
  * Class ServientregaRestClient
  *
- * @package App\Servientrega
- *
- * @link http://web.servientrega.com:8058/cotizadorcorporativo/doc
+ * @see http://web.servientrega.com:8058/cotizadorcorporativo/doc
  */
 class ServientregaRestClient
 {
@@ -50,18 +47,18 @@ class ServientregaRestClient
         $this->client = new Client(
             [
                 'base_uri' => static::API_URL,
-                'headers' => ['Content-Type' => 'application/json']
+                'headers'  => ['Content-Type' => 'application/json'],
             ]
         );
 
         $classMetadataFactory = new ClassMetadataFactory(new AnnotationLoader(new AnnotationReader()));
 
-        $encoders = [new JsonEncoder()];
+        $encoders    = [new JsonEncoder()];
         $normalizers = [
             new ObjectNormalizer(
                 $classMetadataFactory, null, null, new PhpDocExtractor()
             ),
-            new DateTimeNormalizer()
+            new DateTimeNormalizer(),
         ];
 
         $this->serializer = new Serializer($normalizers, $encoders);
@@ -72,8 +69,6 @@ class ServientregaRestClient
     /**
      * Получение токена для запросов к API
      *
-     * @param LoginRequest $login
-     * @return LoginResponse
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function authenticationLogin(LoginRequest $login): LoginResponse
@@ -93,9 +88,7 @@ class ServientregaRestClient
     /**
      * Производит расчет стоимости доставки
      *
-     * @param CalculateRequest $calculate
-     * @return CalculateResponse
-     * @throws Throwable
+     * @throws \Throwable
      */
     public function calculate(CalculateRequest $calculate): CalculateResponse
     {
@@ -110,13 +103,13 @@ class ServientregaRestClient
                 'POST',
                 '/cotizadorcorporativo/api/cotizacion/cotizar',
                 [
-                    'body' => $data,
+                    'body'    => $data,
                     'headers' => [
-                        'Authorization' => sprintf("Bearer %s", $this->token)
-                    ]
+                        'Authorization' => sprintf('Bearer %s', $this->token),
+                    ],
                 ]
             );
-        } catch (Throwable | ClientException $exception) {
+        } catch (\Throwable | ClientException $exception) {
             if ($exception instanceof ClientException) {
                 throw new \App\Servientrega\Exceptions\ClientException($this->serializer->deserialize(
                     $exception->getResponse()->getBody()->getContents(), ClientErrorResponse::class, 'json'

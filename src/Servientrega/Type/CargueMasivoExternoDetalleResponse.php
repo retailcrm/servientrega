@@ -6,7 +6,6 @@ use Phpro\SoapClient\Type\ResultInterface;
 
 class CargueMasivoExternoDetalleResponse implements ResultInterface
 {
-
     /**
      * @var bool
      */
@@ -27,11 +26,12 @@ class CargueMasivoExternoDetalleResponse implements ResultInterface
 
     /**
      * @param bool $CargueMasivoExternoDetalleResult
+     *
      * @return CargueMasivoExternoDetalleResponse
      */
     public function withCargueMasivoExternoDetalleResult($CargueMasivoExternoDetalleResult)
     {
-        $new = clone $this;
+        $new                                   = clone $this;
         $new->CargueMasivoExternoDetalleResult = $CargueMasivoExternoDetalleResult;
 
         return $new;
@@ -47,16 +47,14 @@ class CargueMasivoExternoDetalleResponse implements ResultInterface
 
     /**
      * @param \App\Servientrega\Type\ArrayOfString $arrayGuias
+     *
      * @return CargueMasivoExternoDetalleResponse
      */
     public function withArrayGuias($arrayGuias)
     {
-        $new = clone $this;
+        $new             = clone $this;
         $new->arrayGuias = $arrayGuias;
 
         return $new;
     }
-
-
 }
-

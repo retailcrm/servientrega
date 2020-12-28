@@ -8,7 +8,6 @@ use Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class RetailcrmCallbackResolver implements ArgumentValueResolverInterface
 {
@@ -21,9 +20,9 @@ class RetailcrmCallbackResolver implements ArgumentValueResolverInterface
         DenormalizerInterface $denormalizer,
         ParameterBagInterface $params
     ) {
-        $this->serializer = $serializer;
+        $this->serializer   = $serializer;
         $this->denormalizer = $denormalizer;
-        $this->params = $params;
+        $this->params       = $params;
     }
 
     public function supports(Request $request, ArgumentMetadata $argument)
@@ -37,7 +36,7 @@ class RetailcrmCallbackResolver implements ArgumentValueResolverInterface
     public function resolve(Request $request, ArgumentMetadata $argument)
     {
         $parameter = array_search($argument->getType(), $this->params->get('retailcrm_callback'), true);
-        $data = $request->get($parameter);
+        $data      = $request->get($parameter);
 
         yield $this->serializer->deserialize($data, $argument->getType(), 'json');
     }

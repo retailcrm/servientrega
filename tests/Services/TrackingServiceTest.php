@@ -14,9 +14,9 @@ class TrackingServiceTest extends WebTestCase
 {
     public function testUpdateStatuses()
     {
-        $orderService = $this->createMock(OrderService::class);
+        $orderService          = $this->createMock(OrderService::class);
         $trackingClientFactory = static::$container->get(ServientregaTrackingClientFactory::class);
-        $retailcrmService = $this->createMock(RetailcrmService::class);
+        $retailcrmService      = $this->createMock(RetailcrmService::class);
 
         $orderService->method('getActiveOrders')->willReturn(
             [
@@ -24,7 +24,7 @@ class TrackingServiceTest extends WebTestCase
                     ->setConnection($this->connection)
                     ->setIsClosed(false)
                     ->setOrderId(1)
-                    ->setTrackNumber('1')
+                    ->setTrackNumber('1'),
             ]
         );
 

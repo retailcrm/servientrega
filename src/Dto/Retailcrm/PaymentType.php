@@ -10,12 +10,12 @@ class PaymentType
     public $code;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $active;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $cod;
 }

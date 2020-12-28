@@ -11,15 +11,11 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class AppController
- *
- * @package App\Controller
  */
 class AppController extends AbstractController
 {
     /**
      * @Route("/{vueRouting}", name="index", requirements={"vueRouting"="^(?!api|login|callback|_(profiler|wdt)).*"})
-     *
-     * @return Response
      */
     public function index(): Response
     {
@@ -28,11 +24,6 @@ class AppController extends AbstractController
 
     /**
      * @Route("/login", name="settings", methods={"POST"})
-     *
-     * @param Request $request
-     * @param ConnectionService $connectionService
-     *
-     * @return Response
      */
     public function settings(Request $request, ConnectionService $connectionService): Response
     {

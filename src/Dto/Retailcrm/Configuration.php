@@ -5,7 +5,7 @@ namespace App\Dto\Retailcrm;
 class Configuration
 {
     const PAYER_TYPE_RECEIVER = 'receiver';
-    const PAYER_TYPE_SENDER = 'sender';
+    const PAYER_TYPE_SENDER   = 'sender';
 
     /**
      * @var string|null
@@ -23,37 +23,37 @@ class Configuration
     public $payerType;
 
     /**
-     * @var integer|null
+     * @var int|null
      */
     public $platePrintLimit = 100;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $rateDeliveryCost = true;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $allowPackages = false;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $codAvailable = false;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $selfShipmentAvailable = false;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $duplicateOrderProductSupported = false;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $allowTrackNumber;
 

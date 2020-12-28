@@ -10,8 +10,6 @@ use Symfony\Component\Security\Core\Security;
 
 /**
  * Class ActivityService
- *
- * @package App\Services
  */
 class ActivityService
 {
@@ -21,10 +19,6 @@ class ActivityService
 
     /**
      * ActivityService constructor.
-     *
-     * @param EntityManagerInterface $entityManager
-     * @param Security $security
-     * @param LoggerInterface $logger
      */
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -32,16 +26,10 @@ class ActivityService
         LoggerInterface $logger
     ) {
         $this->entityManager = $entityManager;
-        $this->security = $security;
-        $this->logger = $logger;
+        $this->security      = $security;
+        $this->logger        = $logger;
     }
 
-    /**
-     * @param Activity $activity
-     * @param string $systemUrl
-     *
-     * @return bool
-     */
     public function handleActivity(Activity $activity, string $systemUrl): bool
     {
         try {

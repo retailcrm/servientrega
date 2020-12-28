@@ -6,7 +6,6 @@ use App\Entity\Connection;
 use App\Services\OrderService;
 use App\Services\PrintService;
 use PHPUnit\Framework\TestCase;
-use TCPDI;
 
 class PrintServiceTest extends TestCase
 {
@@ -15,10 +14,10 @@ class PrintServiceTest extends TestCase
 
     protected function setUp(): void
     {
-        $pdf = new TCPDI();
+        $pdf = new \TCPDI();
         $pdf->AddPage();
-        $pdf->SetFont('symbol','B',16);
-        $pdf->Cell(40,10,'Hello World!');
+        $pdf->SetFont('symbol', 'B', 16);
+        $pdf->Cell(40, 10, 'Hello World!');
         $output = $pdf->Output('doc.pdf', 'S');
 
         $this->filename1 = sys_get_temp_dir() . '/test.pdf';
@@ -34,7 +33,7 @@ class PrintServiceTest extends TestCase
         $orderService->method('getStickers')->willReturn([file_get_contents($this->filename1)]);
 
         $printService = new PrintService($orderService);
-        $result = $printService->printSticker(new Connection(), '123');
+        $result       = $printService->printSticker(new Connection(), '123');
 
         static::assertNotEmpty($result);
         static::assertStringEqualsFile($this->filename1, $result);
@@ -48,7 +47,7 @@ class PrintServiceTest extends TestCase
         );
 
         $printService = new PrintService($orderService);
-        $result = $printService->printStickers(new Connection(), ['1', '2']);
+        $result       = $printService->printStickers(new Connection(), ['1', '2']);
 
         static::assertNotEmpty($result);
     }

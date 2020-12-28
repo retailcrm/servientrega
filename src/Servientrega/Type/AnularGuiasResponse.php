@@ -6,7 +6,6 @@ use Phpro\SoapClient\Type\ResultInterface;
 
 class AnularGuiasResponse implements ResultInterface
 {
-
     /**
      * @var string
      */
@@ -27,11 +26,12 @@ class AnularGuiasResponse implements ResultInterface
 
     /**
      * @param string $AnularGuiasResult
+     *
      * @return AnularGuiasResponse
      */
     public function withAnularGuiasResult($AnularGuiasResult)
     {
-        $new = clone $this;
+        $new                    = clone $this;
         $new->AnularGuiasResult = $AnularGuiasResult;
 
         return $new;
@@ -47,16 +47,14 @@ class AnularGuiasResponse implements ResultInterface
 
     /**
      * @param \App\Servientrega\Type\ArrayOfResultadoAnulacionGuias $interno
+     *
      * @return AnularGuiasResponse
      */
     public function withInterno($interno)
     {
-        $new = clone $this;
+        $new          = clone $this;
         $new->interno = $interno;
 
         return $new;
     }
-
-
 }
-

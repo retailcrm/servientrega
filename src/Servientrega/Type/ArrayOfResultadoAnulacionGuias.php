@@ -4,7 +4,6 @@ namespace App\Servientrega\Type;
 
 class ArrayOfResultadoAnulacionGuias
 {
-
     /**
      * @var \App\Servientrega\Type\ResultadoAnulacionGuias
      */
@@ -20,16 +19,14 @@ class ArrayOfResultadoAnulacionGuias
 
     /**
      * @param \App\Servientrega\Type\ResultadoAnulacionGuias $ResultadoAnulacionGuias
+     *
      * @return ArrayOfResultadoAnulacionGuias
      */
     public function withResultadoAnulacionGuias($ResultadoAnulacionGuias)
     {
-        $new = clone $this;
+        $new                          = clone $this;
         $new->ResultadoAnulacionGuias = $ResultadoAnulacionGuias;
 
         return $new;
     }
-
-
 }
-

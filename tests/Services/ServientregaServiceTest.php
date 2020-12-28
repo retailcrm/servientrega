@@ -22,7 +22,6 @@ use App\Utils\ConfigurationBuilder;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\NullLogger;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use DateTimeImmutable;
 
 class ServientregaServiceTest extends WebTestCase
 {
@@ -30,8 +29,8 @@ class ServientregaServiceTest extends WebTestCase
     {
         $soapFactory = $this->createMock(ServientregaSoapClientFactory::class);
         $restFactory = $this->createMock(ServientregaRestClientFactory::class);
-        $em = $this->createMock(EntityManagerInterface::class);
-        $trans = $this->createMock(TranslatorInterface::class);
+        $em          = $this->createMock(EntityManagerInterface::class);
+        $trans       = $this->createMock(TranslatorInterface::class);
 
         $soapClient = $this->createMock(ServientregaClient::class);
         $soapClient->method('encriptarContrasena')->willReturn(
@@ -51,17 +50,17 @@ class ServientregaServiceTest extends WebTestCase
     {
         $soapFactory = $this->createMock(ServientregaSoapClientFactory::class);
         $restFactory = $this->createMock(ServientregaRestClientFactory::class);
-        $em = $this->createMock(EntityManagerInterface::class);
-        $trans = $this->createMock(TranslatorInterface::class);
+        $em          = $this->createMock(EntityManagerInterface::class);
+        $trans       = $this->createMock(TranslatorInterface::class);
 
-        $loginResponse = new LoginResponse();
-        $loginResponse->login = 'test';
-        $loginResponse->nombre = 'test';
-        $loginResponse->idCliente = 'test';
-        $loginResponse->estado = false;
-        $loginResponse->token = 'test';
+        $loginResponse                 = new LoginResponse();
+        $loginResponse->login          = 'test';
+        $loginResponse->nombre         = 'test';
+        $loginResponse->idCliente      = 'test';
+        $loginResponse->estado         = false;
+        $loginResponse->token          = 'test';
         $loginResponse->codFacturacion = 'test';
-        $loginResponse->expiration = new DateTimeImmutable();
+        $loginResponse->expiration     = new \DateTimeImmutable();
 
         $restClient = $this->createMock(ServientregaRestClient::class);
         $restClient->method('authenticationLogin')->willReturn(
@@ -81,13 +80,13 @@ class ServientregaServiceTest extends WebTestCase
     {
         $soapFactory = $this->createMock(ServientregaSoapClientFactory::class);
         $restFactory = $this->createMock(ServientregaRestClientFactory::class);
-        $em = $this->createMock(EntityManagerInterface::class);
-        $trans = $this->createMock(TranslatorInterface::class);
+        $em          = $this->createMock(EntityManagerInterface::class);
+        $trans       = $this->createMock(TranslatorInterface::class);
 
         $pdf = new \TCPDI();
         $pdf->AddPage();
-        $pdf->SetFont('symbol','B',16);
-        $pdf->Cell(40,10,'Hello World!');
+        $pdf->SetFont('symbol', 'B', 16);
+        $pdf->Cell(40, 10, 'Hello World!');
         $output = $pdf->Output('doc.pdf', 'S');
 
         $soapClient = $this->createMock(ServientregaClient::class);
@@ -109,8 +108,8 @@ class ServientregaServiceTest extends WebTestCase
     {
         $soapFactory = $this->createMock(ServientregaSoapClientFactory::class);
         $restFactory = $this->createMock(ServientregaRestClientFactory::class);
-        $em = $this->createMock(EntityManagerInterface::class);
-        $trans = $this->createMock(TranslatorInterface::class);
+        $em          = $this->createMock(EntityManagerInterface::class);
+        $trans       = $this->createMock(TranslatorInterface::class);
 
         $soapClient = $this->createMock(ServientregaClient::class);
         $soapClient->method('generarGuiaSticker')->willReturn(
@@ -123,15 +122,15 @@ class ServientregaServiceTest extends WebTestCase
 
         $result = $service->getSticker('123', '123');
 
-        static::assertEquals(null, $result);
+        static::assertNull($result);
     }
 
     public function testCalculate()
     {
-        $response = new CalculateResponse();
-        $response->ValorFlete = 50;
+        $response                  = new CalculateResponse();
+        $response->ValorFlete      = 50;
         $response->ValorSobreFlete = 50;
-        $response->ValorTotal = 100;
+        $response->ValorTotal      = 100;
 
         $client = $this->createMock(ServientregaRestClient::class);
         $client->method('calculate')->willReturn($response);
@@ -140,29 +139,29 @@ class ServientregaServiceTest extends WebTestCase
         $restFactory = $this->createMock(ServientregaRestClientFactory::class);
         $restFactory->method('factory')->willReturn($client);
 
-        $em = $this->createMock(EntityManagerInterface::class);
+        $em    = $this->createMock(EntityManagerInterface::class);
         $trans = $this->createMock(TranslatorInterface::class);
 
         $service = new ServientregaService($soapFactory, $restFactory, $em, $trans, new NullLogger());
 
         $connection = (new Connection())->setToken(
-            (new Token())->setToken('123')->setExpiration((new DateTimeImmutable())->modify('+24 hours'))
+            (new Token())->setToken('123')->setExpiration((new \DateTimeImmutable())->modify('+24 hours'))
         );
 
-        $request = new CalculateRequest();
+        $request           = new CalculateRequest();
         $request->packages = [
-            new Package()
+            new Package(),
         ];
 
-        $address = new DeliveryAddress();
+        $address        = new DeliveryAddress();
         $address->index = 111111;
 
-        $request->declaredValue = 100;
+        $request->declaredValue   = 100;
         $request->shipmentAddress = $address;
         $request->deliveryAddress = $address;
-        $request->extraData = [
+        $request->extraData       = [
             ConfigurationBuilder::COLLECTION_NUMBER_FIELD => 123456,
-            ConfigurationBuilder::ID_DANE_RECEIVER_FIELD => '111111'
+            ConfigurationBuilder::ID_DANE_RECEIVER_FIELD  => '111111',
         ];
 
         $result = $service->calculate($request, $connection);

@@ -6,7 +6,6 @@ use Phpro\SoapClient\Type\RequestInterface;
 
 class CrearUnidadesEmpaqueBlanco implements RequestInterface
 {
-
     /**
      * @var string
      */
@@ -20,12 +19,12 @@ class CrearUnidadesEmpaqueBlanco implements RequestInterface
     /**
      * Constructor
      *
-     * @var string $ideEnvio
-     * @var string $Ide_CodFacturacion
+     * @var string
+     * @var string
      */
     public function __construct($ideEnvio, $Ide_CodFacturacion)
     {
-        $this->ideEnvio = $ideEnvio;
+        $this->ideEnvio           = $ideEnvio;
         $this->Ide_CodFacturacion = $Ide_CodFacturacion;
     }
 
@@ -39,11 +38,12 @@ class CrearUnidadesEmpaqueBlanco implements RequestInterface
 
     /**
      * @param string $ideEnvio
+     *
      * @return CrearUnidadesEmpaqueBlanco
      */
     public function withIdeEnvio($ideEnvio)
     {
-        $new = clone $this;
+        $new           = clone $this;
         $new->ideEnvio = $ideEnvio;
 
         return $new;
@@ -59,16 +59,14 @@ class CrearUnidadesEmpaqueBlanco implements RequestInterface
 
     /**
      * @param string $Ide_CodFacturacion
+     *
      * @return CrearUnidadesEmpaqueBlanco
      */
     public function withIde_CodFacturacion($Ide_CodFacturacion)
     {
-        $new = clone $this;
+        $new                     = clone $this;
         $new->Ide_CodFacturacion = $Ide_CodFacturacion;
 
         return $new;
     }
-
-
 }
-

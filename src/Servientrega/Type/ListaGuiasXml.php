@@ -4,7 +4,6 @@ namespace App\Servientrega\Type;
 
 class ListaGuiasXml
 {
-
     /**
      * @var \App\Servientrega\Type\AnyXML
      */
@@ -20,16 +19,14 @@ class ListaGuiasXml
 
     /**
      * @param \App\Servientrega\Type\AnyXML $any
+     *
      * @return ListaGuiasXml
      */
     public function withAny($any)
     {
-        $new = clone $this;
+        $new      = clone $this;
         $new->any = $any;
 
         return $new;
     }
-
-
 }
-

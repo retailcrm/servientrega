@@ -6,7 +6,6 @@ use Phpro\SoapClient\Type\RequestInterface;
 
 class GenerarManifiesto implements RequestInterface
 {
-
     /**
      * @var int
      */
@@ -65,31 +64,31 @@ class GenerarManifiesto implements RequestInterface
     /**
      * Constructor
      *
-     * @var int $Omitir_EstadoImpreso_Guia
-     * @var string $Ide_Currier
-     * @var string $Nombre_Currier
-     * @var string $Ide_Auxiliar
-     * @var string $Nombre_Auxiliar
-     * @var string $Placa_Vehiculo
-     * @var \App\Servientrega\Type\ListaGuiasXml $Lista_Guias_Xml
-     * @var string $cadenaBytes
-     * @var \App\Servientrega\Type\ArrayOfErrorGeneradoPorGuia $Des_Error
-     * @var string $Num_manifiesto
-     * @var string $Mensaje
+     * @var int
+     * @var string
+     * @var string
+     * @var string
+     * @var string
+     * @var string
+     * @var \App\Servientrega\Type\ListaGuiasXml
+     * @var string
+     * @var \App\Servientrega\Type\ArrayOfErrorGeneradoPorGuia
+     * @var string
+     * @var string
      */
     public function __construct($Omitir_EstadoImpreso_Guia, $Ide_Currier, $Nombre_Currier, $Ide_Auxiliar, $Nombre_Auxiliar, $Placa_Vehiculo, $Lista_Guias_Xml, $cadenaBytes, $Des_Error, $Num_manifiesto, $Mensaje)
     {
         $this->Omitir_EstadoImpreso_Guia = $Omitir_EstadoImpreso_Guia;
-        $this->Ide_Currier = $Ide_Currier;
-        $this->Nombre_Currier = $Nombre_Currier;
-        $this->Ide_Auxiliar = $Ide_Auxiliar;
-        $this->Nombre_Auxiliar = $Nombre_Auxiliar;
-        $this->Placa_Vehiculo = $Placa_Vehiculo;
-        $this->Lista_Guias_Xml = $Lista_Guias_Xml;
-        $this->cadenaBytes = $cadenaBytes;
-        $this->Des_Error = $Des_Error;
-        $this->Num_manifiesto = $Num_manifiesto;
-        $this->Mensaje = $Mensaje;
+        $this->Ide_Currier               = $Ide_Currier;
+        $this->Nombre_Currier            = $Nombre_Currier;
+        $this->Ide_Auxiliar              = $Ide_Auxiliar;
+        $this->Nombre_Auxiliar           = $Nombre_Auxiliar;
+        $this->Placa_Vehiculo            = $Placa_Vehiculo;
+        $this->Lista_Guias_Xml           = $Lista_Guias_Xml;
+        $this->cadenaBytes               = $cadenaBytes;
+        $this->Des_Error                 = $Des_Error;
+        $this->Num_manifiesto            = $Num_manifiesto;
+        $this->Mensaje                   = $Mensaje;
     }
 
     /**
@@ -102,11 +101,12 @@ class GenerarManifiesto implements RequestInterface
 
     /**
      * @param int $Omitir_EstadoImpreso_Guia
+     *
      * @return GenerarManifiesto
      */
     public function withOmitir_EstadoImpreso_Guia($Omitir_EstadoImpreso_Guia)
     {
-        $new = clone $this;
+        $new                            = clone $this;
         $new->Omitir_EstadoImpreso_Guia = $Omitir_EstadoImpreso_Guia;
 
         return $new;
@@ -122,11 +122,12 @@ class GenerarManifiesto implements RequestInterface
 
     /**
      * @param string $Ide_Currier
+     *
      * @return GenerarManifiesto
      */
     public function withIde_Currier($Ide_Currier)
     {
-        $new = clone $this;
+        $new              = clone $this;
         $new->Ide_Currier = $Ide_Currier;
 
         return $new;
@@ -142,11 +143,12 @@ class GenerarManifiesto implements RequestInterface
 
     /**
      * @param string $Nombre_Currier
+     *
      * @return GenerarManifiesto
      */
     public function withNombre_Currier($Nombre_Currier)
     {
-        $new = clone $this;
+        $new                 = clone $this;
         $new->Nombre_Currier = $Nombre_Currier;
 
         return $new;
@@ -162,11 +164,12 @@ class GenerarManifiesto implements RequestInterface
 
     /**
      * @param string $Ide_Auxiliar
+     *
      * @return GenerarManifiesto
      */
     public function withIde_Auxiliar($Ide_Auxiliar)
     {
-        $new = clone $this;
+        $new               = clone $this;
         $new->Ide_Auxiliar = $Ide_Auxiliar;
 
         return $new;
@@ -182,11 +185,12 @@ class GenerarManifiesto implements RequestInterface
 
     /**
      * @param string $Nombre_Auxiliar
+     *
      * @return GenerarManifiesto
      */
     public function withNombre_Auxiliar($Nombre_Auxiliar)
     {
-        $new = clone $this;
+        $new                  = clone $this;
         $new->Nombre_Auxiliar = $Nombre_Auxiliar;
 
         return $new;
@@ -202,11 +206,12 @@ class GenerarManifiesto implements RequestInterface
 
     /**
      * @param string $Placa_Vehiculo
+     *
      * @return GenerarManifiesto
      */
     public function withPlaca_Vehiculo($Placa_Vehiculo)
     {
-        $new = clone $this;
+        $new                 = clone $this;
         $new->Placa_Vehiculo = $Placa_Vehiculo;
 
         return $new;
@@ -222,11 +227,12 @@ class GenerarManifiesto implements RequestInterface
 
     /**
      * @param \App\Servientrega\Type\ListaGuiasXml $Lista_Guias_Xml
+     *
      * @return GenerarManifiesto
      */
     public function withLista_Guias_Xml($Lista_Guias_Xml)
     {
-        $new = clone $this;
+        $new                  = clone $this;
         $new->Lista_Guias_Xml = $Lista_Guias_Xml;
 
         return $new;
@@ -242,11 +248,12 @@ class GenerarManifiesto implements RequestInterface
 
     /**
      * @param string $cadenaBytes
+     *
      * @return GenerarManifiesto
      */
     public function withCadenaBytes($cadenaBytes)
     {
-        $new = clone $this;
+        $new              = clone $this;
         $new->cadenaBytes = $cadenaBytes;
 
         return $new;
@@ -262,11 +269,12 @@ class GenerarManifiesto implements RequestInterface
 
     /**
      * @param \App\Servientrega\Type\ArrayOfErrorGeneradoPorGuia $Des_Error
+     *
      * @return GenerarManifiesto
      */
     public function withDes_Error($Des_Error)
     {
-        $new = clone $this;
+        $new            = clone $this;
         $new->Des_Error = $Des_Error;
 
         return $new;
@@ -282,11 +290,12 @@ class GenerarManifiesto implements RequestInterface
 
     /**
      * @param string $Num_manifiesto
+     *
      * @return GenerarManifiesto
      */
     public function withNum_manifiesto($Num_manifiesto)
     {
-        $new = clone $this;
+        $new                 = clone $this;
         $new->Num_manifiesto = $Num_manifiesto;
 
         return $new;
@@ -302,16 +311,14 @@ class GenerarManifiesto implements RequestInterface
 
     /**
      * @param string $Mensaje
+     *
      * @return GenerarManifiesto
      */
     public function withMensaje($Mensaje)
     {
-        $new = clone $this;
+        $new          = clone $this;
         $new->Mensaje = $Mensaje;
 
         return $new;
     }
-
-
 }
-

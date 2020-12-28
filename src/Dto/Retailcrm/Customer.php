@@ -5,7 +5,7 @@ namespace App\Dto\Retailcrm;
 class Customer
 {
     /**
-     * @var integer|null
+     * @var int|null
      */
     public $id;
 

@@ -12,7 +12,7 @@ class OrderRepositoryTest extends WebTestCase
     public function testUntrackOrder(): void
     {
         $orderRepository = static::$container->get(OrderRepository::class);
-        $entityManager = static::$container->get(EntityManagerInterface::class);
+        $entityManager   = static::$container->get(EntityManagerInterface::class);
 
         $order = new Order();
         $order

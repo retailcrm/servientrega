@@ -6,7 +6,6 @@ use Phpro\SoapClient\Type\ResultInterface;
 
 class ValidarActualizarEnvioResponse implements ResultInterface
 {
-
     /**
      * @var \App\Servientrega\Type\ValidarActualizarEnvioResult
      */
@@ -22,16 +21,14 @@ class ValidarActualizarEnvioResponse implements ResultInterface
 
     /**
      * @param \App\Servientrega\Type\ValidarActualizarEnvioResult $ValidarActualizarEnvioResult
+     *
      * @return ValidarActualizarEnvioResponse
      */
     public function withValidarActualizarEnvioResult($ValidarActualizarEnvioResult)
     {
-        $new = clone $this;
+        $new                               = clone $this;
         $new->ValidarActualizarEnvioResult = $ValidarActualizarEnvioResult;
 
         return $new;
     }
-
-
 }
-

@@ -6,7 +6,6 @@ use Phpro\SoapClient\Type\ResultInterface;
 
 class CrearUnidadesEmpaqueBlancoResponse implements ResultInterface
 {
-
     /**
      * @var \App\Servientrega\Type\CrearUnidadesEmpaqueBlancoResult
      */
@@ -22,16 +21,14 @@ class CrearUnidadesEmpaqueBlancoResponse implements ResultInterface
 
     /**
      * @param \App\Servientrega\Type\CrearUnidadesEmpaqueBlancoResult $CrearUnidadesEmpaqueBlancoResult
+     *
      * @return CrearUnidadesEmpaqueBlancoResponse
      */
     public function withCrearUnidadesEmpaqueBlancoResult($CrearUnidadesEmpaqueBlancoResult)
     {
-        $new = clone $this;
+        $new                                   = clone $this;
         $new->CrearUnidadesEmpaqueBlancoResult = $CrearUnidadesEmpaqueBlancoResult;
 
         return $new;
     }
-
-
 }
-

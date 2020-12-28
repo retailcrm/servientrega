@@ -6,7 +6,6 @@ use Phpro\SoapClient\Type\ResultInterface;
 
 class ActualizarEnvioAgregarUnidadesResponse implements ResultInterface
 {
-
     /**
      * @var bool
      */
@@ -22,16 +21,14 @@ class ActualizarEnvioAgregarUnidadesResponse implements ResultInterface
 
     /**
      * @param bool $ActualizarEnvioAgregarUnidadesResult
+     *
      * @return ActualizarEnvioAgregarUnidadesResponse
      */
     public function withActualizarEnvioAgregarUnidadesResult($ActualizarEnvioAgregarUnidadesResult)
     {
-        $new = clone $this;
+        $new                                       = clone $this;
         $new->ActualizarEnvioAgregarUnidadesResult = $ActualizarEnvioAgregarUnidadesResult;
 
         return $new;
     }
-
-
 }
-

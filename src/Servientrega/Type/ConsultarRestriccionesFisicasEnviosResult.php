@@ -4,7 +4,6 @@ namespace App\Servientrega\Type;
 
 class ConsultarRestriccionesFisicasEnviosResult
 {
-
     /**
      * @var \App\Servientrega\Type\AnyXML
      */
@@ -20,16 +19,14 @@ class ConsultarRestriccionesFisicasEnviosResult
 
     /**
      * @param \App\Servientrega\Type\AnyXML $any
+     *
      * @return ConsultarRestriccionesFisicasEnviosResult
      */
     public function withAny($any)
     {
-        $new = clone $this;
+        $new      = clone $this;
         $new->any = $any;
 
         return $new;
     }
-
-
 }
-

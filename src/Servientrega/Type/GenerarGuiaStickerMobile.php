@@ -6,7 +6,6 @@ use Phpro\SoapClient\Type\RequestInterface;
 
 class GenerarGuiaStickerMobile implements RequestInterface
 {
-
     /**
      * @var float
      */
@@ -40,21 +39,21 @@ class GenerarGuiaStickerMobile implements RequestInterface
     /**
      * Constructor
      *
-     * @var float $num_Guia
-     * @var string $ide_CodFacturacion
-     * @var int $sFormatoImpresionGuia
-     * @var string $Id_ArchivoCargar
-     * @var bool $interno
-     * @var string $bytesReport
+     * @var float
+     * @var string
+     * @var int
+     * @var string
+     * @var bool
+     * @var string
      */
     public function __construct($num_Guia, $ide_CodFacturacion, $sFormatoImpresionGuia, $Id_ArchivoCargar, $interno, $bytesReport)
     {
-        $this->num_Guia = $num_Guia;
-        $this->ide_CodFacturacion = $ide_CodFacturacion;
+        $this->num_Guia              = $num_Guia;
+        $this->ide_CodFacturacion    = $ide_CodFacturacion;
         $this->sFormatoImpresionGuia = $sFormatoImpresionGuia;
-        $this->Id_ArchivoCargar = $Id_ArchivoCargar;
-        $this->interno = $interno;
-        $this->bytesReport = $bytesReport;
+        $this->Id_ArchivoCargar      = $Id_ArchivoCargar;
+        $this->interno               = $interno;
+        $this->bytesReport           = $bytesReport;
     }
 
     /**
@@ -67,11 +66,12 @@ class GenerarGuiaStickerMobile implements RequestInterface
 
     /**
      * @param float $num_Guia
+     *
      * @return GenerarGuiaStickerMobile
      */
     public function withNum_Guia($num_Guia)
     {
-        $new = clone $this;
+        $new           = clone $this;
         $new->num_Guia = $num_Guia;
 
         return $new;
@@ -87,11 +87,12 @@ class GenerarGuiaStickerMobile implements RequestInterface
 
     /**
      * @param string $ide_CodFacturacion
+     *
      * @return GenerarGuiaStickerMobile
      */
     public function withIde_CodFacturacion($ide_CodFacturacion)
     {
-        $new = clone $this;
+        $new                     = clone $this;
         $new->ide_CodFacturacion = $ide_CodFacturacion;
 
         return $new;
@@ -107,11 +108,12 @@ class GenerarGuiaStickerMobile implements RequestInterface
 
     /**
      * @param int $sFormatoImpresionGuia
+     *
      * @return GenerarGuiaStickerMobile
      */
     public function withSFormatoImpresionGuia($sFormatoImpresionGuia)
     {
-        $new = clone $this;
+        $new                        = clone $this;
         $new->sFormatoImpresionGuia = $sFormatoImpresionGuia;
 
         return $new;
@@ -127,11 +129,12 @@ class GenerarGuiaStickerMobile implements RequestInterface
 
     /**
      * @param string $Id_ArchivoCargar
+     *
      * @return GenerarGuiaStickerMobile
      */
     public function withId_ArchivoCargar($Id_ArchivoCargar)
     {
-        $new = clone $this;
+        $new                   = clone $this;
         $new->Id_ArchivoCargar = $Id_ArchivoCargar;
 
         return $new;
@@ -147,11 +150,12 @@ class GenerarGuiaStickerMobile implements RequestInterface
 
     /**
      * @param bool $interno
+     *
      * @return GenerarGuiaStickerMobile
      */
     public function withInterno($interno)
     {
-        $new = clone $this;
+        $new          = clone $this;
         $new->interno = $interno;
 
         return $new;
@@ -167,16 +171,14 @@ class GenerarGuiaStickerMobile implements RequestInterface
 
     /**
      * @param string $bytesReport
+     *
      * @return GenerarGuiaStickerMobile
      */
     public function withBytesReport($bytesReport)
     {
-        $new = clone $this;
+        $new              = clone $this;
         $new->bytesReport = $bytesReport;
 
         return $new;
     }
-
-
 }
-

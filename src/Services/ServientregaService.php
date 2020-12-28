@@ -11,7 +11,6 @@ use App\Factory\ServientregaRestClientFactory;
 use App\Factory\ServientregaSoapClientFactory;
 use App\Servientrega\RestType\LoginRequest;
 use App\Servientrega\RestType\LoginResponse;
-use App\Servientrega\RestType\Pieza;
 use App\Servientrega\Type\ArrayOfCargueMasivoExternoDTO;
 use App\Servientrega\Type\ArrayOfString;
 use App\Servientrega\Type\CargueMasivoExterno;
@@ -23,15 +22,9 @@ use App\Utils\DataBuilders;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use DateTimeImmutable;
-use Exception;
-use Throwable;
-use RuntimeException;
 
 /**
  * Class ServientregaService
- *
- * @package App\Services
  */
 class ServientregaService
 {
@@ -62,12 +55,6 @@ class ServientregaService
 
     /**
      * ServientregaService constructor.
-     *
-     * @param ServientregaSoapClientFactory $soapClientFactory
-     * @param ServientregaRestClientFactory $restClientFactory
-     * @param EntityManagerInterface $entityManager
-     * @param TranslatorInterface $translation
-     * @param LoggerInterface $logger
      */
     public function __construct(
         ServientregaSoapClientFactory $soapClientFactory,
@@ -78,36 +65,26 @@ class ServientregaService
     ) {
         $this->soapClientFactory = $soapClientFactory;
         $this->restClientFactory = $restClientFactory;
-        $this->entityManager = $entityManager;
-        $this->translation = $translation;
-        $this->logger = $logger;
+        $this->entityManager     = $entityManager;
+        $this->translation       = $translation;
+        $this->logger            = $logger;
     }
 
-    /**
-     * @param string $password
-     *
-     * @return string
-     */
     public function encryptPassword(string $password): string
     {
         $encrypt = new EncriptarContrasena($password);
-        $result = $this->soapClientFactory->factory()->encriptarContrasena($encrypt);
+        $result  = $this->soapClientFactory->factory()->encriptarContrasena($encrypt);
 
         return $result->getEncriptarContrasenaResult();
     }
 
-    /**
-     * @param LoginRequest $loginRequest
-     *
-     * @return LoginResponse|null
-     */
     public function getToken(LoginRequest $loginRequest): ?LoginResponse
     {
         $client = $this->restClientFactory->factory();
 
         try {
             return $client->authenticationLogin($loginRequest);
-        } catch (Throwable $exception) {
+        } catch (\Throwable $exception) {
             $this->logger->error(
                 sprintf('Error authentication in servientrega: %s', $exception->getMessage()),
                 (array) $loginRequest
@@ -120,11 +97,9 @@ class ServientregaService
     /**
      * Подсчет стоимости доставки
      *
-     * @param CalculateRequest $calculateRequest
-     * @param Connection $connection
-     *
      * @return CalculateResponse[]
-     * @throws Throwable
+     *
+     * @throws \Throwable
      */
     public function calculate(CalculateRequest $calculateRequest, Connection $connection): array
     {
@@ -134,16 +109,16 @@ class ServientregaService
             $response = $this->restClientFactory->factory()->calculate(
                 DataBuilders::buildCalculateRequest($calculateRequest, $connection)
             );
-        } catch (Throwable $exception) {
+        } catch (\Throwable $exception) {
             $this->logger->error(
-                sprintf("Calculate request error: %s", $exception->getMessage()),
+                sprintf('Calculate request error: %s', $exception->getMessage()),
                 $exception->getTrace()
             );
 
             throw $exception;
         }
 
-        $calculateResponse = new CalculateResponse();
+        $calculateResponse       = new CalculateResponse();
         $calculateResponse->code = 'servientrega_courier';
         $calculateResponse->name = $this->translation->trans(
             'calculate.servientrega_courier.name', [], 'servientrega'
@@ -157,16 +132,12 @@ class ServientregaService
     /**
      * Создание заявки на доставку
      *
-     * @param SaveRequest $saveRequest
-     * @param Connection $connection
-     *
-     * @return CargueMasivoExternoResponse
-     * @throws Throwable
+     * @throws \Throwable
      */
     public function createDelivery(SaveRequest $saveRequest, Connection $connection): CargueMasivoExternoResponse
     {
         $envios = new ArrayOfCargueMasivoExternoDTO();
-        $param = new CargueMasivoExterno(
+        $param  = new CargueMasivoExterno(
             $envios->withCargueMasivoExternoDTO($this->getEnvio($saveRequest, $connection)),
             new ArrayOfString()
         );
@@ -175,9 +146,9 @@ class ServientregaService
 
         try {
             $response = $client->cargueMasivoExterno($param);
-        } catch (Throwable $exception) {
+        } catch (\Throwable $exception) {
             $this->logger->error(
-                sprintf("Create order in delivery service: %s", $exception->getMessage()),
+                sprintf('Create order in delivery service: %s', $exception->getMessage()),
                 $client->debugLastSoapRequest()
             );
 
@@ -187,12 +158,6 @@ class ServientregaService
         return $response;
     }
 
-    /**
-     * @param SaveRequest $saveRequest
-     * @param Connection $connection
-     *
-     * @return CargueMasivoExternoDTO
-     */
     private function getEnvio(SaveRequest $saveRequest, Connection $connection): CargueMasivoExternoDTO
     {
         return DataBuilders::buildDelivery($saveRequest, $connection);
@@ -201,9 +166,7 @@ class ServientregaService
     /**
      * Проверяет время жизни токена, если токен инвалидировался - обновляет его
      *
-     * @param Connection $connection
-     *
-     * @throws Exception
+     * @throws \Exception
      */
     public function checkAndUpdateToken(Connection $connection)
     {
@@ -213,7 +176,7 @@ class ServientregaService
             $response = $this->getToken(DataBuilders::buildLoginRequest($connection));
 
             if (null === $response) {
-                throw new RuntimeException('Invalid token');
+                throw new \RuntimeException('Invalid token');
             }
 
             if (null === $token) {
@@ -237,11 +200,7 @@ class ServientregaService
     }
 
     /**
-     * @param Token|null $token
-     *
-     * @return bool
-     *
-     * @throws Exception
+     * @throws \Exception
      */
     public function tokenIsValid(?Token $token): bool
     {
@@ -249,7 +208,7 @@ class ServientregaService
             return false;
         }
 
-        $current = new DateTimeImmutable('now', $token->getExpiration()->getTimezone());
+        $current = new \DateTimeImmutable('now', $token->getExpiration()->getTimezone());
         if ($token->getExpiration() < $current) {
             return false;
         }
@@ -258,9 +217,6 @@ class ServientregaService
     }
 
     /**
-     * @param string $number
-     * @param string $billingCode
-     *
      * @return string
      */
     public function getSticker(string $number, string $billingCode): ?string
@@ -268,18 +224,18 @@ class ServientregaService
         try {
             $params = new GenerarGuiaSticker($number, $number, $billingCode);
 
-            $client = $this->soapClientFactory->factory();
+            $client   = $this->soapClientFactory->factory();
             $response = $client->generarGuiaSticker($params);
-        } catch (Throwable $exception) {
+        } catch (\Throwable $exception) {
             $this->logger->error(
-                sprintf("Getting sticker error: %s, code: %d", $exception->getMessage(), $exception->getCode())
+                sprintf('Getting sticker error: %s, code: %d', $exception->getMessage(), $exception->getCode())
             );
 
             return null;
         }
 
         if (!$response->getGenerarGuiaStickerResult()) {
-            $this->logger->error(sprintf("Getting sticker false response by number %s", $number));
+            $this->logger->error(sprintf('Getting sticker false response by number %s', $number));
 
             return null;
         }

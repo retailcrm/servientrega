@@ -4,7 +4,6 @@ namespace App\Servientrega\Type;
 
 class EnviosUnidadEmpaqueCargue
 {
-
     /**
      * @var float
      */
@@ -120,11 +119,12 @@ class EnviosUnidadEmpaqueCargue
 
     /**
      * @param float $Num_Alto
+     *
      * @return EnviosUnidadEmpaqueCargue
      */
     public function withNum_Alto($Num_Alto)
     {
-        $new = clone $this;
+        $new           = clone $this;
         $new->Num_Alto = $Num_Alto;
 
         return $new;
@@ -140,11 +140,12 @@ class EnviosUnidadEmpaqueCargue
 
     /**
      * @param int $Num_Distribuidor
+     *
      * @return EnviosUnidadEmpaqueCargue
      */
     public function withNum_Distribuidor($Num_Distribuidor)
     {
-        $new = clone $this;
+        $new                   = clone $this;
         $new->Num_Distribuidor = $Num_Distribuidor;
 
         return $new;
@@ -160,11 +161,12 @@ class EnviosUnidadEmpaqueCargue
 
     /**
      * @param float $Num_Ancho
+     *
      * @return EnviosUnidadEmpaqueCargue
      */
     public function withNum_Ancho($Num_Ancho)
     {
-        $new = clone $this;
+        $new            = clone $this;
         $new->Num_Ancho = $Num_Ancho;
 
         return $new;
@@ -180,11 +182,12 @@ class EnviosUnidadEmpaqueCargue
 
     /**
      * @param int $Num_Cantidad
+     *
      * @return EnviosUnidadEmpaqueCargue
      */
     public function withNum_Cantidad($Num_Cantidad)
     {
-        $new = clone $this;
+        $new               = clone $this;
         $new->Num_Cantidad = $Num_Cantidad;
 
         return $new;
@@ -200,11 +203,12 @@ class EnviosUnidadEmpaqueCargue
 
     /**
      * @param string $Des_DiceContener
+     *
      * @return EnviosUnidadEmpaqueCargue
      */
     public function withDes_DiceContener($Des_DiceContener)
     {
-        $new = clone $this;
+        $new                   = clone $this;
         $new->Des_DiceContener = $Des_DiceContener;
 
         return $new;
@@ -220,11 +224,12 @@ class EnviosUnidadEmpaqueCargue
 
     /**
      * @param string $Des_IdArchivoOrigen
+     *
      * @return EnviosUnidadEmpaqueCargue
      */
     public function withDes_IdArchivoOrigen($Des_IdArchivoOrigen)
     {
-        $new = clone $this;
+        $new                      = clone $this;
         $new->Des_IdArchivoOrigen = $Des_IdArchivoOrigen;
 
         return $new;
@@ -240,11 +245,12 @@ class EnviosUnidadEmpaqueCargue
 
     /**
      * @param float $Num_Largo
+     *
      * @return EnviosUnidadEmpaqueCargue
      */
     public function withNum_Largo($Num_Largo)
     {
-        $new = clone $this;
+        $new            = clone $this;
         $new->Num_Largo = $Num_Largo;
 
         return $new;
@@ -260,11 +266,12 @@ class EnviosUnidadEmpaqueCargue
 
     /**
      * @param string $Nom_UnidadEmpaque
+     *
      * @return EnviosUnidadEmpaqueCargue
      */
     public function withNom_UnidadEmpaque($Nom_UnidadEmpaque)
     {
-        $new = clone $this;
+        $new                    = clone $this;
         $new->Nom_UnidadEmpaque = $Nom_UnidadEmpaque;
 
         return $new;
@@ -280,11 +287,12 @@ class EnviosUnidadEmpaqueCargue
 
     /**
      * @param float $Num_Peso
+     *
      * @return EnviosUnidadEmpaqueCargue
      */
     public function withNum_Peso($Num_Peso)
     {
-        $new = clone $this;
+        $new           = clone $this;
         $new->Num_Peso = $Num_Peso;
 
         return $new;
@@ -300,11 +308,12 @@ class EnviosUnidadEmpaqueCargue
 
     /**
      * @param string $Des_UnidadLongitud
+     *
      * @return EnviosUnidadEmpaqueCargue
      */
     public function withDes_UnidadLongitud($Des_UnidadLongitud)
     {
-        $new = clone $this;
+        $new                     = clone $this;
         $new->Des_UnidadLongitud = $Des_UnidadLongitud;
 
         return $new;
@@ -320,11 +329,12 @@ class EnviosUnidadEmpaqueCargue
 
     /**
      * @param string $Des_UnidadPeso
+     *
      * @return EnviosUnidadEmpaqueCargue
      */
     public function withDes_UnidadPeso($Des_UnidadPeso)
     {
-        $new = clone $this;
+        $new                 = clone $this;
         $new->Des_UnidadPeso = $Des_UnidadPeso;
 
         return $new;
@@ -340,11 +350,12 @@ class EnviosUnidadEmpaqueCargue
 
     /**
      * @param string $Ide_UnidadEmpaque
+     *
      * @return EnviosUnidadEmpaqueCargue
      */
     public function withIde_UnidadEmpaque($Ide_UnidadEmpaque)
     {
-        $new = clone $this;
+        $new                    = clone $this;
         $new->Ide_UnidadEmpaque = $Ide_UnidadEmpaque;
 
         return $new;
@@ -360,11 +371,12 @@ class EnviosUnidadEmpaqueCargue
 
     /**
      * @param string $Ide_Envio
+     *
      * @return EnviosUnidadEmpaqueCargue
      */
     public function withIde_Envio($Ide_Envio)
     {
-        $new = clone $this;
+        $new            = clone $this;
         $new->Ide_Envio = $Ide_Envio;
 
         return $new;
@@ -380,11 +392,12 @@ class EnviosUnidadEmpaqueCargue
 
     /**
      * @param string $Num_Volumen
+     *
      * @return EnviosUnidadEmpaqueCargue
      */
     public function withNum_Volumen($Num_Volumen)
     {
-        $new = clone $this;
+        $new              = clone $this;
         $new->Num_Volumen = $Num_Volumen;
 
         return $new;
@@ -400,11 +413,12 @@ class EnviosUnidadEmpaqueCargue
 
     /**
      * @param \DateTimeInterface $Fec_Actualizacion
+     *
      * @return EnviosUnidadEmpaqueCargue
      */
     public function withFec_Actualizacion($Fec_Actualizacion)
     {
-        $new = clone $this;
+        $new                    = clone $this;
         $new->Fec_Actualizacion = $Fec_Actualizacion;
 
         return $new;
@@ -420,11 +434,12 @@ class EnviosUnidadEmpaqueCargue
 
     /**
      * @param int $Num_Consecutivo
+     *
      * @return EnviosUnidadEmpaqueCargue
      */
     public function withNum_Consecutivo($Num_Consecutivo)
     {
-        $new = clone $this;
+        $new                  = clone $this;
         $new->Num_Consecutivo = $Num_Consecutivo;
 
         return $new;
@@ -440,11 +455,12 @@ class EnviosUnidadEmpaqueCargue
 
     /**
      * @param string $Cod_Facturacion
+     *
      * @return EnviosUnidadEmpaqueCargue
      */
     public function withCod_Facturacion($Cod_Facturacion)
     {
-        $new = clone $this;
+        $new                  = clone $this;
         $new->Cod_Facturacion = $Cod_Facturacion;
 
         return $new;
@@ -460,11 +476,12 @@ class EnviosUnidadEmpaqueCargue
 
     /**
      * @param string $Num_ValorDeclarado
+     *
      * @return EnviosUnidadEmpaqueCargue
      */
     public function withNum_ValorDeclarado($Num_ValorDeclarado)
     {
-        $new = clone $this;
+        $new                     = clone $this;
         $new->Num_ValorDeclarado = $Num_ValorDeclarado;
 
         return $new;
@@ -480,11 +497,12 @@ class EnviosUnidadEmpaqueCargue
 
     /**
      * @param string $Indicador
+     *
      * @return EnviosUnidadEmpaqueCargue
      */
     public function withIndicador($Indicador)
     {
-        $new = clone $this;
+        $new            = clone $this;
         $new->Indicador = $Indicador;
 
         return $new;
@@ -500,11 +518,12 @@ class EnviosUnidadEmpaqueCargue
 
     /**
      * @param string $NumeroDeCaja
+     *
      * @return EnviosUnidadEmpaqueCargue
      */
     public function withNumeroDeCaja($NumeroDeCaja)
     {
-        $new = clone $this;
+        $new               = clone $this;
         $new->NumeroDeCaja = $NumeroDeCaja;
 
         return $new;
@@ -520,16 +539,14 @@ class EnviosUnidadEmpaqueCargue
 
     /**
      * @param string $Id_archivo
+     *
      * @return EnviosUnidadEmpaqueCargue
      */
     public function withId_archivo($Id_archivo)
     {
-        $new = clone $this;
+        $new             = clone $this;
         $new->Id_archivo = $Id_archivo;
 
         return $new;
     }
-
-
 }
-

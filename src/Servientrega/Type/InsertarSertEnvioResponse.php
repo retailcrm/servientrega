@@ -6,7 +6,6 @@ use Phpro\SoapClient\Type\ResultInterface;
 
 class InsertarSertEnvioResponse implements ResultInterface
 {
-
     /**
      * @var bool
      */
@@ -22,16 +21,14 @@ class InsertarSertEnvioResponse implements ResultInterface
 
     /**
      * @param bool $InsertarSertEnvioResult
+     *
      * @return InsertarSertEnvioResponse
      */
     public function withInsertarSertEnvioResult($InsertarSertEnvioResult)
     {
-        $new = clone $this;
+        $new                          = clone $this;
         $new->InsertarSertEnvioResult = $InsertarSertEnvioResult;
 
         return $new;
     }
-
-
 }
-

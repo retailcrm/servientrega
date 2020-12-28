@@ -4,7 +4,6 @@ namespace App\Servientrega\Type;
 
 class CargueMasivoExternoDTO
 {
-
     /**
      * @var \App\Servientrega\Type\ArrayOfEnviosExterno
      */
@@ -20,16 +19,14 @@ class CargueMasivoExternoDTO
 
     /**
      * @param \App\Servientrega\Type\ArrayOfEnviosExterno $objEnvios
+     *
      * @return CargueMasivoExternoDTO
      */
     public function withObjEnvios($objEnvios)
     {
-        $new = clone $this;
+        $new            = clone $this;
         $new->objEnvios = $objEnvios;
 
         return $new;
     }
-
-
 }
-

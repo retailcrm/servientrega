@@ -6,12 +6,9 @@ use App\Servientrega\TrackingType\ArrayOfGuiasDTO;
 use GuzzleHttp\Client;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\SerializerInterface;
-use InvalidArgumentException;
 
 /**
  * Class ServientregaTrackingClient
- *
- * @package App\Servientrega
  */
 class ServientregaTrackingClient
 {
@@ -32,7 +29,7 @@ class ServientregaTrackingClient
         $this->client = new Client(
             [
                 'base_uri' => static::API_URL,
-                'headers' => ['Content-Type' => 'application/x-www-form-urlencoded']
+                'headers'  => ['Content-Type' => 'application/x-www-form-urlencoded'],
             ]
         );
 
@@ -49,11 +46,11 @@ class ServientregaTrackingClient
     public function getDeliveryStatus(array $trackNumbers)
     {
         if (empty($trackNumbers)) {
-            throw new InvalidArgumentException('Track numbers not specified');
+            throw new \InvalidArgumentException('Track numbers not specified');
         }
 
         if (count($trackNumbers) > 1) {
-            $trackNumbers = implode(",", $trackNumbers);
+            $trackNumbers = implode(',', $trackNumbers);
         } else {
             $trackNumbers = $trackNumbers[0];
         }
@@ -63,8 +60,8 @@ class ServientregaTrackingClient
             '/wsrastreoenvios/wsrastreoenvios.asmx/ConsultarInfoGuias',
             [
                 'form_params' => [
-                    'NumerosGuias' => $trackNumbers
-                ]
+                    'NumerosGuias' => $trackNumbers,
+                ],
             ]
         );
 

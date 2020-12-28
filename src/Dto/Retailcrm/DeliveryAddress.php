@@ -20,7 +20,7 @@ class DeliveryAddress
     public $region;
 
     /**
-     * @var integer|null
+     * @var int|null
      */
     public $regionId;
 
@@ -30,7 +30,7 @@ class DeliveryAddress
     public $city;
 
     /**
-     * @var integer|null
+     * @var int|null
      */
     public $cityId;
 
@@ -45,7 +45,7 @@ class DeliveryAddress
     public $street;
 
     /**
-     * @var integer|null
+     * @var int|null
      */
     public $streetId;
 
@@ -70,12 +70,12 @@ class DeliveryAddress
     public $intercomCode;
 
     /**
-     * @var integer|null
+     * @var int|null
      */
     public $floor;
 
     /**
-     * @var integer|null
+     * @var int|null
      */
     public $block;
 

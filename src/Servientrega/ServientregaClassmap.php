@@ -2,13 +2,12 @@
 
 namespace App\Servientrega;
 
-use App\Servientrega\Type;
-use Phpro\SoapClient\Soap\ClassMap\ClassMapCollection;
 use Phpro\SoapClient\Soap\ClassMap\ClassMap;
+use Phpro\SoapClient\Soap\ClassMap\ClassMapCollection;
 
 class ServientregaClassmap
 {
-    public static function getCollection() : \Phpro\SoapClient\Soap\ClassMap\ClassMapCollection
+    public static function getCollection(): ClassMapCollection
     {
         return new ClassMapCollection([
             new ClassMap('DesencriptarContrasena', Type\DesencriptarContrasena::class),
@@ -97,4 +96,3 @@ class ServientregaClassmap
         ]);
     }
 }
-

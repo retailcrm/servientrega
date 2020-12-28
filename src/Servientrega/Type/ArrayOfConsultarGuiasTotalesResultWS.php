@@ -4,7 +4,6 @@ namespace App\Servientrega\Type;
 
 class ArrayOfConsultarGuiasTotalesResultWS
 {
-
     /**
      * @var \App\Servientrega\Type\ConsultarGuiasTotalesResultWS
      */
@@ -20,16 +19,14 @@ class ArrayOfConsultarGuiasTotalesResultWS
 
     /**
      * @param \App\Servientrega\Type\ConsultarGuiasTotalesResultWS $ConsultarGuiasTotalesResultWS
+     *
      * @return ArrayOfConsultarGuiasTotalesResultWS
      */
     public function withConsultarGuiasTotalesResultWS($ConsultarGuiasTotalesResultWS)
     {
-        $new = clone $this;
+        $new                                = clone $this;
         $new->ConsultarGuiasTotalesResultWS = $ConsultarGuiasTotalesResultWS;
 
         return $new;
     }
-
-
 }
-

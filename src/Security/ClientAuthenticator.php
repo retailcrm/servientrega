@@ -65,7 +65,7 @@ class ClientAuthenticator extends AbstractGuardAuthenticator
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
         $data = [
-            'message' => $exception->getMessageKey()
+            'message' => $exception->getMessageKey(),
         ];
 
         return new JsonResponse($data, Response::HTTP_FORBIDDEN);

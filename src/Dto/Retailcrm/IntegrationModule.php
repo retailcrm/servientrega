@@ -4,7 +4,6 @@ namespace App\Dto\Retailcrm;
 
 class IntegrationModule
 {
-
     /**
      * @var string|null
      */
@@ -16,12 +15,12 @@ class IntegrationModule
     public $integrationCode;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $active = true;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $freeze;
 

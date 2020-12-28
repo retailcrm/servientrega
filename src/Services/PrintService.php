@@ -8,8 +8,6 @@ use iio\libmergepdf\Merger;
 
 /**
  * Class PrintService
- *
- * @package App\Services
  */
 class PrintService
 {
@@ -23,12 +21,6 @@ class PrintService
         $this->orderService = $orderService;
     }
 
-    /**
-     * @param Connection $connection
-     * @param string $deliveryId
-     *
-     * @return string|null
-     */
     public function printSticker(Connection $connection, string $deliveryId): ?string
     {
         $stickers = $this->orderService->getStickers($connection, [$deliveryId]);
@@ -39,15 +31,9 @@ class PrintService
         return $stickers[0];
     }
 
-    /**
-     * @param Connection $connection
-     * @param array $deliveryIds
-     *
-     * @return string|null
-     */
     public function printStickers(Connection $connection, array $deliveryIds): ?string
     {
-        $merger = new Merger(new TcpdiDriver());
+        $merger   = new Merger(new TcpdiDriver());
         $stickers = $this->orderService->getStickers($connection, $deliveryIds);
         if (empty($stickers)) {
             return null;

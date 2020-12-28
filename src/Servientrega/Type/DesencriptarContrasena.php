@@ -6,7 +6,6 @@ use Phpro\SoapClient\Type\RequestInterface;
 
 class DesencriptarContrasena implements RequestInterface
 {
-
     /**
      * @var string
      */
@@ -15,7 +14,7 @@ class DesencriptarContrasena implements RequestInterface
     /**
      * Constructor
      *
-     * @var string $strcontrasenaEncriptada
+     * @var string
      */
     public function __construct($strcontrasenaEncriptada)
     {
@@ -32,16 +31,14 @@ class DesencriptarContrasena implements RequestInterface
 
     /**
      * @param string $strcontrasenaEncriptada
+     *
      * @return DesencriptarContrasena
      */
     public function withStrcontrasenaEncriptada($strcontrasenaEncriptada)
     {
-        $new = clone $this;
+        $new                          = clone $this;
         $new->strcontrasenaEncriptada = $strcontrasenaEncriptada;
 
         return $new;
     }
-
-
 }
-

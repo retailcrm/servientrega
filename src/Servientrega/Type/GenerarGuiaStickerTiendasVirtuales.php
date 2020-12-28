@@ -6,7 +6,6 @@ use Phpro\SoapClient\Type\RequestInterface;
 
 class GenerarGuiaStickerTiendasVirtuales implements RequestInterface
 {
-
     /**
      * @var float
      */
@@ -60,29 +59,29 @@ class GenerarGuiaStickerTiendasVirtuales implements RequestInterface
     /**
      * Constructor
      *
-     * @var float $num_Guia
-     * @var float $num_GuiaFinal
-     * @var string $ide_CodFacturacion
-     * @var int $sFormatoImpresionGuia
-     * @var string $Id_ArchivoCargar
-     * @var bool $consumoClienteExterno
-     * @var string $bytesReport
-     * @var string $correoElectronico
-     * @var string $solicitudRecoleccion
-     * @var string $Num_Remision
+     * @var float
+     * @var float
+     * @var string
+     * @var int
+     * @var string
+     * @var bool
+     * @var string
+     * @var string
+     * @var string
+     * @var string
      */
     public function __construct($num_Guia, $num_GuiaFinal, $ide_CodFacturacion, $sFormatoImpresionGuia, $Id_ArchivoCargar, $consumoClienteExterno, $bytesReport, $correoElectronico, $solicitudRecoleccion, $Num_Remision)
     {
-        $this->num_Guia = $num_Guia;
-        $this->num_GuiaFinal = $num_GuiaFinal;
-        $this->ide_CodFacturacion = $ide_CodFacturacion;
+        $this->num_Guia              = $num_Guia;
+        $this->num_GuiaFinal         = $num_GuiaFinal;
+        $this->ide_CodFacturacion    = $ide_CodFacturacion;
         $this->sFormatoImpresionGuia = $sFormatoImpresionGuia;
-        $this->Id_ArchivoCargar = $Id_ArchivoCargar;
+        $this->Id_ArchivoCargar      = $Id_ArchivoCargar;
         $this->consumoClienteExterno = $consumoClienteExterno;
-        $this->bytesReport = $bytesReport;
-        $this->correoElectronico = $correoElectronico;
-        $this->solicitudRecoleccion = $solicitudRecoleccion;
-        $this->Num_Remision = $Num_Remision;
+        $this->bytesReport           = $bytesReport;
+        $this->correoElectronico     = $correoElectronico;
+        $this->solicitudRecoleccion  = $solicitudRecoleccion;
+        $this->Num_Remision          = $Num_Remision;
     }
 
     /**
@@ -95,11 +94,12 @@ class GenerarGuiaStickerTiendasVirtuales implements RequestInterface
 
     /**
      * @param float $num_Guia
+     *
      * @return GenerarGuiaStickerTiendasVirtuales
      */
     public function withNum_Guia($num_Guia)
     {
-        $new = clone $this;
+        $new           = clone $this;
         $new->num_Guia = $num_Guia;
 
         return $new;
@@ -115,11 +115,12 @@ class GenerarGuiaStickerTiendasVirtuales implements RequestInterface
 
     /**
      * @param float $num_GuiaFinal
+     *
      * @return GenerarGuiaStickerTiendasVirtuales
      */
     public function withNum_GuiaFinal($num_GuiaFinal)
     {
-        $new = clone $this;
+        $new                = clone $this;
         $new->num_GuiaFinal = $num_GuiaFinal;
 
         return $new;
@@ -135,11 +136,12 @@ class GenerarGuiaStickerTiendasVirtuales implements RequestInterface
 
     /**
      * @param string $ide_CodFacturacion
+     *
      * @return GenerarGuiaStickerTiendasVirtuales
      */
     public function withIde_CodFacturacion($ide_CodFacturacion)
     {
-        $new = clone $this;
+        $new                     = clone $this;
         $new->ide_CodFacturacion = $ide_CodFacturacion;
 
         return $new;
@@ -155,11 +157,12 @@ class GenerarGuiaStickerTiendasVirtuales implements RequestInterface
 
     /**
      * @param int $sFormatoImpresionGuia
+     *
      * @return GenerarGuiaStickerTiendasVirtuales
      */
     public function withSFormatoImpresionGuia($sFormatoImpresionGuia)
     {
-        $new = clone $this;
+        $new                        = clone $this;
         $new->sFormatoImpresionGuia = $sFormatoImpresionGuia;
 
         return $new;
@@ -175,11 +178,12 @@ class GenerarGuiaStickerTiendasVirtuales implements RequestInterface
 
     /**
      * @param string $Id_ArchivoCargar
+     *
      * @return GenerarGuiaStickerTiendasVirtuales
      */
     public function withId_ArchivoCargar($Id_ArchivoCargar)
     {
-        $new = clone $this;
+        $new                   = clone $this;
         $new->Id_ArchivoCargar = $Id_ArchivoCargar;
 
         return $new;
@@ -195,11 +199,12 @@ class GenerarGuiaStickerTiendasVirtuales implements RequestInterface
 
     /**
      * @param bool $consumoClienteExterno
+     *
      * @return GenerarGuiaStickerTiendasVirtuales
      */
     public function withConsumoClienteExterno($consumoClienteExterno)
     {
-        $new = clone $this;
+        $new                        = clone $this;
         $new->consumoClienteExterno = $consumoClienteExterno;
 
         return $new;
@@ -215,11 +220,12 @@ class GenerarGuiaStickerTiendasVirtuales implements RequestInterface
 
     /**
      * @param string $bytesReport
+     *
      * @return GenerarGuiaStickerTiendasVirtuales
      */
     public function withBytesReport($bytesReport)
     {
-        $new = clone $this;
+        $new              = clone $this;
         $new->bytesReport = $bytesReport;
 
         return $new;
@@ -235,11 +241,12 @@ class GenerarGuiaStickerTiendasVirtuales implements RequestInterface
 
     /**
      * @param string $correoElectronico
+     *
      * @return GenerarGuiaStickerTiendasVirtuales
      */
     public function withCorreoElectronico($correoElectronico)
     {
-        $new = clone $this;
+        $new                    = clone $this;
         $new->correoElectronico = $correoElectronico;
 
         return $new;
@@ -255,11 +262,12 @@ class GenerarGuiaStickerTiendasVirtuales implements RequestInterface
 
     /**
      * @param string $solicitudRecoleccion
+     *
      * @return GenerarGuiaStickerTiendasVirtuales
      */
     public function withSolicitudRecoleccion($solicitudRecoleccion)
     {
-        $new = clone $this;
+        $new                       = clone $this;
         $new->solicitudRecoleccion = $solicitudRecoleccion;
 
         return $new;
@@ -275,16 +283,14 @@ class GenerarGuiaStickerTiendasVirtuales implements RequestInterface
 
     /**
      * @param string $Num_Remision
+     *
      * @return GenerarGuiaStickerTiendasVirtuales
      */
     public function withNum_Remision($Num_Remision)
     {
-        $new = clone $this;
+        $new               = clone $this;
         $new->Num_Remision = $Num_Remision;
 
         return $new;
     }
-
-
 }
-

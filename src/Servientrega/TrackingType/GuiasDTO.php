@@ -2,14 +2,12 @@
 
 namespace App\Servientrega\TrackingType;
 
-use DateTimeImmutable;
-
 class GuiasDTO
 {
     public $NumGui;
 
     /**
-     * @var DateTimeImmutable
+     * @var \DateTimeImmutable
      */
     public $FecEnv;
     public $NumPie;
@@ -23,7 +21,7 @@ class GuiasDTO
     public $EstAct;
 
     /**
-     * @var DateTimeImmutable
+     * @var \DateTimeImmutable
      */
     public $FecEst;
     public $NomRec;

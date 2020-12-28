@@ -9,8 +9,6 @@ use Doctrine\ORM\EntityManagerInterface;
 
 /**
  * Class OrderService
- *
- * @package App\Services
  */
 class OrderService
 {
@@ -26,18 +24,10 @@ class OrderService
 
     public function __construct(EntityManagerInterface $entityManager, OrderRepository $orderRepository)
     {
-        $this->entityManager = $entityManager;
+        $this->entityManager   = $entityManager;
         $this->orderRepository = $orderRepository;
     }
 
-    /**
-     * @param Connection $connection
-     * @param int $orderId
-     * @param string $track
-     * @param string|null $sticker
-     *
-     * @return Order
-     */
     public function createOrder(Connection $connection, int $orderId, string $track, ?string $sticker = null): Order
     {
         $order = new Order();
@@ -57,8 +47,6 @@ class OrderService
     }
 
     /**
-     * @param Connection $connection
-     *
      * @return Order[]
      */
     public function getActiveOrders(Connection $connection): array
@@ -66,23 +54,14 @@ class OrderService
         return $this->orderRepository->findBy(['connection' => $connection, 'isClosed' => false]);
     }
 
-    /**
-     * @param Connection $connection
-     * @param string $trackNumber
-     * @param string $status
-     * @param string $orderId
-     *
-     * @return void
-     */
     public function closeOrderIfNeed(Connection $connection, string $trackNumber, string $orderId, string $status): void
     {
-        if ($status === "3") {
+        if ('3' === $status) {
             $this->orderRepository->untrackOrder($connection, $trackNumber, $orderId);
         }
     }
 
     /**
-     * @param Connection $connection
      * @param string[] $deliveryIds
      *
      * @return string[]

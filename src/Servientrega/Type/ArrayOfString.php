@@ -4,7 +4,6 @@ namespace App\Servientrega\Type;
 
 class ArrayOfString
 {
-
     /**
      * @var string
      */
@@ -20,16 +19,14 @@ class ArrayOfString
 
     /**
      * @param string $string
+     *
      * @return ArrayOfString
      */
     public function withString($string)
     {
-        $new = clone $this;
+        $new         = clone $this;
         $new->string = $string;
 
         return $new;
     }
-
-
 }
-

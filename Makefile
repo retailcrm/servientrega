@@ -58,3 +58,10 @@ release:
 	docker-compose -f docker-compose.yml run -e APP_ENV=prod -e APP_DEBUG=0 --rm --no-deps app composer --no-interaction install --prefer-dist --no-dev
 	docker-compose -f docker-compose.yml run -e APP_ENV=prod -e APP_DEBUG=0 --rm --no-deps app bin/console --env=prod fos:js-routing:dump --format=json --target=public/js/fos_js_routes.json
 	docker-compose -f docker-compose.yml run --rm --no-deps node make js_build
+
+
+lint-code-style:
+	@ - vendor/bin/php-cs-fixer fix --config=.php_cs.dist --allow-risky=yes --dry-run --stop-on-violation --diff --using-cache=no src tests
+
+fix-code-style:
+	@ - vendor/bin/php-cs-fixer fix --config=.php_cs.dist --allow-risky=yes --verbose --using-cache=no src tests

@@ -6,7 +6,6 @@ use Phpro\SoapClient\Type\RequestInterface;
 
 class RangoGuias implements RequestInterface
 {
-
     /**
      * @var int
      */
@@ -20,13 +19,13 @@ class RangoGuias implements RequestInterface
     /**
      * Constructor
      *
-     * @var int $Tipo_Guia
-     * @var string $mensaje
+     * @var int
+     * @var string
      */
     public function __construct($Tipo_Guia, $mensaje)
     {
         $this->Tipo_Guia = $Tipo_Guia;
-        $this->mensaje = $mensaje;
+        $this->mensaje   = $mensaje;
     }
 
     /**
@@ -39,11 +38,12 @@ class RangoGuias implements RequestInterface
 
     /**
      * @param int $Tipo_Guia
+     *
      * @return RangoGuias
      */
     public function withTipo_Guia($Tipo_Guia)
     {
-        $new = clone $this;
+        $new            = clone $this;
         $new->Tipo_Guia = $Tipo_Guia;
 
         return $new;
@@ -59,16 +59,14 @@ class RangoGuias implements RequestInterface
 
     /**
      * @param string $mensaje
+     *
      * @return RangoGuias
      */
     public function withMensaje($mensaje)
     {
-        $new = clone $this;
+        $new          = clone $this;
         $new->mensaje = $mensaje;
 
         return $new;
     }
-
-
 }
-

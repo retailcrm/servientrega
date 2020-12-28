@@ -4,7 +4,6 @@ namespace App\Servientrega\Type;
 
 class ArrayOfConsultaGuiasXManifestar
 {
-
     /**
      * @var \App\Servientrega\Type\ConsultaGuiasXManifestar
      */
@@ -20,16 +19,14 @@ class ArrayOfConsultaGuiasXManifestar
 
     /**
      * @param \App\Servientrega\Type\ConsultaGuiasXManifestar $ConsultaGuiasXManifestar
+     *
      * @return ArrayOfConsultaGuiasXManifestar
      */
     public function withConsultaGuiasXManifestar($ConsultaGuiasXManifestar)
     {
-        $new = clone $this;
+        $new                           = clone $this;
         $new->ConsultaGuiasXManifestar = $ConsultaGuiasXManifestar;
 
         return $new;
     }
-
-
 }
-

@@ -6,7 +6,6 @@ use Phpro\SoapClient\Type\ResultInterface;
 
 class GenerarManifiestoResponse implements ResultInterface
 {
-
     /**
      * @var bool
      */
@@ -42,11 +41,12 @@ class GenerarManifiestoResponse implements ResultInterface
 
     /**
      * @param bool $GenerarManifiestoResult
+     *
      * @return GenerarManifiestoResponse
      */
     public function withGenerarManifiestoResult($GenerarManifiestoResult)
     {
-        $new = clone $this;
+        $new                          = clone $this;
         $new->GenerarManifiestoResult = $GenerarManifiestoResult;
 
         return $new;
@@ -62,11 +62,12 @@ class GenerarManifiestoResponse implements ResultInterface
 
     /**
      * @param string $cadenaBytes
+     *
      * @return GenerarManifiestoResponse
      */
     public function withCadenaBytes($cadenaBytes)
     {
-        $new = clone $this;
+        $new              = clone $this;
         $new->cadenaBytes = $cadenaBytes;
 
         return $new;
@@ -82,11 +83,12 @@ class GenerarManifiestoResponse implements ResultInterface
 
     /**
      * @param \App\Servientrega\Type\ArrayOfErrorGeneradoPorGuia $Des_Error
+     *
      * @return GenerarManifiestoResponse
      */
     public function withDes_Error($Des_Error)
     {
-        $new = clone $this;
+        $new            = clone $this;
         $new->Des_Error = $Des_Error;
 
         return $new;
@@ -102,11 +104,12 @@ class GenerarManifiestoResponse implements ResultInterface
 
     /**
      * @param string $Num_manifiesto
+     *
      * @return GenerarManifiestoResponse
      */
     public function withNum_manifiesto($Num_manifiesto)
     {
-        $new = clone $this;
+        $new                 = clone $this;
         $new->Num_manifiesto = $Num_manifiesto;
 
         return $new;
@@ -122,16 +125,14 @@ class GenerarManifiestoResponse implements ResultInterface
 
     /**
      * @param string $Mensaje
+     *
      * @return GenerarManifiestoResponse
      */
     public function withMensaje($Mensaje)
     {
-        $new = clone $this;
+        $new          = clone $this;
         $new->Mensaje = $Mensaje;
 
         return $new;
     }
-
-
 }
-

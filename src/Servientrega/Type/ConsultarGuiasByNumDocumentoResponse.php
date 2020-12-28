@@ -6,7 +6,6 @@ use Phpro\SoapClient\Type\ResultInterface;
 
 class ConsultarGuiasByNumDocumentoResponse implements ResultInterface
 {
-
     /**
      * @var \App\Servientrega\Type\ConsultarGuiasByNumDocumentoResult
      */
@@ -22,16 +21,14 @@ class ConsultarGuiasByNumDocumentoResponse implements ResultInterface
 
     /**
      * @param \App\Servientrega\Type\ConsultarGuiasByNumDocumentoResult $ConsultarGuiasByNumDocumentoResult
+     *
      * @return ConsultarGuiasByNumDocumentoResponse
      */
     public function withConsultarGuiasByNumDocumentoResult($ConsultarGuiasByNumDocumentoResult)
     {
-        $new = clone $this;
+        $new                                     = clone $this;
         $new->ConsultarGuiasByNumDocumentoResult = $ConsultarGuiasByNumDocumentoResult;
 
         return $new;
     }
-
-
 }
-

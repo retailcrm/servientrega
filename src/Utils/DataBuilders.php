@@ -8,6 +8,7 @@ use App\Dto\Retailcrm\SaveRequest;
 use App\Dto\Retailcrm\TrackingStatusUpdate;
 use App\Dto\Retailcrm\TrackingStatusUpdateHistory;
 use App\Entity\Connection;
+use App\Servientrega\RestType\CalculateRequest as DeliveryCalculateRequest;
 use App\Servientrega\RestType\LoginRequest;
 use App\Servientrega\RestType\Pieza;
 use App\Servientrega\TrackingType\ArrayOfGuiasDTO;
@@ -16,40 +17,27 @@ use App\Servientrega\Type\ArrayOfEnviosUnidadEmpaqueCargue;
 use App\Servientrega\Type\CargueMasivoExternoDTO;
 use App\Servientrega\Type\EnviosExterno;
 use App\Servientrega\Type\EnviosUnidadEmpaqueCargue;
-use App\Servientrega\RestType\CalculateRequest as DeliveryCalculateRequest;
 
 /**
  * Class DataBuilders
- *
- * @package App\Utils
  */
 class DataBuilders
 {
-    /**
-     * @param Connection $connection
-     *
-     * @return LoginRequest
-     */
     public static function buildLoginRequest(Connection $connection): LoginRequest
     {
-        $loginRequest = new LoginRequest();
-        $loginRequest->login = $connection->getServientregaLogin();
-        $loginRequest->password = $connection->getServientregaPassword();
+        $loginRequest                 = new LoginRequest();
+        $loginRequest->login          = $connection->getServientregaLogin();
+        $loginRequest->password       = $connection->getServientregaPassword();
         $loginRequest->codFacturacion = $connection->getServientregaBillingCode();
 
         return $loginRequest;
     }
 
-    /**
-     * @param SaveRequest $saveRequest
-     * @param Connection $connection
-     * @return CargueMasivoExternoDTO
-     */
     public static function buildDelivery(SaveRequest $saveRequest, Connection $connection): CargueMasivoExternoDTO
     {
-        $envio = new CargueMasivoExternoDTO();
+        $envio              = new CargueMasivoExternoDTO();
         $arrayEnviosExterno = new ArrayOfEnviosExterno();
-        $enviosExterno = new EnviosExterno();
+        $enviosExterno      = new EnviosExterno();
 
         $enviosExterno = $enviosExterno
             ->withNum_Guia(0)
@@ -95,14 +83,14 @@ class DataBuilders
             ->withDes_DepartamentoDestino($saveRequest->delivery->deliveryAddress->region)
             ->withDes_Direccion(
                 trim(sprintf(
-                    "%s %s %s",
+                    '%s %s %s',
                     $saveRequest->delivery->deliveryAddress->street,
                     $saveRequest->delivery->deliveryAddress->building,
                     $saveRequest->delivery->deliveryAddress->flat
                 ))
             )->withNom_Contacto(trim(
                 sprintf(
-                    "%s %s %s",
+                    '%s %s %s',
                     $saveRequest->customer->firstName,
                     $saveRequest->customer->lastName,
                     $saveRequest->customer->patronymic
@@ -125,17 +113,14 @@ class DataBuilders
 
     /**
      * @param Package[] $packages
-     * @param EnviosExterno $enviosExterno
-     *
-     * @return EnviosExterno
      */
     private static function handlePackages(array $packages, EnviosExterno $enviosExterno): EnviosExterno
     {
         $declaredValue = 0;
-        $height = 0;
-        $width = 0;
-        $length = 0;
-        $weight = 0;
+        $height        = 0;
+        $width         = 0;
+        $length        = 0;
+        $weight        = 0;
         $namesProducts = '';
 
         $arrayEmpaqueCargue = [];
@@ -180,8 +165,6 @@ class DataBuilders
     }
 
     /**
-     * @param ArrayOfGuiasDTO $guiasDTO
-     *
      * @return TrackingStatusUpdate[]
      */
     public static function buildTrackingStatus(ArrayOfGuiasDTO $guiasDTO): array
@@ -194,13 +177,13 @@ class DataBuilders
                 continue;
             }
 
-            $status = new TrackingStatusUpdate();
+            $status             = new TrackingStatusUpdate();
             $status->deliveryId = $guiasDTO->NumGui;
 
-            $history = new TrackingStatusUpdateHistory();
-            $history->code = $guiasDTO->IdEstAct;
+            $history            = new TrackingStatusUpdateHistory();
+            $history->code      = $guiasDTO->IdEstAct;
             $history->updatedAt = $guiasDTO->FecEst;
-            $status->history = [$history];
+            $status->history    = [$history];
 
             $statuses[] = $status;
         }
@@ -208,12 +191,6 @@ class DataBuilders
         return $statuses;
     }
 
-    /**
-     * @param CalculateRequest $calculateRequest
-     * @param Connection $connection
-     *
-     * @return DeliveryCalculateRequest
-     */
     public static function buildCalculateRequest(
         CalculateRequest $calculateRequest,
         Connection $connection
@@ -221,29 +198,29 @@ class DataBuilders
         $calculate = new DeliveryCalculateRequest();
         // код продукта Servientrega, в соответствии с: 2 = премиум товары; 6 = промышленные товары; 1 = единичный документ.
         // TODO скорее всего тоже в экстра дата нужно будет вынести
-        $calculate->IdProducto = 2;
+        $calculate->IdProducto   = 2;
         $calculate->NumeroPiezas = count($calculateRequest->packages);
-        $piezas = [];
+        $piezas                  = [];
 
         foreach ($calculateRequest->packages as $package) {
-            $pieza = new Pieza();
-            $pieza->Peso = $package->weight;
+            $pieza        = new Pieza();
+            $pieza->Peso  = $package->weight;
             $pieza->Largo = $package->length;
             $pieza->Ancho = $package->width;
-            $pieza->Alto = $package->height;
+            $pieza->Alto  = $package->height;
 
             $piezas[] = $pieza;
         }
 
-        $calculate->Piezas = $piezas;
-        $calculate->ValorDeclarado = $calculateRequest->declaredValue;
-        $calculate->IdDaneCiudadOrigen = $connection->getIdDaneOriginCity();
+        $calculate->Piezas              = $piezas;
+        $calculate->ValorDeclarado      = $calculateRequest->declaredValue;
+        $calculate->IdDaneCiudadOrigen  = $connection->getIdDaneOriginCity();
         $calculate->IdDaneCiudadDestino = $calculateRequest->extraData[ConfigurationBuilder::ID_DANE_RECEIVER_FIELD];
-        $calculate->EnvioConCobro = false;
-        $calculate->FormaPago = 2;
-        $calculate->TiempoEntrega = 1; // время транспортировки для доставки: 1 = нормальный; 2 = сегодня
-        $calculate->MedioTransporte = 1; // транспортное средство в соответствии с городом происхождения-назначения: 1= наземный; 2= воздушный
-        $calculate->NumRecaudo = $calculateRequest->extraData[ConfigurationBuilder::COLLECTION_NUMBER_FIELD] ?? 500; // значение для сбора, когда отправка груза со стоимостью, в случае, если это без сбора (без процентов), вписывайте значение 500.
+        $calculate->EnvioConCobro       = false;
+        $calculate->FormaPago           = 2;
+        $calculate->TiempoEntrega       = 1; // время транспортировки для доставки: 1 = нормальный; 2 = сегодня
+        $calculate->MedioTransporte     = 1; // транспортное средство в соответствии с городом происхождения-назначения: 1= наземный; 2= воздушный
+        $calculate->NumRecaudo          = $calculateRequest->extraData[ConfigurationBuilder::COLLECTION_NUMBER_FIELD] ?? 500; // значение для сбора, когда отправка груза со стоимостью, в случае, если это без сбора (без процентов), вписывайте значение 500.
 
         return $calculate;
     }

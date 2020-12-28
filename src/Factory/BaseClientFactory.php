@@ -6,8 +6,6 @@ use Symfony\Component\Security\Core\Security;
 
 /**
  * Class BaseClientFactory
- *
- * @package App\Factory
  */
 abstract class BaseClientFactory
 {
@@ -18,8 +16,6 @@ abstract class BaseClientFactory
 
     /**
      * RetailcrmClientFactory constructor.
-     *
-     * @param Security $security
      */
     public function __construct(Security $security)
     {

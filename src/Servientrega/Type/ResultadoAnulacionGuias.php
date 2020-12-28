@@ -4,7 +4,6 @@ namespace App\Servientrega\Type;
 
 class ResultadoAnulacionGuias
 {
-
     /**
      * @var float
      */
@@ -25,11 +24,12 @@ class ResultadoAnulacionGuias
 
     /**
      * @param float $Num_Guia
+     *
      * @return ResultadoAnulacionGuias
      */
     public function withNum_Guia($Num_Guia)
     {
-        $new = clone $this;
+        $new           = clone $this;
         $new->Num_Guia = $Num_Guia;
 
         return $new;
@@ -45,16 +45,14 @@ class ResultadoAnulacionGuias
 
     /**
      * @param string $Descripcion
+     *
      * @return ResultadoAnulacionGuias
      */
     public function withDescripcion($Descripcion)
     {
-        $new = clone $this;
+        $new              = clone $this;
         $new->Descripcion = $Descripcion;
 
         return $new;
     }
-
-
 }
-

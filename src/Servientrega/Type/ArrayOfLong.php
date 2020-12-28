@@ -4,7 +4,6 @@ namespace App\Servientrega\Type;
 
 class ArrayOfLong
 {
-
     /**
      * @var int
      */
@@ -20,16 +19,14 @@ class ArrayOfLong
 
     /**
      * @param int $long
+     *
      * @return ArrayOfLong
      */
     public function withLong($long)
     {
-        $new = clone $this;
+        $new       = clone $this;
         $new->long = $long;
 
         return $new;
     }
-
-
 }
-

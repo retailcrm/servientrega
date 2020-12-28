@@ -6,7 +6,6 @@ use Phpro\SoapClient\Type\ResultInterface;
 
 class ConsultaRangosGuiasResponse implements ResultInterface
 {
-
     /**
      * @var \App\Servientrega\Type\ArrayOfConsultarGuiasTotalesResultWS
      */
@@ -27,11 +26,12 @@ class ConsultaRangosGuiasResponse implements ResultInterface
 
     /**
      * @param \App\Servientrega\Type\ArrayOfConsultarGuiasTotalesResultWS $ConsultaRangosGuiasResult
+     *
      * @return ConsultaRangosGuiasResponse
      */
     public function withConsultaRangosGuiasResult($ConsultaRangosGuiasResult)
     {
-        $new = clone $this;
+        $new                            = clone $this;
         $new->ConsultaRangosGuiasResult = $ConsultaRangosGuiasResult;
 
         return $new;
@@ -47,16 +47,14 @@ class ConsultaRangosGuiasResponse implements ResultInterface
 
     /**
      * @param string $Mensaje
+     *
      * @return ConsultaRangosGuiasResponse
      */
     public function withMensaje($Mensaje)
     {
-        $new = clone $this;
+        $new          = clone $this;
         $new->Mensaje = $Mensaje;
 
         return $new;
     }
-
-
 }
-

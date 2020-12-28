@@ -20,14 +20,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use Throwable;
 
 /**
  * Class CallbackController
  *
  * @Route("/callback")
- *
- * @package App\Controller
  */
 class CallbackController extends AbstractController
 {
@@ -53,11 +50,6 @@ class CallbackController extends AbstractController
 
     /**
      * CallbackController constructor.
-     *
-     * @param SerializerInterface $serializer
-     * @param ServientregaService $servientregaService
-     * @param TranslatorInterface $translator
-     * @param LoggerInterface $logger
      */
     public function __construct(
         SerializerInterface $serializer,
@@ -65,18 +57,14 @@ class CallbackController extends AbstractController
         TranslatorInterface $translator,
         LoggerInterface $logger
     ) {
-        $this->serializer = $serializer;
+        $this->serializer          = $serializer;
         $this->servientregaService = $servientregaService;
-        $this->translator = $translator;
-        $this->logger = $logger;
+        $this->translator          = $translator;
+        $this->logger              = $logger;
     }
 
     /**
-     * @param CalculateRequest $calculateRequest
-     *
      * @Route("/calculate", methods={"POST"})
-     *
-     * @return Response
      */
     public function calculate(CalculateRequest $calculateRequest): Response
     {
@@ -85,7 +73,7 @@ class CallbackController extends AbstractController
 
         try {
             $calculateResponse = $this->servientregaService->calculate($calculateRequest, $user);
-        } catch (Throwable $exception) {
+        } catch (\Throwable $exception) {
             $errorMsg = '';
             if ($exception instanceof ClientException) {
                 foreach ($exception->getResponse()->ModelState as $item) {
@@ -102,12 +90,7 @@ class CallbackController extends AbstractController
     }
 
     /**
-     * @param OrderService $orderService
-     * @param SaveRequest $saveRequest
-     *
      * @Route("/save")
-     *
-     * @return Response
      */
     public function save(OrderService $orderService, SaveRequest $saveRequest): Response
     {
@@ -122,7 +105,7 @@ class CallbackController extends AbstractController
 
         try {
             $response = $this->servientregaService->createDelivery($saveRequest, $user);
-        } catch (Throwable $exception) {
+        } catch (\Throwable $exception) {
             $this->logger->error($exception->getMessage());
 
             return new JsonResponse(['success' => false]);
@@ -139,11 +122,11 @@ class CallbackController extends AbstractController
         if (!$track) {
             $errorMsg = '';
             foreach ((array) $response->getArrayGuias()->getString() as $error) {
-                $errorMsg .= $error . " | ";
+                $errorMsg .= $error . ' | ';
             }
 
             return new JsonResponse(
-                ['success' => false, 'errorMsg' => trim($errorMsg, " |")]
+                ['success' => false, 'errorMsg' => trim($errorMsg, ' |')]
             );
         }
 
@@ -155,19 +138,14 @@ class CallbackController extends AbstractController
         );
 
         $result = [
-            'deliveryId' => $track
+            'deliveryId' => $track,
         ];
 
         return new JsonResponse(['success' => true, 'result' => $result]);
     }
 
     /**
-     * @param PrintRequest $printRequest
-     * @param PrintService $printService
-     *
      * @Route("/print")
-     *
-     * @return Response
      */
     public function print(PrintRequest $printRequest, PrintService $printService): Response
     {
@@ -194,8 +172,8 @@ class CallbackController extends AbstractController
 
         if (null === $response) {
             return new JsonResponse([
-                'success' => false,
-                'errorMsg' => $this->translator->trans('print.error', [], 'servientrega')
+                'success'  => false,
+                'errorMsg' => $this->translator->trans('print.error', [], 'servientrega'),
             ], 400);
         }
 
@@ -207,10 +185,7 @@ class CallbackController extends AbstractController
     }
 
     /**
-     *
      * @Route("/delete")
-     *
-     * @return Response
      */
     public function delete(): Response
     {
@@ -218,12 +193,7 @@ class CallbackController extends AbstractController
     }
 
     /**
-     * @param Request $request
-     * @param ActivityService $activityService
-     *
      * @Route("/activity", methods={"POST"})
-     *
-     * @return Response
      */
     public function activity(Request $request, ActivityService $activityService): Response
     {

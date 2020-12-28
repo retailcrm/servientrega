@@ -6,7 +6,6 @@ use Phpro\SoapClient\Type\RequestInterface;
 
 class ConsultarGuiasByNumDocumento implements RequestInterface
 {
-
     /**
      * @var string
      */
@@ -20,12 +19,12 @@ class ConsultarGuiasByNumDocumento implements RequestInterface
     /**
      * Constructor
      *
-     * @var string $numeroGuia
-     * @var string $Ide_CodFacturacion
+     * @var string
+     * @var string
      */
     public function __construct($numeroGuia, $Ide_CodFacturacion)
     {
-        $this->numeroGuia = $numeroGuia;
+        $this->numeroGuia         = $numeroGuia;
         $this->Ide_CodFacturacion = $Ide_CodFacturacion;
     }
 
@@ -39,11 +38,12 @@ class ConsultarGuiasByNumDocumento implements RequestInterface
 
     /**
      * @param string $numeroGuia
+     *
      * @return ConsultarGuiasByNumDocumento
      */
     public function withNumeroGuia($numeroGuia)
     {
-        $new = clone $this;
+        $new             = clone $this;
         $new->numeroGuia = $numeroGuia;
 
         return $new;
@@ -59,16 +59,14 @@ class ConsultarGuiasByNumDocumento implements RequestInterface
 
     /**
      * @param string $Ide_CodFacturacion
+     *
      * @return ConsultarGuiasByNumDocumento
      */
     public function withIde_CodFacturacion($Ide_CodFacturacion)
     {
-        $new = clone $this;
+        $new                     = clone $this;
         $new->Ide_CodFacturacion = $Ide_CodFacturacion;
 
         return $new;
     }
-
-
 }
-

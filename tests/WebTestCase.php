@@ -18,7 +18,7 @@ abstract class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestC
 
         $this->client = static::createClient();
         /** @var ConnectionRepository $repo */
-        $repo = static::$container->get(ConnectionRepository::class);
+        $repo             = static::$container->get(ConnectionRepository::class);
         $this->connection = $repo->findOneBy([]);
     }
 }

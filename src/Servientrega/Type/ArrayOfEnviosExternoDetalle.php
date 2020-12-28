@@ -4,7 +4,6 @@ namespace App\Servientrega\Type;
 
 class ArrayOfEnviosExternoDetalle
 {
-
     /**
      * @var \App\Servientrega\Type\EnviosExternoDetalle
      */
@@ -20,16 +19,14 @@ class ArrayOfEnviosExternoDetalle
 
     /**
      * @param \App\Servientrega\Type\EnviosExternoDetalle $EnviosExternoDetalle
+     *
      * @return ArrayOfEnviosExternoDetalle
      */
     public function withEnviosExternoDetalle($EnviosExternoDetalle)
     {
-        $new = clone $this;
+        $new                       = clone $this;
         $new->EnviosExternoDetalle = $EnviosExternoDetalle;
 
         return $new;
     }
-
-
 }
-

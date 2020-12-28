@@ -15,17 +15,17 @@ class Package
     public $weight;
 
     /**
-     * @var integer|null
+     * @var int|null
      */
     public $width;
 
     /**
-     * @var integer|null
+     * @var int|null
      */
     public $length;
 
     /**
-     * @var integer|null
+     * @var int|null
      */
     public $height;
 

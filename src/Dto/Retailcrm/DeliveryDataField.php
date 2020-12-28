@@ -4,12 +4,12 @@ namespace App\Dto\Retailcrm;
 
 class DeliveryDataField
 {
-    const TYPE_INTEGER = 'integer';
-    const TYPE_TEXT = 'text';
+    const TYPE_INTEGER      = 'integer';
+    const TYPE_TEXT         = 'text';
     const TYPE_AUTOCOMPLETE = 'autocomplete';
-    const TYPE_CHECKBOX = 'checkbox';
-    const TYPE_CHOICE = 'choice';
-    const TYPE_DATE = 'date';
+    const TYPE_CHECKBOX     = 'checkbox';
+    const TYPE_CHOICE       = 'choice';
+    const TYPE_DATE         = 'date';
 
     /**
      * @var string|null
@@ -32,7 +32,7 @@ class DeliveryDataField
     public $type;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $multiple = false;
 
@@ -47,17 +47,17 @@ class DeliveryDataField
     public $autocompleteUrl;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $required = false;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $affectsCost = false;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $editable = true;
 }

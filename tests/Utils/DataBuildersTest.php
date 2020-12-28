@@ -17,7 +17,6 @@ use App\Utils\ConfigurationBuilder;
 use App\Utils\DataBuilders;
 use Faker\Factory;
 use PHPUnit\Framework\TestCase;
-use DateTimeImmutable;
 
 class DataBuildersTest extends TestCase
 {
@@ -37,11 +36,11 @@ class DataBuildersTest extends TestCase
 
     public function testBuildTrackingStatus()
     {
-        $status = new ArrayOfGuiasDTO();
-        $dto = new GuiasDTO();
-        $dto->NumGui = "123";
-        $dto->IdEstAct = "1";
-        $dto->FecEst = new DateTimeImmutable();
+        $status        = new ArrayOfGuiasDTO();
+        $dto           = new GuiasDTO();
+        $dto->NumGui   = '123';
+        $dto->IdEstAct = '1';
+        $dto->FecEst   = new \DateTimeImmutable();
 
         $status->GuiasDTO = [$dto];
 
@@ -49,35 +48,35 @@ class DataBuildersTest extends TestCase
 
         static::assertIsArray($result);
         static::assertNotEmpty($result);
-        static::assertEquals("123", $result[0]->deliveryId);
-        static::assertEquals("1", $result[0]->history[0]->code);
+        static::assertEquals('123', $result[0]->deliveryId);
+        static::assertEquals('1', $result[0]->history[0]->code);
         static::assertNotEmpty($result[0]->history[0]->updatedAt);
     }
 
     private function getSaveRequest(): SaveRequest
     {
-        $faker = Factory::create();
-        $saveRequest = new SaveRequest();
-        $customer = new Customer();
-        $customer->id = $faker->randomNumber();
-        $customer->lastName = $faker->name();
-        $customer->firstName = $faker->firstName();
+        $faker                = Factory::create();
+        $saveRequest          = new SaveRequest();
+        $customer             = new Customer();
+        $customer->id         = $faker->randomNumber();
+        $customer->lastName   = $faker->name();
+        $customer->firstName  = $faker->firstName();
         $customer->patronymic = $faker->name();
-        $customer->phones = [$faker->phoneNumber];
-        $customer->email = $faker->email;
+        $customer->phones     = [$faker->phoneNumber];
+        $customer->email      = $faker->email;
 
-        $manager = new Manager();
+        $manager        = new Manager();
         $manager->phone = $faker->phoneNumber;
 
         $packages = [];
-        for ($i = 0; $i < static::PACKAGE_COUNT; $i++) {
-            $package = new Package();
-            $package->weight = $faker->numberBetween(0, 1000);
-            $package->width = $faker->numberBetween(0, 1000);
-            $package->length = $faker->numberBetween(0, 1000);
-            $package->height = $faker->numberBetween(0, 1000);
-            $item = new PackageItem();
-            $item->name = $faker->word;
+        for ($i = 0; $i < static::PACKAGE_COUNT; ++$i) {
+            $package             = new Package();
+            $package->weight     = $faker->numberBetween(0, 1000);
+            $package->width      = $faker->numberBetween(0, 1000);
+            $package->length     = $faker->numberBetween(0, 1000);
+            $package->height     = $faker->numberBetween(0, 1000);
+            $item                = new PackageItem();
+            $item->name          = $faker->word;
             $item->declaredValue = $faker->randomFloat(2, 0, 1000);
 
             $package->items = [$item];
@@ -85,55 +84,55 @@ class DataBuildersTest extends TestCase
             $packages[] = $package;
         }
 
-        $saveDeliveryData = new SaveDeliveryData();
-        $shipmentAddress = new DeliveryAddress();
-        $shipmentAddress->index = $faker->postcode;
-        $shipmentAddress->region = $faker->state;
-        $shipmentAddress->city = $faker->city;
-        $shipmentAddress->street = $faker->streetName;
+        $saveDeliveryData          = new SaveDeliveryData();
+        $shipmentAddress           = new DeliveryAddress();
+        $shipmentAddress->index    = $faker->postcode;
+        $shipmentAddress->region   = $faker->state;
+        $shipmentAddress->city     = $faker->city;
+        $shipmentAddress->street   = $faker->streetName;
         $shipmentAddress->building = $faker->buildingNumber;
-        $shipmentAddress->flat = $faker->randomNumber();
+        $shipmentAddress->flat     = $faker->randomNumber();
 
-        $deliveryAddress = new DeliveryAddress();
-        $deliveryAddress->index = $faker->postcode;
-        $deliveryAddress->region = $faker->state;
-        $deliveryAddress->city = $faker->city;
-        $deliveryAddress->street = $faker->streetName;
+        $deliveryAddress           = new DeliveryAddress();
+        $deliveryAddress->index    = $faker->postcode;
+        $deliveryAddress->region   = $faker->state;
+        $deliveryAddress->city     = $faker->city;
+        $deliveryAddress->street   = $faker->streetName;
         $deliveryAddress->building = $faker->buildingNumber;
-        $deliveryAddress->flat = $faker->randomNumber();
+        $deliveryAddress->flat     = $faker->randomNumber();
 
         $saveDeliveryData->shipmentAddress = $shipmentAddress;
         $saveDeliveryData->deliveryAddress = $deliveryAddress;
 
-        $saveRequest->order = (string)$faker->numberBetween();
-        $saveRequest->orderNumber = (string)$faker->randomNumber();
-        $saveRequest->site = 'test_site';
-        $saveRequest->siteName = 'Test site';
+        $saveRequest->order       = (string) $faker->numberBetween();
+        $saveRequest->orderNumber = (string) $faker->randomNumber();
+        $saveRequest->site        = 'test_site';
+        $saveRequest->siteName    = 'Test site';
         $saveRequest->legalEntity = $faker->company;
-        $saveRequest->customer = $customer;
-        $saveRequest->manager = $manager;
-        $saveRequest->packages = $packages;
-        $saveRequest->delivery = $saveDeliveryData;
+        $saveRequest->customer    = $customer;
+        $saveRequest->manager     = $manager;
+        $saveRequest->packages    = $packages;
+        $saveRequest->delivery    = $saveDeliveryData;
 
         return $saveRequest;
     }
 
     public function testBuildCalculateRequest()
     {
-        $request = new CalculateRequest();
+        $request           = new CalculateRequest();
         $request->packages = [
-            new Package()
+            new Package(),
         ];
 
-        $address = new DeliveryAddress();
+        $address        = new DeliveryAddress();
         $address->index = 111111;
 
-        $request->declaredValue = 100;
+        $request->declaredValue   = 100;
         $request->shipmentAddress = $address;
         $request->deliveryAddress = $address;
-        $request->extraData = [
+        $request->extraData       = [
             ConfigurationBuilder::COLLECTION_NUMBER_FIELD => 123456,
-            ConfigurationBuilder::ID_DANE_RECEIVER_FIELD => '111111'
+            ConfigurationBuilder::ID_DANE_RECEIVER_FIELD  => '111111',
         ];
 
         $result = DataBuilders::buildCalculateRequest(

@@ -2,8 +2,6 @@
 
 namespace App\Dto\Retailcrm;
 
-use DateTimeImmutable;
-
 class TrackingStatusUpdateHistory
 {
     /**
@@ -12,7 +10,7 @@ class TrackingStatusUpdateHistory
     public $code;
 
     /**
-     * @var DateTimeImmutable
+     * @var \DateTimeImmutable
      */
     public $updatedAt;
 

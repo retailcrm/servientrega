@@ -12,6 +12,7 @@
         "doctrine/doctrine-bundle": "^2.1",
         "doctrine/doctrine-migrations-bundle": "^3.0",
         "doctrine/orm": "^2.7",
+        "friendsofphp/php-cs-fixer": "^2.17",
         "friendsofsymfony/jsrouting-bundle": "^2.6",
         "guzzlehttp/guzzle": "^6.0",
         "iio/libmergepdf": "^4.0",

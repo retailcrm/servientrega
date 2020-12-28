@@ -4,7 +4,6 @@ namespace App\Servientrega\Type;
 
 class ArrayOfEnviosUnidadEmpaqueCargueDetalle
 {
-
     /**
      * @var \App\Servientrega\Type\EnviosUnidadEmpaqueCargueDetalle
      */
@@ -20,16 +19,14 @@ class ArrayOfEnviosUnidadEmpaqueCargueDetalle
 
     /**
      * @param \App\Servientrega\Type\EnviosUnidadEmpaqueCargueDetalle $EnviosUnidadEmpaqueCargueDetalle
+     *
      * @return ArrayOfEnviosUnidadEmpaqueCargueDetalle
      */
     public function withEnviosUnidadEmpaqueCargueDetalle($EnviosUnidadEmpaqueCargueDetalle)
     {
-        $new = clone $this;
+        $new                                   = clone $this;
         $new->EnviosUnidadEmpaqueCargueDetalle = $EnviosUnidadEmpaqueCargueDetalle;
 
         return $new;
     }
-
-
 }
-

@@ -4,7 +4,6 @@ namespace App\Servientrega\Type;
 
 class EnviosExternoDetalle
 {
-
     /**
      * @var string
      */
@@ -130,11 +129,12 @@ class EnviosExternoDetalle
 
     /**
      * @param string $Numero_palet
+     *
      * @return EnviosExternoDetalle
      */
     public function withNumero_palet($Numero_palet)
     {
-        $new = clone $this;
+        $new               = clone $this;
         $new->Numero_palet = $Numero_palet;
 
         return $new;
@@ -150,11 +150,12 @@ class EnviosExternoDetalle
 
     /**
      * @param string $Numero_Suborden
+     *
      * @return EnviosExternoDetalle
      */
     public function withNumero_Suborden($Numero_Suborden)
     {
-        $new = clone $this;
+        $new                  = clone $this;
         $new->Numero_Suborden = $Numero_Suborden;
 
         return $new;
@@ -170,11 +171,12 @@ class EnviosExternoDetalle
 
     /**
      * @param string $Numero_F12
+     *
      * @return EnviosExternoDetalle
      */
     public function withNumero_F12($Numero_F12)
     {
-        $new = clone $this;
+        $new             = clone $this;
         $new->Numero_F12 = $Numero_F12;
 
         return $new;
@@ -190,11 +192,12 @@ class EnviosExternoDetalle
 
     /**
      * @param string $Numero_segundo_F12
+     *
      * @return EnviosExternoDetalle
      */
     public function withNumero_segundo_F12($Numero_segundo_F12)
     {
-        $new = clone $this;
+        $new                     = clone $this;
         $new->Numero_segundo_F12 = $Numero_segundo_F12;
 
         return $new;
@@ -210,11 +213,12 @@ class EnviosExternoDetalle
 
     /**
      * @param string $Fecha_F12
+     *
      * @return EnviosExternoDetalle
      */
     public function withFecha_F12($Fecha_F12)
     {
-        $new = clone $this;
+        $new            = clone $this;
         $new->Fecha_F12 = $Fecha_F12;
 
         return $new;
@@ -230,11 +234,12 @@ class EnviosExternoDetalle
 
     /**
      * @param string $Tipo_Documento_F11F12
+     *
      * @return EnviosExternoDetalle
      */
     public function withTipo_Documento_F11F12($Tipo_Documento_F11F12)
     {
-        $new = clone $this;
+        $new                        = clone $this;
         $new->Tipo_Documento_F11F12 = $Tipo_Documento_F11F12;
 
         return $new;
@@ -250,11 +255,12 @@ class EnviosExternoDetalle
 
     /**
      * @param string $Ciudad_Origen
+     *
      * @return EnviosExternoDetalle
      */
     public function withCiudad_Origen($Ciudad_Origen)
     {
-        $new = clone $this;
+        $new                = clone $this;
         $new->Ciudad_Origen = $Ciudad_Origen;
 
         return $new;
@@ -270,11 +276,12 @@ class EnviosExternoDetalle
 
     /**
      * @param string $Departamento_Origen
+     *
      * @return EnviosExternoDetalle
      */
     public function withDepartamento_Origen($Departamento_Origen)
     {
-        $new = clone $this;
+        $new                      = clone $this;
         $new->Departamento_Origen = $Departamento_Origen;
 
         return $new;
@@ -290,11 +297,12 @@ class EnviosExternoDetalle
 
     /**
      * @param string $Ciudad_Destino
+     *
      * @return EnviosExternoDetalle
      */
     public function withCiudad_Destino($Ciudad_Destino)
     {
-        $new = clone $this;
+        $new                 = clone $this;
         $new->Ciudad_Destino = $Ciudad_Destino;
 
         return $new;
@@ -310,11 +318,12 @@ class EnviosExternoDetalle
 
     /**
      * @param string $Departamento_Destino
+     *
      * @return EnviosExternoDetalle
      */
     public function withDepartamento_Destino($Departamento_Destino)
     {
-        $new = clone $this;
+        $new                       = clone $this;
         $new->Departamento_Destino = $Departamento_Destino;
 
         return $new;
@@ -330,11 +339,12 @@ class EnviosExternoDetalle
 
     /**
      * @param string $Tipo_producto
+     *
      * @return EnviosExternoDetalle
      */
     public function withTipo_producto($Tipo_producto)
     {
-        $new = clone $this;
+        $new                = clone $this;
         $new->Tipo_producto = $Tipo_producto;
 
         return $new;
@@ -350,11 +360,12 @@ class EnviosExternoDetalle
 
     /**
      * @param string $Cantidad_Bultos
+     *
      * @return EnviosExternoDetalle
      */
     public function withCantidad_Bultos($Cantidad_Bultos)
     {
-        $new = clone $this;
+        $new                  = clone $this;
         $new->Cantidad_Bultos = $Cantidad_Bultos;
 
         return $new;
@@ -370,11 +381,12 @@ class EnviosExternoDetalle
 
     /**
      * @param string $Tipo_Documento
+     *
      * @return EnviosExternoDetalle
      */
     public function withTipo_Documento($Tipo_Documento)
     {
-        $new = clone $this;
+        $new                 = clone $this;
         $new->Tipo_Documento = $Tipo_Documento;
 
         return $new;
@@ -390,11 +402,12 @@ class EnviosExternoDetalle
 
     /**
      * @param string $Tipo_Contenido
+     *
      * @return EnviosExternoDetalle
      */
     public function withTipo_Contenido($Tipo_Contenido)
     {
-        $new = clone $this;
+        $new                 = clone $this;
         $new->Tipo_Contenido = $Tipo_Contenido;
 
         return $new;
@@ -410,11 +423,12 @@ class EnviosExternoDetalle
 
     /**
      * @param string $Monto_Declarado
+     *
      * @return EnviosExternoDetalle
      */
     public function withMonto_Declarado($Monto_Declarado)
     {
-        $new = clone $this;
+        $new                  = clone $this;
         $new->Monto_Declarado = $Monto_Declarado;
 
         return $new;
@@ -430,11 +444,12 @@ class EnviosExternoDetalle
 
     /**
      * @param string $Rut_Destinatario
+     *
      * @return EnviosExternoDetalle
      */
     public function withRut_Destinatario($Rut_Destinatario)
     {
-        $new = clone $this;
+        $new                   = clone $this;
         $new->Rut_Destinatario = $Rut_Destinatario;
 
         return $new;
@@ -450,11 +465,12 @@ class EnviosExternoDetalle
 
     /**
      * @param string $Digito_verificador_Rut_Destinatario
+     *
      * @return EnviosExternoDetalle
      */
     public function withDigito_verificador_Rut_Destinatario($Digito_verificador_Rut_Destinatario)
     {
-        $new = clone $this;
+        $new                                      = clone $this;
         $new->Digito_verificador_Rut_Destinatario = $Digito_verificador_Rut_Destinatario;
 
         return $new;
@@ -470,11 +486,12 @@ class EnviosExternoDetalle
 
     /**
      * @param string $Nombres
+     *
      * @return EnviosExternoDetalle
      */
     public function withNombres($Nombres)
     {
-        $new = clone $this;
+        $new          = clone $this;
         $new->Nombres = $Nombres;
 
         return $new;
@@ -490,11 +507,12 @@ class EnviosExternoDetalle
 
     /**
      * @param string $Telefono
+     *
      * @return EnviosExternoDetalle
      */
     public function withTelefono($Telefono)
     {
-        $new = clone $this;
+        $new           = clone $this;
         $new->Telefono = $Telefono;
 
         return $new;
@@ -510,11 +528,12 @@ class EnviosExternoDetalle
 
     /**
      * @param string $Calle
+     *
      * @return EnviosExternoDetalle
      */
     public function withCalle($Calle)
     {
-        $new = clone $this;
+        $new        = clone $this;
         $new->Calle = $Calle;
 
         return $new;
@@ -530,11 +549,12 @@ class EnviosExternoDetalle
 
     /**
      * @param string $Comuna
+     *
      * @return EnviosExternoDetalle
      */
     public function withComuna($Comuna)
     {
-        $new = clone $this;
+        $new         = clone $this;
         $new->Comuna = $Comuna;
 
         return $new;
@@ -550,11 +570,12 @@ class EnviosExternoDetalle
 
     /**
      * @param string $Region
+     *
      * @return EnviosExternoDetalle
      */
     public function withRegion($Region)
     {
-        $new = clone $this;
+        $new         = clone $this;
         $new->Region = $Region;
 
         return $new;
@@ -570,16 +591,14 @@ class EnviosExternoDetalle
 
     /**
      * @param \App\Servientrega\Type\ArrayOfEnviosUnidadEmpaqueCargueDetalle $objEnviosUnidadEmpaqueCargueDetalle
+     *
      * @return EnviosExternoDetalle
      */
     public function withObjEnviosUnidadEmpaqueCargueDetalle($objEnviosUnidadEmpaqueCargueDetalle)
     {
-        $new = clone $this;
+        $new                                      = clone $this;
         $new->objEnviosUnidadEmpaqueCargueDetalle = $objEnviosUnidadEmpaqueCargueDetalle;
 
         return $new;
     }
-
-
 }
-

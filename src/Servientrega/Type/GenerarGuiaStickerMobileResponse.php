@@ -6,7 +6,6 @@ use Phpro\SoapClient\Type\ResultInterface;
 
 class GenerarGuiaStickerMobileResponse implements ResultInterface
 {
-
     /**
      * @var bool
      */
@@ -27,11 +26,12 @@ class GenerarGuiaStickerMobileResponse implements ResultInterface
 
     /**
      * @param bool $GenerarGuiaStickerMobileResult
+     *
      * @return GenerarGuiaStickerMobileResponse
      */
     public function withGenerarGuiaStickerMobileResult($GenerarGuiaStickerMobileResult)
     {
-        $new = clone $this;
+        $new                                 = clone $this;
         $new->GenerarGuiaStickerMobileResult = $GenerarGuiaStickerMobileResult;
 
         return $new;
@@ -47,16 +47,14 @@ class GenerarGuiaStickerMobileResponse implements ResultInterface
 
     /**
      * @param string $bytesReport
+     *
      * @return GenerarGuiaStickerMobileResponse
      */
     public function withBytesReport($bytesReport)
     {
-        $new = clone $this;
+        $new              = clone $this;
         $new->bytesReport = $bytesReport;
 
         return $new;
     }
-
-
 }
-

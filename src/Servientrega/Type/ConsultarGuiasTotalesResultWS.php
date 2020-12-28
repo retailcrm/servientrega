@@ -4,7 +4,6 @@ namespace App\Servientrega\Type;
 
 class ConsultarGuiasTotalesResultWS
 {
-
     /**
      * @var float
      */
@@ -45,11 +44,12 @@ class ConsultarGuiasTotalesResultWS
 
     /**
      * @param float $Id_Tipoguia
+     *
      * @return ConsultarGuiasTotalesResultWS
      */
     public function withId_Tipoguia($Id_Tipoguia)
     {
-        $new = clone $this;
+        $new              = clone $this;
         $new->Id_Tipoguia = $Id_Tipoguia;
 
         return $new;
@@ -65,11 +65,12 @@ class ConsultarGuiasTotalesResultWS
 
     /**
      * @param string $GuiasUtilizadas
+     *
      * @return ConsultarGuiasTotalesResultWS
      */
     public function withGuiasUtilizadas($GuiasUtilizadas)
     {
-        $new = clone $this;
+        $new                  = clone $this;
         $new->GuiasUtilizadas = $GuiasUtilizadas;
 
         return $new;
@@ -85,11 +86,12 @@ class ConsultarGuiasTotalesResultWS
 
     /**
      * @param string $NombreTipoGuia
+     *
      * @return ConsultarGuiasTotalesResultWS
      */
     public function withNombreTipoGuia($NombreTipoGuia)
     {
-        $new = clone $this;
+        $new                 = clone $this;
         $new->NombreTipoGuia = $NombreTipoGuia;
 
         return $new;
@@ -105,11 +107,12 @@ class ConsultarGuiasTotalesResultWS
 
     /**
      * @param float $GuiaRangoInicial
+     *
      * @return ConsultarGuiasTotalesResultWS
      */
     public function withGuiaRangoInicial($GuiaRangoInicial)
     {
-        $new = clone $this;
+        $new                   = clone $this;
         $new->GuiaRangoInicial = $GuiaRangoInicial;
 
         return $new;
@@ -125,11 +128,12 @@ class ConsultarGuiasTotalesResultWS
 
     /**
      * @param float $GuiaRangoFinal
+     *
      * @return ConsultarGuiasTotalesResultWS
      */
     public function withGuiaRangoFinal($GuiaRangoFinal)
     {
-        $new = clone $this;
+        $new                 = clone $this;
         $new->GuiaRangoFinal = $GuiaRangoFinal;
 
         return $new;
@@ -145,16 +149,14 @@ class ConsultarGuiasTotalesResultWS
 
     /**
      * @param string $GuiaActual
+     *
      * @return ConsultarGuiasTotalesResultWS
      */
     public function withGuiaActual($GuiaActual)
     {
-        $new = clone $this;
+        $new             = clone $this;
         $new->GuiaActual = $GuiaActual;
 
         return $new;
     }
-
-
 }
-

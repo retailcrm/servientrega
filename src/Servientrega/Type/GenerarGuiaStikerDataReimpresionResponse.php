@@ -6,7 +6,6 @@ use Phpro\SoapClient\Type\ResultInterface;
 
 class GenerarGuiaStikerDataReimpresionResponse implements ResultInterface
 {
-
     /**
      * @var \App\Servientrega\Type\GenerarGuiaStikerDataReimpresionResult
      */
@@ -22,16 +21,14 @@ class GenerarGuiaStikerDataReimpresionResponse implements ResultInterface
 
     /**
      * @param \App\Servientrega\Type\GenerarGuiaStikerDataReimpresionResult $GenerarGuiaStikerDataReimpresionResult
+     *
      * @return GenerarGuiaStikerDataReimpresionResponse
      */
     public function withGenerarGuiaStikerDataReimpresionResult($GenerarGuiaStikerDataReimpresionResult)
     {
-        $new = clone $this;
+        $new                                         = clone $this;
         $new->GenerarGuiaStikerDataReimpresionResult = $GenerarGuiaStikerDataReimpresionResult;
 
         return $new;
     }
-
-
 }
-

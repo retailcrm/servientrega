@@ -37,7 +37,7 @@ class OrderRepository extends ServiceEntityRepository
                 new Parameter('trackNumber', $trackNumber),
                 new Parameter('orderId', $orderId),
                 new Parameter('closed', true, Types::BOOLEAN),
-                new Parameter('sticker', null)
+                new Parameter('sticker', null),
             ]))
             ->getQuery()
             ->execute();

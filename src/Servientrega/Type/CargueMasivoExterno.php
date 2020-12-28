@@ -6,7 +6,6 @@ use Phpro\SoapClient\Type\RequestInterface;
 
 class CargueMasivoExterno implements RequestInterface
 {
-
     /**
      * @var \App\Servientrega\Type\ArrayOfCargueMasivoExternoDTO
      */
@@ -20,12 +19,12 @@ class CargueMasivoExterno implements RequestInterface
     /**
      * Constructor
      *
-     * @var \App\Servientrega\Type\ArrayOfCargueMasivoExternoDTO $envios
-     * @var \App\Servientrega\Type\ArrayOfString $arrayGuias
+     * @var \App\Servientrega\Type\ArrayOfCargueMasivoExternoDTO
+     * @var \App\Servientrega\Type\ArrayOfString
      */
     public function __construct($envios, $arrayGuias)
     {
-        $this->envios = $envios;
+        $this->envios     = $envios;
         $this->arrayGuias = $arrayGuias;
     }
 
@@ -39,11 +38,12 @@ class CargueMasivoExterno implements RequestInterface
 
     /**
      * @param \App\Servientrega\Type\ArrayOfCargueMasivoExternoDTO $envios
+     *
      * @return CargueMasivoExterno
      */
     public function withEnvios($envios)
     {
-        $new = clone $this;
+        $new         = clone $this;
         $new->envios = $envios;
 
         return $new;
@@ -59,16 +59,14 @@ class CargueMasivoExterno implements RequestInterface
 
     /**
      * @param \App\Servientrega\Type\ArrayOfString $arrayGuias
+     *
      * @return CargueMasivoExterno
      */
     public function withArrayGuias($arrayGuias)
     {
-        $new = clone $this;
+        $new             = clone $this;
         $new->arrayGuias = $arrayGuias;
 
         return $new;
     }
-
-
 }
-

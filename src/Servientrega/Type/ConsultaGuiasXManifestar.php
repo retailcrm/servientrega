@@ -4,7 +4,6 @@ namespace App\Servientrega\Type;
 
 class ConsultaGuiasXManifestar
 {
-
     /**
      * @var int
      */
@@ -20,16 +19,14 @@ class ConsultaGuiasXManifestar
 
     /**
      * @param int $NumGuia
+     *
      * @return ConsultaGuiasXManifestar
      */
     public function withNumGuia($NumGuia)
     {
-        $new = clone $this;
+        $new          = clone $this;
         $new->NumGuia = $NumGuia;
 
         return $new;
     }
-
-
 }
-

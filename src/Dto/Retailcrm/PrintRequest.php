@@ -4,8 +4,8 @@ namespace App\Dto\Retailcrm;
 
 class PrintRequest
 {
-    CONST ORDER_TYPE = 'order';
-    CONST SHIPMENT_TYPE = 'shipment';
+    const ORDER_TYPE    = 'order';
+    const SHIPMENT_TYPE = 'shipment';
 
     /**
      * @var string

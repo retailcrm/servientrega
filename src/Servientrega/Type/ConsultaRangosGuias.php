@@ -6,7 +6,6 @@ use Phpro\SoapClient\Type\RequestInterface;
 
 class ConsultaRangosGuias implements RequestInterface
 {
-
     /**
      * @var string
      */
@@ -30,17 +29,17 @@ class ConsultaRangosGuias implements RequestInterface
     /**
      * Constructor
      *
-     * @var string $Mensaje
-     * @var string $idTrazaAuditoria
-     * @var string $usuarioTrazaAuditoria
-     * @var string $urlTrazaAuditoria
+     * @var string
+     * @var string
+     * @var string
+     * @var string
      */
     public function __construct($Mensaje, $idTrazaAuditoria, $usuarioTrazaAuditoria, $urlTrazaAuditoria)
     {
-        $this->Mensaje = $Mensaje;
-        $this->idTrazaAuditoria = $idTrazaAuditoria;
+        $this->Mensaje               = $Mensaje;
+        $this->idTrazaAuditoria      = $idTrazaAuditoria;
         $this->usuarioTrazaAuditoria = $usuarioTrazaAuditoria;
-        $this->urlTrazaAuditoria = $urlTrazaAuditoria;
+        $this->urlTrazaAuditoria     = $urlTrazaAuditoria;
     }
 
     /**
@@ -53,11 +52,12 @@ class ConsultaRangosGuias implements RequestInterface
 
     /**
      * @param string $Mensaje
+     *
      * @return ConsultaRangosGuias
      */
     public function withMensaje($Mensaje)
     {
-        $new = clone $this;
+        $new          = clone $this;
         $new->Mensaje = $Mensaje;
 
         return $new;
@@ -73,11 +73,12 @@ class ConsultaRangosGuias implements RequestInterface
 
     /**
      * @param string $idTrazaAuditoria
+     *
      * @return ConsultaRangosGuias
      */
     public function withIdTrazaAuditoria($idTrazaAuditoria)
     {
-        $new = clone $this;
+        $new                   = clone $this;
         $new->idTrazaAuditoria = $idTrazaAuditoria;
 
         return $new;
@@ -93,11 +94,12 @@ class ConsultaRangosGuias implements RequestInterface
 
     /**
      * @param string $usuarioTrazaAuditoria
+     *
      * @return ConsultaRangosGuias
      */
     public function withUsuarioTrazaAuditoria($usuarioTrazaAuditoria)
     {
-        $new = clone $this;
+        $new                        = clone $this;
         $new->usuarioTrazaAuditoria = $usuarioTrazaAuditoria;
 
         return $new;
@@ -113,16 +115,14 @@ class ConsultaRangosGuias implements RequestInterface
 
     /**
      * @param string $urlTrazaAuditoria
+     *
      * @return ConsultaRangosGuias
      */
     public function withUrlTrazaAuditoria($urlTrazaAuditoria)
     {
-        $new = clone $this;
+        $new                    = clone $this;
         $new->urlTrazaAuditoria = $urlTrazaAuditoria;
 
         return $new;
     }
-
-
 }
-
