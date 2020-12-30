@@ -1,2 +1,7 @@
 base:
   title: 'Servicio de integración para Servientrega y RetailCRM'
+
+
+Not found order: Orden no encontrada
+deliveryId empty: deliveryId vacío
+Order does not belong to an existing integration: El pedido no pertenece a una integración existente

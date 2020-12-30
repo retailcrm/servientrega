@@ -84,6 +84,7 @@ class ConfigurationBuilder
             'save'      => '/callback/save',
             'delete'    => '/callback/delete',
             'print'     => '/callback/print',
+            'get'       => '/callback/delivery',
         ];
 
         $configuration->payerType             = [Configuration::PAYER_TYPE_RECEIVER, Configuration::PAYER_TYPE_SENDER];

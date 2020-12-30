@@ -103,4 +103,17 @@ class DeliveryAddress
      * @var string|null
      */
     public $terminal;
+
+    /**
+     * DeliveryAddress constructor.
+     */
+    public static function create(?string $city, ?string $street): self
+    {
+        $instance = new self();
+
+        $instance->city   = $city;
+        $instance->street = $street;
+
+        return $instance;
+    }
 }

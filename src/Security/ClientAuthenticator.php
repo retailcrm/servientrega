@@ -32,16 +32,12 @@ class ClientAuthenticator extends AbstractGuardAuthenticator
 
     public function supports(Request $request)
     {
-        if (!empty($request->request->get('clientId')) || !empty($request->getSession()->get('clientId'))) {
-            return true;
-        }
-
-        return false;
+        return !empty($request->get('clientId')) || !empty($request->getSession()->get('clientId'));
     }
 
     public function getCredentials(Request $request)
     {
-        $token = $request->request->get('clientId')
+        $token = $request->get('clientId')
             ?? $request->getSession()->get('clientId');
 
         return ['clientId' => $token];

@@ -1,2 +1,6 @@
 base:
   title: 'Integration service for Servientrega and RetailCRM'
+
+Not found order: Not found order
+deliveryId empty: deliveryId empty
+Order does not belong to an existing integration: Order does not belong to an existing integration

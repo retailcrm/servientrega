@@ -33,7 +33,7 @@ class ServientregaClient extends \Phpro\SoapClient\Client
     }
 
     /**
-     * @param RequestInterface|Type\CargueMasivoExterno $parameters
+     * @param RequestInterface|Type\CargueMasivoExterno $parametersq
      *
      * @return ResultInterface|Type\CargueMasivoExternoResponse
      *

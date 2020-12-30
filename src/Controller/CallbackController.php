@@ -4,20 +4,27 @@ namespace App\Controller;
 
 use App\Dto\Callback\Activity;
 use App\Dto\Retailcrm\CalculateRequest;
+use App\Dto\Retailcrm\Delivery;
+use App\Dto\Retailcrm\DeliveryAddress;
 use App\Dto\Retailcrm\PrintRequest;
 use App\Dto\Retailcrm\SaveRequest;
 use App\Entity\Connection;
+use App\Factory\ServientregaTrackingClientFactory;
+use App\Repository\OrderRepository;
 use App\Services\ActivityService;
 use App\Services\OrderService;
 use App\Services\PrintService;
 use App\Services\ServientregaService;
 use App\Servientrega\Exceptions\ClientException;
+use App\Servientrega\TrackingType\GuiasDTO;
+use GuzzleHttp\Exception\GuzzleException;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -204,5 +211,54 @@ class CallbackController extends AbstractController
         $result = $activityService->handleActivity($activity, $request->request->get('systemUrl'));
 
         return new JsonResponse(['success' => $result]);
+    }
+
+    /**
+     * @Route(path="/delivery",methods={"GET"})
+     *
+     * @throws GuzzleException
+     */
+    public function getDelivery(
+        Request $request,
+        OrderRepository $repository,
+        ServientregaTrackingClientFactory $factory
+    ): JsonResponse {
+        if (empty($deliveryId = $request->query->get('deliveryId'))) {
+            return $this->json([
+                'success'  => false,
+                'errorMsg' => $this->translator->trans('deliveryId empty'),
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
+        if (($order = $repository->findOneBy(['trackNumber' => $deliveryId])) === null) {
+            return $this->json([
+                'success'  => false,
+                'errorMsg' => $this->translator->trans('Not found order'),
+            ], Response::HTTP_NOT_FOUND);
+        }
+
+        /** @var Connection $connection */
+        $connection = $this->getUser();
+
+        if ($connection->getId() !== $order->getConnection()->getId()) {
+            return $this->json([
+                'success'  => false,
+                'errorMsg' => $this->translator->trans('Order does not belong to an existing integration'),
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
+        /** @var GuiasDTO|false $data */
+        $data = current($factory->factory()->getDeliveryStatus([$deliveryId])->GuiasDTO ?? []);
+
+        return $this->json([
+            'success' => $data ? true : false,
+            'result'  => $data ? new Delivery(
+                $deliveryId,
+                $data->FecEnv,
+                $data->FecEst,
+                DeliveryAddress::create($data->CiuRem, $data->DirRem),
+                DeliveryAddress::create($data->CiuRem, $data->DirRem),
+            ) : null,
+        ], Response::HTTP_OK, [], [ObjectNormalizer::SKIP_NULL_VALUES => true]);
     }
 }

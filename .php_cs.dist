@@ -1,11 +1,11 @@
 <?php
 
 $finder = PhpCsFixer\Finder::create()
-    ->in(__DIR__)
-    ->exclude(['var','migrations'])
+    ->exclude(['var', 'migrations'])
 ;
 
 return (new PhpCsFixer\Config())
+    ->setRiskyAllowed(true)
     ->setRules([
         '@Symfony'       => true,
         '@Symfony:risky' => true,
