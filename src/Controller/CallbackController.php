@@ -247,8 +247,10 @@ class CallbackController extends AbstractController
             ], Response::HTTP_BAD_REQUEST);
         }
 
+        $delivery = $factory->factory()->getDeliveryStatus([$deliveryId])->GuiasDTO ?? [];
+        
         /** @var GuiasDTO|false $data */
-        $data = current($factory->factory()->getDeliveryStatus([$deliveryId])->GuiasDTO ?? []);
+        $data = end($delivery);
 
         return $this->json([
             'success' => $data ? true : false,
