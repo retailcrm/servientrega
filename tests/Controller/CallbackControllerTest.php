@@ -145,4 +145,33 @@ class CallbackControllerTest extends WebTestCase
         static::assertEquals($output, $this->client->getResponse()->getContent());
         static::assertEquals('application/pdf', $this->client->getResponse()->headers->all('Content-Type')[0]);
     }
+
+    public function testTariffs(): void
+    {
+        $this->client->request('GET', '/callback/tariffs', [
+            'clientId' => $this->connection->getClientId(),
+        ]);
+
+        static::assertResponseStatusCodeSame(Response::HTTP_OK);
+
+        $response = $this->client->getResponse();
+        $data     = json_decode($response->getContent() ?? '{}', true);
+
+        static::assertArrayHasKey('success', $data);
+        static::assertArrayHasKey('result', $data);
+        static::assertTrue($data['success']);
+        static::assertIsArray($data['result']);
+
+        foreach ($data['result'] as $tariff) {
+            static::assertArrayHasKey('code', $tariff);
+            static::assertArrayHasKey('name', $tariff);
+            static::assertArrayHasKey('type', $tariff);
+            static::assertArrayHasKey('description', $tariff);
+
+            static::assertIsString($tariff['code']);
+            static::assertIsString($tariff['name']);
+            static::assertIsString($tariff['type']);
+            static::assertIsString($tariff['description']);
+        }
+    }
 }
