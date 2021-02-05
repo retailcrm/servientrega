@@ -80,11 +80,12 @@ class ConfigurationBuilder
     {
         $configuration          = new Configuration();
         $configuration->actions = [
-            'calculate' => '/callback/calculate',
-            'save'      => '/callback/save',
-            'delete'    => '/callback/delete',
-            'print'     => '/callback/print',
-            'get'       => '/callback/delivery',
+            'calculate'  => '/callback/calculate',
+            'save'       => '/callback/save',
+            'delete'     => '/callback/delete',
+            'print'      => '/callback/print',
+            'get'        => '/callback/delivery',
+            'tariffList' => '/callback/tariffs',
         ];
 
         $configuration->payerType             = [Configuration::PAYER_TYPE_RECEIVER, Configuration::PAYER_TYPE_SENDER];

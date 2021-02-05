@@ -61,4 +61,16 @@ class CalculateResponse
      * @var Terminal[]|null
      */
     public $pickuppointList;
+
+    public static function create(string $name): self
+    {
+        $instance = new self();
+
+        $instance->code        = 'servientrega_courier';
+        $instance->type        = self::TARIFF_COURIER;
+        $instance->name        = $name;
+        $instance->description = 'Servientrega tariff';
+
+        return $instance;
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Dto\Callback\Activity;
 use App\Dto\Retailcrm\CalculateRequest;
+use App\Dto\Retailcrm\CalculateResponse;
 use App\Dto\Retailcrm\Delivery;
 use App\Dto\Retailcrm\DeliveryAddress;
 use App\Dto\Retailcrm\PrintRequest;
@@ -90,10 +91,10 @@ class CallbackController extends AbstractController
                 }
             }
 
-            return new JsonResponse(['success' => false, 'errorMsg' => trim($errorMsg, ', ')]);
+            return $this->json(['success' => false, 'errorMsg' => trim($errorMsg, ', ')]);
         }
 
-        return new JsonResponse(['success' => true, 'result' => $calculateResponse]);
+        return $this->json(['success' => true, 'result' => $calculateResponse]);
     }
 
     /**
@@ -102,9 +103,10 @@ class CallbackController extends AbstractController
     public function save(OrderService $orderService, SaveRequest $saveRequest): Response
     {
         if (!empty($saveRequest->deliveryId)) {
-            return new JsonResponse(
-                ['success' => true, 'result' => ['deliveryId' => $saveRequest->deliveryId]]
-            );
+            return $this->json([
+                'success' => true,
+                'result'  => ['deliveryId' => $saveRequest->deliveryId],
+            ]);
         }
 
         /** @var Connection $user */
@@ -115,7 +117,7 @@ class CallbackController extends AbstractController
         } catch (\Throwable $exception) {
             $this->logger->error($exception->getMessage());
 
-            return new JsonResponse(['success' => false]);
+            return $this->json(['success' => false]);
         }
 
         $track = $response
@@ -132,7 +134,7 @@ class CallbackController extends AbstractController
                 $errorMsg .= $error . ' | ';
             }
 
-            return new JsonResponse(
+            return $this->json(
                 ['success' => false, 'errorMsg' => trim($errorMsg, ' |')]
             );
         }
@@ -148,7 +150,7 @@ class CallbackController extends AbstractController
             'deliveryId' => $track,
         ];
 
-        return new JsonResponse(['success' => true, 'result' => $result]);
+        return $this->json(['success' => true, 'result' => $result]);
     }
 
     /**
@@ -178,10 +180,10 @@ class CallbackController extends AbstractController
         }
 
         if (null === $response) {
-            return new JsonResponse([
+            return $this->json([
                 'success'  => false,
                 'errorMsg' => $this->translator->trans('print.error', [], 'servientrega'),
-            ], 400);
+            ], Response::HTTP_BAD_REQUEST);
         }
 
         return new Response(
@@ -202,7 +204,7 @@ class CallbackController extends AbstractController
     /**
      * @Route("/activity", methods={"POST"})
      */
-    public function activity(Request $request, ActivityService $activityService): Response
+    public function activity(Request $request, ActivityService $activityService): JsonResponse
     {
         $activityData = $request->request->get('activity');
         /** @var Activity $activity */
@@ -210,7 +212,7 @@ class CallbackController extends AbstractController
 
         $result = $activityService->handleActivity($activity, $request->request->get('systemUrl'));
 
-        return new JsonResponse(['success' => $result]);
+        return $this->json(['success' => $result]);
     }
 
     /**
@@ -248,7 +250,7 @@ class CallbackController extends AbstractController
         }
 
         $delivery = $factory->factory()->getDeliveryStatus([$deliveryId])->GuiasDTO ?? [];
-        
+
         /** @var GuiasDTO|false $data */
         $data = end($delivery);
 
@@ -262,5 +264,22 @@ class CallbackController extends AbstractController
                 DeliveryAddress::create($data->CiuRem, $data->DirRem),
             ) : null,
         ], Response::HTTP_OK, [], [ObjectNormalizer::SKIP_NULL_VALUES => true]);
+    }
+
+    /**
+     * @Route(path="/tariffs",methods={"GET"})
+     */
+    public function tariffs(): JsonResponse
+    {
+        $tariff = CalculateResponse::create(
+            $this->translator->trans('calculate.servientrega_courier.name', [], 'servientrega')
+        );
+
+        return $this->json([
+            'success' => true,
+            'result'  => [$tariff],
+        ], Response::HTTP_OK, [], [
+            ObjectNormalizer::ATTRIBUTES => ['code', 'type', 'name', 'description'],
+        ]);
     }
 }
