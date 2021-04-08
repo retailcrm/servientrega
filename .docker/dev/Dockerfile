@@ -27,5 +27,5 @@ RUN apk --update add \
 RUN pecl install pcov && docker-php-ext-enable pcov
 
 RUN cp /usr/share/zoneinfo/Europe/Moscow /etc/localtime
-RUN curl -L https://getcomposer.org/composer-stable.phar -o /usr/bin/composer && chmod a+x /usr/bin/composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
 

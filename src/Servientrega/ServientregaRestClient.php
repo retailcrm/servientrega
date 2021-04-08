@@ -10,6 +10,7 @@ use App\Servientrega\RestType\LoginResponse;
 use Doctrine\Common\Annotations\AnnotationReader;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\ServerException;
 use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
@@ -109,8 +110,8 @@ class ServientregaRestClient
                     ],
                 ]
             );
-        } catch (\Throwable | ClientException $exception) {
-            if ($exception instanceof ClientException) {
+        } catch (\Throwable | ClientException | ServerException $exception) {
+            if ($exception instanceof ClientException || $exception instanceof ServerException) {
                 throw new \App\Servientrega\Exceptions\ClientException($this->serializer->deserialize(
                     $exception->getResponse()->getBody()->getContents(), ClientErrorResponse::class, 'json'
                 ));

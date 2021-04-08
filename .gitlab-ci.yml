@@ -9,7 +9,7 @@ stages:
   - build
 
 before_script:
-  - echo -e "machine gitlab.skillum.ru\nlogin gitlab-ci-token\npassword ${CI_JOB_TOKEN}" > .netrc
+  - echo -e "machine gitlab.retailcrm.tech\nlogin gitlab-ci-token\npassword ${CI_JOB_TOKEN}" > .netrc
 
 eslint:
   stage: eslint

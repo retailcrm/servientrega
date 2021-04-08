@@ -84,9 +84,14 @@ class CallbackController extends AbstractController
         } catch (\Throwable $exception) {
             $errorMsg = '';
             if ($exception instanceof ClientException) {
-                foreach ($exception->getResponse()->ModelState as $item) {
-                    foreach ($item as $error) {
-                        $errorMsg .= $error . ', ';
+                if (isset($exception->getResponse()->Message)) {
+                    $errorMsg = $exception->getResponse()->Message;
+                }
+                if (isset($exception->getResponse()->ModelState)) {
+                    foreach ($exception->getResponse()->ModelState as $item) {
+                        foreach ($item as $error) {
+                            $errorMsg .= $error . ', ';
+                        }
                     }
                 }
             }
