@@ -94,6 +94,8 @@ class CallbackController extends AbstractController
                         }
                     }
                 }
+            } else {
+                $errorMsg = $exception->getMessage();
             }
 
             return $this->json(['success' => false, 'errorMsg' => trim($errorMsg, ', ')]);

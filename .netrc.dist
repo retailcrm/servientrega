@@ -1,3 +1,3 @@
-machine gitlab.skillum.ru
+machine gitlab.retailcrm.tech
     login gitlab-token
     password <password>

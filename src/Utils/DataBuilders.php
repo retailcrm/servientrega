@@ -79,7 +79,7 @@ class DataBuilders
             ->withDes_TipoGuia(2)
             ->withDes_CiudadOrigen(0)
             ->withDes_Telefono($saveRequest->customer->phones[0])
-            ->withDes_Ciudad($saveRequest->delivery->extraData[ConfigurationBuilder::ID_DANE_RECEIVER_FIELD])
+            ->withDes_Ciudad($saveRequest->delivery->extraData[ConfigurationBuilder::ID_DANE_RECEIVER_FIELD] ?? null)
             ->withDes_DepartamentoDestino($saveRequest->delivery->deliveryAddress->region)
             ->withDes_Direccion(
                 trim(sprintf(
@@ -215,7 +215,7 @@ class DataBuilders
         $calculate->Piezas              = $piezas;
         $calculate->ValorDeclarado      = $calculateRequest->declaredValue;
         $calculate->IdDaneCiudadOrigen  = $connection->getIdDaneOriginCity();
-        $calculate->IdDaneCiudadDestino = $calculateRequest->extraData[ConfigurationBuilder::ID_DANE_RECEIVER_FIELD];
+        $calculate->IdDaneCiudadDestino = $calculateRequest->extraData[ConfigurationBuilder::ID_DANE_RECEIVER_FIELD] ?? null;
         $calculate->EnvioConCobro       = false;
         $calculate->FormaPago           = 2;
         $calculate->TiempoEntrega       = 1; // время транспортировки для доставки: 1 = нормальный; 2 = сегодня

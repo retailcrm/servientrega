@@ -1,4 +1,4 @@
-FROM php:7.3-fpm-alpine
+FROM php:7.4-fpm-alpine3.13
 
 RUN apk --update add \
     autoconf \
@@ -8,6 +8,7 @@ RUN apk --update add \
     g++ \
     gcc \
     libc-dev \
+    oniguruma-dev \
     make \
     pkgconf \
     re2c \

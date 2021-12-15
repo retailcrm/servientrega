@@ -72,10 +72,21 @@ class ServientregaService
 
     public function encryptPassword(string $password): string
     {
-        $encrypt = new EncriptarContrasena($password);
-        $result  = $this->soapClientFactory->factory()->encriptarContrasena($encrypt);
+        $encrypt            = new EncriptarContrasena($password);
+        $servientregaClient = $this->soapClientFactory->factory();
 
-        return $result->getEncriptarContrasenaResult();
+        try {
+            $result = $servientregaClient->encriptarContrasena($encrypt);
+
+            return $result->getEncriptarContrasenaResult();
+        } catch (\Throwable $exception) {
+            $this->logger->error(
+                sprintf('Error encrypting password in servientrega: %s', $exception->getMessage()),
+                ['password' => $password]
+            );
+
+            return $password;
+        }
     }
 
     public function getToken(LoginRequest $loginRequest): ?LoginResponse
