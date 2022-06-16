@@ -88,7 +88,10 @@ class RetailcrmService
     {
         $errors = $response->offsetExists('errors') ? $response->getErrors() : [];
         $this->logger->error(
-            sprintf('RetailCRM API error: %s', $response->getErrorMsg()),
+            sprintf(
+                'RetailCRM API error: %s',
+                $response->offsetExists('errorMsg') ? $response->getErrorMsg() : ''
+            ),
             $errors
         );
 

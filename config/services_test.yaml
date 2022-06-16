@@ -10,8 +10,17 @@ services:
   App\Factory\ServientregaRestClientFactory:
     public: true
 
+  App\Factory\RetailcrmClientFactory:
+    public: true
+
   App\Services\TrackingsService:
     public: true
 
   App\Services\ConnectionService:
+    public: true
+
+  App\Services\RegisterService:
+    public: true
+
+  App\Dto\Register\RegisterRequest:
     public: true

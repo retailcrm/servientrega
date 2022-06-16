@@ -3,7 +3,7 @@ services:
   postgres_test:
     image: library/postgres:12-alpine
     ports:
-      - ${POSTGRES_ADDRESS:-127.0.0.1:5434}:5432
+      - ${DB_TEST_CONTAINER_PORT}:5432
     environment:
       - POSTGRES_PASSWORD=servientrega_test
       - POSTGRES_USER=servientrega_test

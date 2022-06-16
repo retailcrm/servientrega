@@ -5,3 +5,4 @@ parameters:
     calculate: App\Dto\Retailcrm\CalculateRequest
     save: App\Dto\Retailcrm\SaveRequest
     print: App\Dto\Retailcrm\PrintRequest
+    register: App\Dto\Register\RegisterRequest

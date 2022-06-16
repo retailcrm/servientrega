@@ -27,3 +27,10 @@ parameters:
     plate_list:
       - code: sticker
         label: Sticker
+  register:
+    secret: '%env(resolve:ONE_STEP_CONNECTION_SECRET)%'
+    api-scopes:
+      - 'delivery_read'
+      - 'delivery_write'
+      - 'integration_read'
+      - 'integration_write'
