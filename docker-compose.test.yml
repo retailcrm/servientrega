@@ -1,7 +1,7 @@
 version: '3'
 services:
   postgres_test:
-    image: library/postgres:12-alpine
+    image: library/postgres:16-alpine
     ports:
       - ${DB_TEST_CONTAINER_PORT}:5432
     environment:

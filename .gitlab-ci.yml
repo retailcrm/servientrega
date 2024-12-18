@@ -9,6 +9,7 @@ stages:
   - build
 
 before_script:
+  - sed "s/CI_JOB_TOKEN/${CI_JOB_TOKEN}/g" .npmrc.dist > .npmrc
   - echo -e "machine gitlab.retailcrm.tech\nlogin gitlab-ci-token\npassword ${CI_JOB_TOKEN}" > .netrc
 
 eslint:

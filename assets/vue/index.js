@@ -3,8 +3,8 @@ import VueI18n from 'vue-i18n'
 import App from "./App";
 import router from "./router";
 
-import 'vue-ui-kit/dist/ui-kit.css';
-import UiLibrary from 'vue-ui-kit/dist/ui-kit.common';
+import '@ui-kit/core/dist/ui-kit.css';
+import UiLibrary from '@ui-kit/core/dist/ui-kit.common';
 
 Vue.use(UiLibrary);
 Vue.use(VueI18n);

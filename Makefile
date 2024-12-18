@@ -39,6 +39,8 @@ up:
 stop:
 	docker-compose -f docker-compose.yml -f docker-compose.dev.yml stop
 
+rebuild:
+	docker-compose -f docker-compose.yml -f docker-compose.dev.yml build --no-cache --parallel
 
 tests:
 	@php -dpcov.enabled=1 -dpcov.directory=src -dpcov.exclude="~vendor|tests|bin|src/DataFixtures|src/Servientrega~" -d memory_limit=-1 $(BIN_DIR)/phpunit -c $(ROOT_DIR)/phpunit.xml.dist --colors=never
